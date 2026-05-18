@@ -4,38 +4,28 @@ import logging
 logger = logging.getLogger(__name__)
 
 ISL_FUNCTION_WORDS_TO_DROP = {
-
     "a", "an", "the",
-
     "is", "am", "are", "was", "were", "be", "been", "being",
     "do", "does", "did",
     "have", "has", "had",
     "will", "would", "shall", "should",
     "may", "might", "can", "could", "must",
-
     "to", "at", "in", "on", "from", "with", "by", "about",
     "for", "of", "or", "up", "down", "out", "back",
-
     "and", "but", "or", "yet", "so", "because",
-
     "be",
-
-    "i", "you", "he", "she", "it", "we", "they",
-
-    "that", "which", "who", "whom", "what", "where", "when", "why", "how",
 }
 
-ISL_TIME_MARKERS = {
+ISL_WH_WORDS = {"what", "where", "when", "why", "how", "who", "which", "whom"}
 
+ISL_TIME_MARKERS = {
     "yesterday": {"isl_gloss": "YESTERDAY", "tense": "past", "specificity": "specific"},
     "ago": {"isl_gloss": "AGO", "tense": "past", "specificity": "relative"},
     "before": {"isl_gloss": "BEFORE-TIME", "tense": "past", "specificity": "relative"},
     "last": {"isl_gloss": "LAST", "tense": "past", "specificity": "relative"},
-
     "today": {"isl_gloss": "TODAY", "tense": "present", "specificity": "specific"},
     "now": {"isl_gloss": "NOW", "tense": "present", "specificity": "present-moment"},
     "currently": {"isl_gloss": "NOW-ONGOING", "tense": "present", "specificity": "ongoing"},
-
     "tomorrow": {"isl_gloss": "TOMORROW", "tense": "future", "specificity": "specific"},
     "next": {"isl_gloss": "NEXT", "tense": "future", "specificity": "relative"},
     "later": {"isl_gloss": "LATER", "tense": "future", "specificity": "relative"},
@@ -57,22 +47,16 @@ ISL_LOCATION_MARKERS = {
 }
 
 ISL_VERB_TYPES = {
-
     "plain": ["want", "like", "think", "know", "remember", "forget"],
-
     "spatial": ["go", "come", "put", "place", "move", "throw", "take"],
-
     "classifier": ["drive", "walk", "fly", "swim", "jump", "sit", "stand"],
-
     "directional": ["give", "send", "tell", "ask", "show", "help"],
-
     "depicting": ["eat", "drink", "write", "read", "carry"],
 }
 
 class ISLReorderer:
 
     def __init__(self, sign_language: str = "ISL"):
-
         if sign_language != "ISL":
             logger.warning(f"ISLReorderer expects 'ISL' but got '{sign_language}'")
         self.sign_language = sign_language
@@ -82,11 +66,10 @@ class ISLReorderer:
         logger.info(f"ISLReorderer initialized for {sign_language}")
 
     def _filter_function_words(self, words: List[str]) -> List[str]:
-
-        return [w for w in words if w.lower() not in ISL_FUNCTION_WORDS_TO_DROP]
+        # Also drop WH-words from original semantic roles because we'll place them at the end
+        return [w for w in words if w.lower() not in ISL_FUNCTION_WORDS_TO_DROP and w.lower() not in ISL_WH_WORDS]
 
     def _deduplicate_preserve_order(self, words: List[str]) -> List[str]:
-
         seen: Set[str] = set()
         result = []
         for word in words:
@@ -96,9 +79,8 @@ class ISLReorderer:
         return result
 
     def _get_time_marking(self, time_roles: List[str]) -> Tuple[List[str], str]:
-
         time_gloss = []
-        detected_tense = "present"  
+        detected_tense = "present"
 
         for word in time_roles:
             word_lower = word.lower()
@@ -110,7 +92,6 @@ class ISLReorderer:
         return self._deduplicate_preserve_order(time_gloss), detected_tense
 
     def _get_location_marking(self, location_roles: List[str]) -> Tuple[List[str], List[Dict]]:
-
         location_gloss = []
         spatial_info = []
 
@@ -128,15 +109,13 @@ class ISLReorderer:
         return self._deduplicate_preserve_order(location_gloss), spatial_info
 
     def _classify_verb(self, verb: str) -> str:
-
         verb_lower = verb.lower()
         for verb_type, verbs in ISL_VERB_TYPES.items():
             if verb_lower in verbs:
                 return verb_type
-        return "plain"  
+        return "plain"
 
     def reorder(self, analysis: Dict[str, Any]) -> Dict[str, Any]:
-
         semantic_roles = analysis.get("semantic_roles", {})
         is_question = analysis.get("is_question", False)
         has_negation = analysis.get("has_negation", False)
@@ -150,7 +129,6 @@ class ISLReorderer:
         modifier_roles = semantic_roles.get("modifier", [])
 
         time_gloss, detected_tense = self._get_time_marking(time_roles)
-
         location_gloss, spatial_info = self._get_location_marking(location_roles)
 
         subject_gloss = self._filter_function_words(subject_roles)
@@ -166,14 +144,23 @@ class ISLReorderer:
         modifier_gloss = self._filter_function_words(modifier_roles)
         modifier_gloss = self._deduplicate_preserve_order(modifier_gloss)
 
+        # Detect and extract WH-words to put them at the very end of the sign gloss (standard ISL grammar)
+        wh_found = []
+        tokens = analysis.get("tokens", [])
+        for token in tokens:
+            word = token.get("text", "").lower()
+            if word in ISL_WH_WORDS:
+                wh_found.append(word.upper())
+        wh_gloss = self._deduplicate_preserve_order(wh_found)
+
         question_marker = []
         negation_marker = []
 
         if is_question:
-            question_marker = ["QUESTION"]  
+            question_marker = ["QUESTION"]
 
-        if has_negation:
-            negation_marker = ["NOT"]  
+        if has_negation and verb_gloss:
+         verb_gloss = [f"NOT-{v.upper()}" for v in verb_gloss]
 
         reordered_gloss = (
             time_gloss
@@ -182,7 +169,7 @@ class ISLReorderer:
             + object_gloss
             + verb_gloss
             + modifier_gloss
-            + negation_marker
+            + wh_gloss          
             + question_marker
         )
 

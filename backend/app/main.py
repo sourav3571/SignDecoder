@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 import logging
-import sys
+import sys 
 
 from app.core.config import settings
 from app.core.database import init_db, close_db, Base

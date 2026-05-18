@@ -48,7 +48,7 @@ const MOCK_RESULT: TranslationResult = {
     location: "Home",
     negation: false
   },
-  reconstructed: "Yesterday at home, Sourav ate breakfast."
+  reconstructed: "Try it here."
 };
 
 export default function TranslatorPage() {
@@ -70,7 +70,7 @@ export default function TranslatorPage() {
         },
         body: JSON.stringify({
           text,
-          sign_language: "ASL", // Or from a state if you add a selector
+          sign_language: "ISL", // Or from a state if you add a selector
           include_details: true,
         }),
       });
@@ -99,7 +99,7 @@ export default function TranslatorPage() {
           location: data.analysis?.semantic_roles?.LOCATION?.[0],
           negation: data.analysis?.semantic_roles?.NEGATION?.length > 0,
         },
-        reconstructed: data.preprocessed_text, // Or a properly reconstructed sentence
+        reconstructed:data.preprocessed_text, // Or a properly reconstructed sentence
       };
 
       setResult(mappedResult);

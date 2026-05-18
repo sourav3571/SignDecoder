@@ -50,7 +50,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[12px]">
-            &copy; {currentYear} SignSpeak. All rights reserved.
+            &copy; {currentYear} SignDecoder. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-[12px]">
             <span>WCAG 2.1 AA Compliant</span>

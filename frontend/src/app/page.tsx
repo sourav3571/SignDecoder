@@ -13,8 +13,8 @@ export default function LandingPage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-border rounded-full shadow-xs mb-10 transition-transform hover:scale-105">
             <span className="text-[13px] font-medium text-text-secondary flex items-center gap-2">
-              🏆 <span className="hidden sm:inline">B.Tech Final Year Project</span>
-              <span className="sm:hidden">FYP 2024</span>
+              🏆 <span className="hidden sm:inline">B.Tech NLP based project</span>
+              <span className="sm:hidden">FYP 2026</span>
             </span>
           </div>
 
@@ -25,7 +25,7 @@ export default function LandingPage() {
 
           {/* Subheadline */}
           <p className="text-[17px] md:text-[18px] text-text-secondary leading-[1.7] max-w-[520px] mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-            SignSpeak converts English text into sign language emoji sequences using advanced NLP — making communication accessible for everyone.
+            SignDecoder converts English text into sign language emoji sequences using advanced NLP — making communication accessible for everyone.
           </p>
 
           {/* CTAs */}
@@ -145,7 +145,7 @@ export default function LandingPage() {
                 </svg>
               </div>
               <blockquote className="text-[20px] font-serif leading-relaxed text-text-primary relative z-10">
-                "SignSpeak demonstrates that rule-based and neural hybrid approaches can significantly improve accessibility by bridging the gap between spoken language and visual communication."
+                "SignDecoder demonstrates that rule-based and neural hybrid approaches can significantly improve accessibility by bridging the gap between spoken language and visual communication."
               </blockquote>
               <cite className="block mt-6 text-[14px] font-medium text-text-secondary not-italic">
                 &mdash; Research Abstract, 2024

@@ -1,8 +1,8 @@
 
 from typing import Literal
 
-SUPPORTED_SIGN_LANGUAGES = ["ISL", "ASL", "BSL"]
-CURRENT_SIGN_LANGUAGE: Literal["ISL", "ASL", "BSL"] = "ISL"
+SUPPORTED_SIGN_LANGUAGES = ["ISL"]
+CURRENT_SIGN_LANGUAGE: Literal["ISL"] = "ISL"
 
 ISL_CONFIG = {
     "name": "Indian Sign Language",

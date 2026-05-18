@@ -71,7 +71,7 @@ export default function Navbar() {
             href="/translate"
             className="bg-accent text-white text-[13px] font-medium px-5 py-2.5 rounded-sm hover:bg-accent-hover transition-all flex items-center gap-2"
           >
-            Try Free
+            Try here for translation 
             <ArrowRight size={14} />
           </Link>
         </div>
