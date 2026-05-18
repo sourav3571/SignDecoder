@@ -1,0 +1,130 @@
+# Docker Compose configuration for local development
+# Services: PostgreSQL, MongoDB, Redis, FastAPI API
+
+version: '3.9'
+
+services:
+  # ════════════════════════════════════════════════════════════════════
+  # PostgreSQL - Primary relational database
+  # ════════════════════════════════════════════════════════════════════
+  db:
+    image: postgres:16-alpine
+    container_name: signspeak-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: signspeak
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - signspeak-net
+
+  # ════════════════════════════════════════════════════════════════════
+  # MongoDB - NoSQL database for documents
+  # ════════════════════════════════════════════════════════════════════
+  mongo:
+    image: mongo:7.0
+    container_name: signspeak-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - signspeak-net
+
+  # ════════════════════════════════════════════════════════════════════
+  # Redis - Cache and message queue
+  # ════════════════════════════════════════════════════════════════════
+  redis:
+    image: redis:7-alpine
+    container_name: signspeak-redis
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - signspeak-net
+
+  # ════════════════════════════════════════════════════════════════════
+  # FastAPI Backend Server
+  # ════════════════════════════════════════════════════════════════════
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: signspeak-api
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/signspeak
+      - REDIS_URL=redis://redis:6379/0
+      - MONGODB_URL=mongodb://mongo:27017
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - LOG_LEVEL=INFO
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    networks:
+      - signspeak-net
+
+  # ════════════════════════════════════════════════════════════════════
+  # Celery Worker - Async task processing (for Phase 5+)
+  # ════════════════════════════════════════════════════════════════════
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: signspeak-celery-worker
+    command: celery -A app.celery_app worker --loglevel=info
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/signspeak
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - ENVIRONMENT=development
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+      - redis
+      - api
+    networks:
+      - signspeak-net
+
+volumes:
+  postgres_data:
+  mongo_data:
+  redis_data:
+
+networks:
+  signspeak-net:
+    driver: bridge

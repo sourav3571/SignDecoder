@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #FAFAF9;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F5F5F4;
+  --color-border: #E7E5E4;
+  --color-border-strong: #D6D3D1;
+  
+  --color-text-primary: #1C1917;
+  --color-text-secondary: #78716C;
+  --color-text-muted: #A8A29E;
+  
+  --color-accent: #0F172A;
+  --color-accent-hover: #1E293B;
+  
+  --color-highlight: #064E3B;
+  --color-highlight-light: #D1FAE5;
+  
+  --color-danger: #7F1D1D;
+  --color-warning: #78350F;
+  --color-success: #064E3B;
+
+  /* Semantic Role Colors */
+  --color-role-subject: #1E3A5F;
+  --color-role-verb: #1A3A2A;
+  --color-role-object: #3A1A2A;
+  --color-role-time: #3A2A1A;
+  --color-role-location: #1A2A3A;
+  --color-role-negation: #3A1A1A;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-32: 128px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.06), 0 8px 10px rgba(0, 0, 0, 0.04);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-text-primary font-sans antialiased selection:bg-highlight-light selection:text-highlight;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-text-primary;
+  }
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .glass-nav {
+    @apply sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-border;
+  }
+
+  .container-custom {
+    @apply max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .content-reading {
+    @apply max-w-[720px] mx-auto;
+  }
+
+  .translator-container {
+    @apply max-w-[1100px] mx-auto;
+  }
+}
+
+/* Typewriter Animation */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 1s steps(40, end);
+}
