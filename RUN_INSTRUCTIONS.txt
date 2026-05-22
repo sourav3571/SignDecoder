@@ -1,18 +1,154 @@
-#BACKEND (API)
+════════════════════════════════════════════════════════════════════
+  SignDecoder — Run Instructions & API Reference
+════════════════════════════════════════════════════════════════════
 
-cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --reload-dir app --reload-exclude venv --port 8000
+PREREQUISITES
+─────────────
+  • Python 3.10+  (backend)
+  • Node.js 18+   (frontend)
+  • Trained model files present at:
+      backend/models/emoji_ml/saved_model/best_model.pt
+      backend/models/emoji_ml/saved_model/vocab.json
 
+STARTING THE BACKEND
+─────────────────────
+  cd backend
+  pip install -r requirements.txt          # first time only
+  python run.py
 
+  The API will be available at:
+    http://localhost:8000
+    http://localhost:8000/docs        ← Swagger UI (all endpoints)
+    http://localhost:8000/redoc       ← ReDoc UI
 
-#FRONTEND (UI)
+STARTING THE FRONTEND
+──────────────────────
+  cd frontend
+  npm install                              # first time only
+  npm run dev
 
-cd frontend
-npm install
-npm install framer-motion clsx tailwind-merge lucide-react
-npm run dev
+  Open browser → http://localhost:3000
 
-(Leave this terminal open. The frontend runs on http://localhost:3000)
+════════════════════════════════════════════════════════════════════
+  API ENDPOINTS
+════════════════════════════════════════════════════════════════════
+
+  Existing endpoints (unchanged)
+  ───────────────────────────────
+  GET  /health                  Server health
+  GET  /health/ready            Readiness probe
+  GET  /health/live             Liveness probe
+  POST /api/v1/translate        Text → Sign Language gloss + emoji cards
+
+  NEW: ML Emoji Endpoint
+  ──────────────────────
+  POST /api/convert-to-emoji
+
+  Request body:
+    {
+      "text": "yesterday home sourav breakfast eat"
+    }
+
+  Success response (200):
+    {
+      "success": true,
+      "input":   "yesterday home sourav breakfast eat",
+      "emoji":   "⬅️ 🏠 👤 🥣 🍽️",
+      "model":   "GlossToEmojiModel"
+    }
+
+  Error response (503) — model not loaded / weights missing:
+    { "detail": "Emoji ML model weights not found. Train the model first…" }
+
+  Error response (400) — blank text:
+    { "detail": [{ "msg": "text field must not be empty", … }] }
+
+════════════════════════════════════════════════════════════════════
+  TESTING WITH POWERSHELL (no extra tools required)
+════════════════════════════════════════════════════════════════════
+
+  # 1. Health check
+  Invoke-RestMethod -Uri "http://localhost:8000/health" -Method GET | ConvertTo-Json
+
+  # 2. Standard translation
+  $body = '{"text":"Sourav ate breakfast at home yesterday","sign_language":"ISL","include_details":true}'
+  Invoke-RestMethod -Uri "http://localhost:8000/api/v1/translate" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body | ConvertTo-Json -Depth 6
+
+  # 3. NEW — ML emoji conversion
+  $body = '{"text":"yesterday home sourav breakfast eat"}'
+  Invoke-RestMethod -Uri "http://localhost:8000/api/convert-to-emoji" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body | ConvertTo-Json
+
+  # 4. Test blank input (should return 422 validation error)
+  $body = '{"text":""}'
+  Invoke-RestMethod -Uri "http://localhost:8000/api/convert-to-emoji" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body
+
+  # 5. Batch test several glosses
+  $glosses = @(
+    "i eat breakfast",
+    "she drink coffee morning",
+    "boy run school",
+    "family celebrate birthday"
+  )
+  foreach ($g in $glosses) {
+    $body = "{`"text`":`"$g`"}"
+    $r = Invoke-RestMethod -Uri "http://localhost:8000/api/convert-to-emoji" `
+           -Method POST -ContentType "application/json" -Body $body
+    Write-Host "$g  →  $($r.emoji)"
+  }
+
+════════════════════════════════════════════════════════════════════
+  FILE OVERVIEW (new / changed files)
+════════════════════════════════════════════════════════════════════
+
+  backend/app/api/routes/emoji_routes.py   [NEW]
+    • FastAPI router exposing POST /api/convert-to-emoji
+    • Dynamically adds backend/models to sys.path at import time
+    • Lazy-loads EmojiPredictor singleton on first request
+    • Full Pydantic validation + error handling
+
+  backend/app/main.py                      [MODIFIED]
+    • Imports and registers emoji_routes.router (lines 101-104)
+    • No existing route is changed
+
+  frontend/src/components/translator/
+    GlossToEmojiConverter.tsx              [NEW]
+    • Premium glassmorphism card (violet → fuchsia → pink gradient)
+    • Framer Motion staggered bounce animation per emoji
+    • Copy-to-clipboard with icon feedback
+    • Inline toast notifications (no extra dependency)
+    • localStorage history of last 5 conversions
+
+  frontend/src/app/translate/page.tsx      [MODIFIED]
+    • Imports GlossToEmojiConverter
+    • Renders it between <GlossDisplay> and the emoji card grid,
+      passing result.glosses.join(" ") as glossText prop
+
+════════════════════════════════════════════════════════════════════
+  TROUBLESHOOTING
+════════════════════════════════════════════════════════════════════
+
+  503 "Model not found"
+    → Run training: cd backend/models/emoji_ml && python train.py
+
+  CORS error in browser
+    → Confirm backend CORS_ORIGINS includes "http://localhost:3000"
+      (already set in backend/app/core/config.py)
+
+  "Module not found: emoji_ml"
+    → The path fix in emoji_routes.py adds backend/models/ to sys.path.
+      Make sure you start the server from the backend/ directory:
+        cd backend && python run.py
+
+  Frontend 'framer-motion not found'
+    → framer-motion is already in package.json (v12). Run: npm install
+
+════════════════════════════════════════════════════════════════════

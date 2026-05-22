@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import TranslateInput from "@/components/translator/TranslateInput";
 import GlossDisplay from "@/components/translator/GlossDisplay";
+import GlossToEmojiConverter from "@/components/translator/GlossToEmojiConverter";
 import EmojiCard, { SemanticRole } from "@/components/translator/EmojiCard";
 import ConfidenceIndicator from "@/components/translator/ConfidenceIndicator";
 import NLPAnalysisTable from "@/components/translator/NLPAnalysisTable";
@@ -210,6 +211,13 @@ export default function TranslatorPage() {
                         <Volume2 size={20} />
                       </button>
                     </div>
+                  </div>
+
+                  {/* ── ML Emoji Translator (last section) ───────────── */}
+                  <div className="pt-8 border-t border-border">
+                    <GlossToEmojiConverter
+                      glossText={result.glosses.join(" ")}
+                    />
                   </div>
                 </motion.div>
               ) : (
