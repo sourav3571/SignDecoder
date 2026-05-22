@@ -4,7 +4,6 @@ from app.services.translation_service import TranslationService
 import logging
 
 logger = logging.getLogger(__name__)
-
 router = APIRouter(prefix="/translate", tags=["Translation"])
 
 @router.post("", response_model=TranslationResponse)
