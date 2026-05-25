@@ -35,35 +35,34 @@ class TranslationService:
         analysis_result = analyzer.analyze(cleaned_text)
         tokens = analysis_result.get("tokens", [])
 
-        # Simple mapping: convert words to uppercase glosses and drop basic stop words
-        _STOP = {
-            "a", "an", "the", "is", "am", "are", "was", "were",
-            "be", "been", "being", "do", "does", "did", "have",
-            "has", "had", "will", "would", "shall", "should",
-            "may", "might", "can", "could", "must", "to", "at",
-            "in", "on", "from", "with", "by", "about", "for", "of",
-            "and", "but", "or", "yet", "so",
-        }
-
-        gloss_sequence = []
-        if tokens:
-            for t in tokens:
-                lemma = t.get("lemma", t.get("text", "")).upper()
-                if lemma.lower() not in _STOP:
-                    gloss_sequence.append(lemma)
-        else:
-            words = [w.strip(".,!?;:'\"") for w in cleaned_text.lower().split()]
-            gloss_sequence = [w.upper() for w in words if w and w not in _STOP]
-
-        # Fallback to keep everything if filtering left it empty
+        # Use ISL reorderer for grammar reordering
+        from app.nlp.isl_reorderer import isl_reorderer
+        reordered_result = isl_reorderer.reorder(analysis_result)
+        gloss_sequence = reordered_result.get("reordered_gloss", [])
+        
+        # Heuristic fallback if reorderer produces empty output
         if not gloss_sequence:
-            words = [w.strip(".,!?;:'\"") for w in cleaned_text.lower().split()]
-            gloss_sequence = [w.upper() for w in words if w]
+            _STOP = {
+                "a", "an", "the", "is", "am", "are", "was", "were",
+                "be", "been", "being", "do", "does", "did", "have",
+                "has", "had", "will", "would", "shall", "should",
+                "may", "might", "can", "could", "must", "to", "at",
+                "in", "on", "from", "with", "by", "about", "for", "of",
+                "and", "but", "or", "yet", "so",
+            }
+            if tokens:
+                for t in tokens:
+                    lemma = t.get("lemma", t.get("text", "")).upper()
+                    if lemma.lower() not in _STOP:
+                        gloss_sequence.append(lemma)
+            else:
+                words = [w.strip(".,!?;:'\"") for w in cleaned_text.lower().split()]
+                gloss_sequence = [w.upper() for w in words if w and w not in _STOP]
+                if not gloss_sequence:
+                    gloss_sequence = [w.upper() for w in words if w]
 
-        # ── ML-based Emoji Translation ──
         from emoji_ml.inference import EmojiPredictor
         predictor = EmojiPredictor()
-        
         gloss_string = " ".join(gloss_sequence)
         prediction = predictor.predict(gloss_string)
         predicted_emoji_str = prediction.get("emoji", "")
