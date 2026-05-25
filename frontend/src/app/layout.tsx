@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${mono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${mono.variable}`} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-text-primary flex flex-col font-sans">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-sm">
           Skip to main content
