@@ -159,21 +159,5 @@ def get_sign_language_reorderer(sign_language: str = CURRENT_SIGN_LANGUAGE):
     if sign_language == "ISL":
         from app.nlp.isl_reorderer import isl_reorderer
         return isl_reorderer
-    elif sign_language == "ASL":
-
-        from app.nlp.reorderer import SignLanguageReorderer
-        return SignLanguageReorderer(sign_language="ASL")
-    else:
-        raise ValueError(f"Unsupported sign language: {sign_language}")
-
-def get_emoji_mapper(sign_language: str = CURRENT_SIGN_LANGUAGE):
-
-    if sign_language == "ISL":
-        from app.nlp.isl_emoji_mapper import isl_emoji_mapper
-        return isl_emoji_mapper
-    elif sign_language == "ASL":
-
-        from app.nlp.emoji_mapper import emoji_mapper
-        return emoji_mapper
     else:
         raise ValueError(f"Unsupported sign language: {sign_language}")

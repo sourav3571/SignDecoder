@@ -8,6 +8,7 @@ from datetime import datetime
 from app.core.config import settings
 from app.core.database import engine
 from app.core.redis import get_redis
+from sqlalchemy import text
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -35,16 +36,16 @@ async def health_check() -> HealthCheckResponse:
 
     try:
         async with engine.begin() as conn:
-            await conn.execute("SELECT 1")
-        services["postgresql"] = ServiceStatus(status="online", latency_ms=0)
-        logger.info("✓ PostgreSQL health check passed")
+            await conn.execute(text("SELECT 1"))
+        services["sqlite"] = ServiceStatus(status="online", latency_ms=0)
+        logger.info("✓ SQLite health check passed")
     except Exception as e:
-        services["postgresql"] = ServiceStatus(
+        services["sqlite"] = ServiceStatus(
             status="offline",
             error=str(e)
         )
         overall_status = "unhealthy"
-        logger.error(f"✗ PostgreSQL health check failed: {e}")
+        logger.error(f"✗ SQLite health check failed: {e}")
 
     try:
         redis_client = await get_redis()
@@ -79,7 +80,7 @@ async def readiness_check() -> Dict[str, Any]:
     try:
 
         async with engine.begin() as conn:
-            await conn.execute("SELECT 1")
+            await conn.execute(text("SELECT 1"))
 
         return {
             "ready": True,

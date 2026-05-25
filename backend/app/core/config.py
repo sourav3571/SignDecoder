@@ -14,16 +14,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "your-super-secret-key-min-32-chars-change-in-production-12345"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 11520  
 
-    POSTGRES_SERVER: str = "db"
-    POSTGRES_USER: str = "postgres"
-    POSTGRES_PASSWORD: str = "postgres"
-    POSTGRES_DB: str = "signspeak"
-    POSTGRES_PORT: str = "5432"
-
-    @property
-    def DATABASE_URL(self) -> str:
-
-        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+    DATABASE_URL: str = "sqlite+aiosqlite:///./signspeak.db"
 
     MONGODB_URL: str = "mongodb://mongo:27017"
     MONGODB_DB_NAME: str = "signspeak_db"

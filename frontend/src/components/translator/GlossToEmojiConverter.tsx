@@ -90,7 +90,7 @@ export interface GlossToEmojiConverterProps {
 // CONSTANTS
 // ═══════════════════════════════════════════════════════════
 
-const API_URL   = "http://localhost:8000/api/convert-to-emoji";
+const API_URL   = "/api/convert-to-emoji";
 const MAX_HIST  = 10;
 const SK        = { history: "sd_emoji_history", stats: "sd_emoji_stats", settings: "sd_emoji_settings" } as const;
 
@@ -476,6 +476,7 @@ let _tid = 0;
 export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiConverterProps) {
 
   // ── State ──────────────────────────────────────────────────
+  const [text,        setText]        = useState(glossText || "");
   const [isLoading,   setIsLoading]   = useState(false);
   const [result,      setResult]      = useState<ConversionResult | null>(null);
   const [error,       setError]       = useState<string | null>(null);
@@ -560,6 +561,14 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
     } finally { setIsLoading(false); }
   }, [toast, pushHistory, bumpStats, settings.soundEnabled]);
 
+  // Sync prop changes and auto-convert
+  useEffect(() => {
+    setText(glossText);
+    if (glossText.trim()) {
+      handleConvert(glossText);
+    }
+  }, [glossText, handleConvert]);
+
   // ── Copy ───────────────────────────────────────────────────
   const handleCopy = useCallback(() => {
     if (!result?.emoji) return;
@@ -583,19 +592,19 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
       const ctrl    = e.ctrlKey || e.metaKey;
       const editing = ["INPUT", "TEXTAREA"].includes((e.target as HTMLElement).tagName);
       if (e.key === "Escape") { setShowShortcuts(false); setShowShare(false); setShowSettings(false); return; }
+      if (ctrl && e.key === "Enter")                  { e.preventDefault(); handleConvert(text); }
       if (!editing) {
         if (e.key === "?" || e.key === "/")           { e.preventDefault(); setShowShortcuts(v => !v); }
         if (e.key === "h" || e.key === "H")             setShowHistory(v => !v);
         if ((e.key === "f" || e.key === "F") && result) toggleFav(result.id);
       }
-      if (ctrl && e.key === "Enter")                  { e.preventDefault(); handleConvert(glossText); }
       if (ctrl && e.shiftKey && e.key === "C")        { e.preventDefault(); handleCopy(); }
       if (ctrl && e.shiftKey && e.key === "E")        { e.preventDefault(); handleExport(); }
       if (ctrl && e.shiftKey && e.key === "S" && result) { e.preventDefault(); setShowShare(true); }
     };
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
-  }, [glossText, result, handleConvert, handleCopy, handleExport, toggleFav]);
+  }, [text, result, handleConvert, handleCopy, handleExport, toggleFav]);
 
   // ─────────────────────────────────────────────────────────
   // RENDER
@@ -658,7 +667,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
               <div className="grid grid-cols-2 gap-1.5 pb-1">
                 {EXAMPLES.map(p => (
-                  <button key={p} onClick={() => handleConvert(p)} title={p}
+                  <button key={p} onClick={() => { setText(p.toUpperCase()); handleConvert(p); }} title={p}
                     className="text-left px-3 py-2 rounded-sm bg-surface-elevated border border-border hover:bg-white hover:border-border-strong text-[11px] text-text-secondary hover:text-text-primary font-mono truncate transition-all"
                   >{p}</button>
                 ))}
@@ -669,19 +678,30 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
       </div>
 
       {/* ── Gloss input display ─────────────────────────────── */}
-      <div className="relative overflow-hidden bg-surface-elevated border-l-[3px] border-accent rounded-sm px-5 py-4 mb-4">
-        {glossText.trim()
-          ? <p className="font-mono text-[14px] text-text-primary tracking-wide leading-relaxed">{glossText}</p>
-          : <p className="text-[13px] text-text-muted italic">Gloss will appear here after translation…</p>
-        }
+      <div className="relative overflow-hidden bg-white border border-border rounded-md px-4 py-3 mb-4 shadow-sm focus-within:border-accent transition-colors">
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value.toUpperCase())}
+          placeholder="TYPE GLOSS WORDS HERE (e.g. YESTERDAY HOME I PIZZA EAT)..."
+          className="w-full bg-transparent border-0 outline-none resize-none font-mono text-[14px] text-text-primary tracking-wide placeholder-text-muted focus:ring-0 focus:outline-none"
+          rows={3}
+        />
+        {text.trim() && (
+          <button 
+            onClick={() => setText("")}
+            className="absolute top-2 right-2 text-text-muted hover:text-text-primary transition-colors text-[10px] uppercase font-bold tracking-wider"
+          >
+            Clear
+          </button>
+        )}
       </div>
 
       {/* ── Convert button ───────────────────────────────────── */}
       <motion.button id="convert-to-emoji-btn"
-        onClick={() => handleConvert(glossText)}
-        disabled={isLoading || !glossText.trim()}
-        whileHover={!isLoading && glossText.trim() ? { y: -1 } : {}}
-        whileTap={!isLoading && glossText.trim()   ? { scale: 0.98 } : {}}
+        onClick={() => handleConvert(text)}
+        disabled={isLoading || !text.trim()}
+        whileHover={!isLoading && text.trim() ? { y: -1 } : {}}
+        whileTap={!isLoading && text.trim()   ? { scale: 0.98 } : {}}
         className="w-full mb-4 py-3 rounded-sm font-medium text-[14px] text-white bg-accent hover:bg-accent-hover disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2.5 shadow-xs"
       >
         {isLoading ? (

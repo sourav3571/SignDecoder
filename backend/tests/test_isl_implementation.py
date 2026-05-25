@@ -1,3 +1,18 @@
+import os
+import sys
+
+# Reconfigure stdout to support UTF-8 (printing emojis) on Windows consoles
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
+# Ensure backend and backend/models/ are on sys.path for imports
+_here = os.path.abspath(__file__)
+_backend_dir = os.path.dirname(os.path.dirname(_here))
+_models_dir = os.path.join(_backend_dir, "models")
+if _backend_dir not in sys.path:
+    sys.path.insert(0, _backend_dir)
+if _models_dir not in sys.path:
+    sys.path.insert(0, _models_dir)
 
 EXAMPLES = [
     {
@@ -63,7 +78,6 @@ EXAMPLES = [
 ]
 
 def test_isl_examples():
-
     from app.services.translation_service import TranslationService
     from app.models.schemas import TranslationRequest
 
@@ -78,28 +92,26 @@ def test_isl_examples():
         print(f"  Explanation: {example['explanation']}")
 
         try:
-
             request = TranslationRequest(
                 text=example['input'],
                 include_details=True
             )
             response = TranslationService.translate(request)
 
-            print(f"  ✓ Gloss Generated: {response.gloss_string}")
-            print(f"  ✓ Emoji Output: {response.emoji_display}")
-            print(f"  ✓ Processing Time: {response.processing_time_ms}ms")
+            print(f"  [OK] Gloss Generated: {response.gloss_string}")
+            print(f"  [OK] Emoji Output: {response.emoji_display}")
+            print(f"  [OK] Processing Time: {response.processing_time_ms}ms")
 
-            print(f"  ✓ Emoji Confidence Scores:")
+            print(f"  [OK] Emoji Confidence Scores:")
             for emoji_card in response.emoji_sequence[:3]:  
                 print(f"      {emoji_card.word}: {emoji_card.emoji} (confidence: {emoji_card.confidence})")
             if len(response.emoji_sequence) > 3:
                 print(f"      ... and {len(response.emoji_sequence) - 3} more")
 
         except Exception as e:
-            print(f"  ✗ Error: {str(e)}")
+            print(f"  [FAIL] Error: {str(e)}")
 
 def test_isl_features():
-
     from app.nlp.isl_config import ISL_CONFIG, ISL_PIPELINE_CONFIG
 
     print("\n" + "=" * 80)
@@ -108,107 +120,58 @@ def test_isl_features():
 
     print("\nISL Grammar Structure:")
     for rule, description in ISL_CONFIG["grammar"].items():
-        print(f"  • {rule}: {description}")
+        print(f"  - {rule}: {description}")
 
     print("\nISL Linguistic Features:")
     for feature, value in ISL_CONFIG["linguistic_features"].items():
-        print(f"  • {feature}: {value}")
+        print(f"  - {feature}: {value}")
 
     print("\nISL Processing Pipeline:")
     for stage, config in ISL_PIPELINE_CONFIG.items():
-        print(f"  • {stage.upper()}: {config.get('enabled', 'N/A')}")
+        print(f"  - {stage.upper()}: {config.get('enabled', 'N/A')}")
 
 def test_isl_vocabulary():
+    from emoji_ml.my_requirements import WORD_DICTIONARY
+    from emoji_ml.inference import EmojiPredictor
 
-    from app.nlp.isl_emoji_mapper import isl_emoji_mapper
-
-    print("\n" + "=" * 80)
-    print("ISL VOCABULARY COVERAGE")
-    print("=" * 80)
-
-    print(f"\nTotal Glosses in Dictionary: {len(isl_emoji_mapper.dictionary)}")
-
-    categories = {}
-    for gloss, entry in isl_emoji_mapper.dictionary.items():
-        cat = entry.get("category", "unknown")
-        if cat not in categories:
-            categories[cat] = []
-        categories[cat].append(gloss)
-
-    print(f"Categories Covered: {len(categories)}")
-    for category, glosses in sorted(categories.items()):
-        print(f"  • {category.upper()}: {len(glosses)} glosses")
-        print(f"    Examples: {', '.join(glosses[:5])}")
-
-def test_isl_classifiers():
-
-    from app.nlp.isl_emoji_mapper import isl_emoji_mapper
+    predictor = EmojiPredictor()
 
     print("\n" + "=" * 80)
-    print("ISL CLASSIFIER SYSTEM")
+    print("ISL VOCABULARY COVERAGE (ML Model)")
     print("=" * 80)
 
-    classifiers = {
-        "CL-1": "1-hand classifier for people and upright objects",
-        "CL-3": "3-hand classifier for vehicles",
-        "CL-5": "5-hand classifier for flat objects and animals",
-    }
+    print(f"\nTotal Glosses in ML Vocabulary: {len(WORD_DICTIONARY) + len(predictor.custom_map)}")
+    print(f"Exact Matches in ML Lookup: {len(predictor.exact_map)}")
 
-    for clf, description in classifiers.items():
-        if clf in isl_emoji_mapper.dictionary:
-            entry = isl_emoji_mapper.dictionary[clf]
-            print(f"\n{clf}: {description}")
-            print(f"  Emoji: {entry['emoji']}")
-            print(f"  Confidence: {entry['confidence']}")
-            print(f"  Notes: {entry.get('notes', 'N/A')}")
-
-def test_isl_facial_expressions():
-
-    from app.nlp.isl_emoji_mapper import isl_emoji_mapper
-
-    print("\n" + "=" * 80)
-    print("ISL FACIAL EXPRESSION MARKERS")
-    print("=" * 80)
-
-    facial_expressions = ["BROW-RAISE", "HEAD-SHAKE", "HEAD-NOD"]
-
-    for expr in facial_expressions:
-        if expr in isl_emoji_mapper.dictionary:
-            entry = isl_emoji_mapper.dictionary[expr]
-            print(f"\n{expr}:")
-            print(f"  Emoji: {entry['emoji']}")
-            print(f"  Confidence: {entry['confidence']}")
-            print(f"  Category: {entry['category']}")
-            print(f"  Notes: {entry.get('notes', 'N/A')}")
+    # Show a few sample mappings
+    print("\nSample Vocabulary Mappings:")
+    samples = ["BREAKFAST", "LUNCH", "DINNER", "SCHOOL", "HOME", "EAT", "GO"]
+    for sample in samples:
+        res = predictor.predict(sample)
+        print(f"  - {sample} -> {res.get('emoji')}")
 
 def test_isl_emoji_mapping():
+    from emoji_ml.inference import EmojiPredictor
 
-    from app.nlp.isl_emoji_mapper import isl_emoji_mapper
+    predictor = EmojiPredictor()
 
     print("\n" + "=" * 80)
-    print("ISL EMOJI MAPPING EXAMPLES")
+    print("ISL ML EMOJI MAPPING EXAMPLES")
     print("=" * 80)
 
     test_glosses = [
-        ["YESTERDAY", "HOME", "I", "PIZZA", "EAT"],
-        ["TODAY", "SCHOOL", "YOU", "GO", "QUESTION"],
-        ["I", "WATER", "COLD", "LIKE", "NOT"],
-        ["MOTHER", "LOVE", "FAMILY", "HAPPY"],
+        "YESTERDAY HOME I PIZZA EAT",
+        "TODAY SCHOOL YOU GO QUESTION",
+        "I WATER COLD LIKE NOT",
+        "MOTHER LOVE FAMILY HAPPY",
     ]
 
-    for glosses in test_glosses:
-        print(f"\nGlosses: {' '.join(glosses)}")
-        emoji_result = isl_emoji_mapper.map_gloss(glosses)
-
-        emoji_display = "".join([item["emoji"] for item in emoji_result])
-        print(f"Emoji: {emoji_display}")
-
-        print("Details:")
-        for item in emoji_result:
-            print(f"  {item['word']}: {item['emoji']} (confidence: {item['confidence']}, method: {item['method']})")
+    for gloss in test_glosses:
+        print(f"\nGloss: {gloss}")
+        res = predictor.predict(gloss)
+        print(f"Predicted Emojis: {res.get('emoji')}")
 
 def verify_isl_implementation():
-
     print("\n" + "=" * 80)
     print("ISL IMPLEMENTATION VERIFICATION")
     print("=" * 80)
@@ -216,59 +179,50 @@ def verify_isl_implementation():
     checks = []
 
     try:
-        from app.nlp.isl_reorderer import isl_reorderer
-        checks.append(("ISL Reorderer", "✓ Loaded"))
+        from emoji_ml.inference import EmojiPredictor
+        predictor = EmojiPredictor()
+        checks.append(("ML Emoji Predictor", "[OK] Loaded"))
     except Exception as e:
-        checks.append(("ISL Reorderer", f"✗ Error: {e}"))
-
-    try:
-        from app.nlp.isl_emoji_mapper import isl_emoji_mapper
-        checks.append(("ISL Emoji Mapper", f"✓ Loaded ({len(isl_emoji_mapper.dictionary)} glosses)"))
-    except Exception as e:
-        checks.append(("ISL Emoji Mapper", f"✗ Error: {e}"))
+        checks.append(("ML Emoji Predictor", f"[FAIL] Error: {e}"))
 
     try:
         from app.nlp.isl_config import get_isl_config, CURRENT_SIGN_LANGUAGE
         config = get_isl_config()
-        checks.append(("ISL Configuration", f"✓ Loaded (Current: {CURRENT_SIGN_LANGUAGE})"))
+        checks.append(("ISL Configuration", f"[OK] Loaded (Current: {CURRENT_SIGN_LANGUAGE})"))
     except Exception as e:
-        checks.append(("ISL Configuration", f"✗ Error: {e}"))
+        checks.append(("ISL Configuration", f"[FAIL] Error: {e}"))
 
     try:
         from app.services.translation_service import TranslationService
-        checks.append(("Translation Service", "✓ Updated for ISL"))
+        checks.append(("Translation Service", "[OK] Updated for ISL ML Pipeline"))
     except Exception as e:
-        checks.append(("Translation Service", f"✗ Error: {e}"))
+        checks.append(("Translation Service", f"[FAIL] Error: {e}"))
 
     for component, status in checks:
         print(f"  {component}: {status}")
 
-    all_passed = all("✓" in status for _, status in checks)
-    print(f"\n  Overall Status: {'✓ COMPLETE' if all_passed else '✗ INCOMPLETE'}")
+    all_passed = all("[OK]" in status for _, status in checks)
+    print(f"\n  Overall Status: {'[OK] COMPLETE' if all_passed else '[FAIL] INCOMPLETE'}")
 
 if __name__ == "__main__":
-    """Run all tests when executed directly."""
     import sys
 
     print("\nISL IMPLEMENTATION TEST SUITE")
     print("=" * 80)
 
     try:
-
         verify_isl_implementation()
-
+        test_isl_examples()
         test_isl_features()
         test_isl_vocabulary()
-        test_isl_classifiers()
-        test_isl_facial_expressions()
         test_isl_emoji_mapping()
 
         print("\n" + "=" * 80)
-        print("✓ ISL IMPLEMENTATION VERIFICATION COMPLETE")
+        print("[OK] ISL IMPLEMENTATION VERIFICATION COMPLETE")
         print("=" * 80)
 
     except Exception as e:
-        print(f"\n✗ ERROR during verification: {e}")
+        print(f"\n[FAIL] ERROR during verification: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)

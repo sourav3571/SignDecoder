@@ -16,6 +16,7 @@ interface EmojiCardProps {
   index: number;
   isActive?: boolean;
   onAnimationComplete?: () => void;
+  showEmoji?: boolean;
 }
 
 const ROLE_COLORS: Record<SemanticRole, string> = {
@@ -35,6 +36,7 @@ export default function EmojiCard({
   index,
   isActive = false,
   onAnimationComplete,
+  showEmoji = true,
 }: EmojiCardProps) {
   const [animationData, setAnimationData] = useState<any>(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
@@ -49,10 +51,19 @@ export default function EmojiCard({
   }, [lottieSrc]);
 
   useEffect(() => {
-    if (isActive && lottieRef.current) {
-      lottieRef.current.goToAndPlay(0);
+    if (isActive) {
+      if (animationData && lottieRef.current) {
+        lottieRef.current.goToAndPlay(0);
+      } else {
+        const timer = setTimeout(() => {
+          if (onAnimationComplete) {
+            onAnimationComplete();
+          }
+        }, 1200); // 1.2s display duration per card fallback
+        return () => clearTimeout(timer);
+      }
     }
-  }, [isActive]);
+  }, [isActive, animationData, onAnimationComplete]);
 
   return (
     <motion.div
@@ -83,8 +94,12 @@ export default function EmojiCard({
             onComplete={onAnimationComplete}
             style={{ width: "100%", height: "100%" }}
           />
-        ) : (
+        ) : showEmoji ? (
           <span className="text-[42px]" role="img">{emoji}</span>
+        ) : (
+          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-stone-50 border border-stone-200/50 text-stone-700 font-semibold text-[15px] select-none shadow-xs">
+            {word[0]?.toUpperCase() || "S"}
+          </div>
         )}
       </div>
 

@@ -9,16 +9,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "supersecretkey_please_change_in_production"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8  
 
-    POSTGRES_SERVER: str = "localhost"
-    POSTGRES_USER: str = "postgres"
-    POSTGRES_PASSWORD: str = "postgres"
-    POSTGRES_DB: str = "signspeak"
-    POSTGRES_PORT: str = "5432"
-
-    @property
-    def SQLALCHEMY_DATABASE_URI(self) -> str:
-
-        return "sqlite+aiosqlite:///./signspeak.db"
+    SQLALCHEMY_DATABASE_URI: str = "sqlite+aiosqlite:///./signspeak.db"
 
     MONGODB_URL: str = "mongodb://localhost:27017"
     MONGODB_DB_NAME: str = "signspeak_db"

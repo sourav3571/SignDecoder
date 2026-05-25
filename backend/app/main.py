@@ -25,12 +25,9 @@ async def lifespan(app: FastAPI):
 
     try:
 
-        logger.info("📦 Initializing PostgreSQL...")
-        used_sqlite = await init_db()
-        if used_sqlite:
-            logger.warning("✓ PostgreSQL unavailable; using local SQLite fallback")
-        else:
-            logger.info("✓ PostgreSQL ready")
+        logger.info("📦 Initializing SQLite database...")
+        await init_db()
+        logger.info("✓ SQLite database ready")
     except Exception as e:
         logger.error(f"✗ Database initialization failed: {e}")
         sys.exit(1)

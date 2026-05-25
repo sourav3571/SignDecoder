@@ -77,24 +77,20 @@ def _parse_flan_output(raw: str) -> Dict[str, Any]:
     Attempt to parse the JSON emitted by Flan-T5.
     Falls back gracefully to empty roles on bad output.
     """
-    # Strip markdown fences if present
     raw = raw.strip()
     raw = re.sub(r"^```(?:json)?", "", raw).strip()
     raw = re.sub(r"```$", "", raw).strip()
 
+    data = {}
     try:
         data = json.loads(raw)
     except json.JSONDecodeError:
-        # Try to salvage a partial JSON by finding the first {...}
         match = re.search(r"\{.*\}", raw, re.DOTALL)
         if match:
             try:
                 data = json.loads(match.group())
             except json.JSONDecodeError:
-                logger.warning("Flan-T5 output could not be parsed as JSON; using empty roles.")
-                data = {}
-        else:
-            data = {}
+                logger.warning("Flan-T5 output could not be parsed as JSON; using heuristic fallback.")
 
     roles: Dict[str, List[str]] = {}
     for key in _ROLE_KEYS:
@@ -110,6 +106,109 @@ def _parse_flan_output(raw: str) -> Dict[str, Any]:
     has_negation = bool(data.get("has_negation", bool(roles["negation"])))
 
     return roles, is_question, has_negation
+
+
+_FALLBACK_NEGATION_WORDS = {"not", "no", "never", "n't"}
+_FALLBACK_TIME_WORDS = {
+    "yesterday", "today", "tomorrow", "morning", "afternoon",
+    "evening", "night", "now", "later", "soon", "ago",
+}
+_FALLBACK_LOCATION_WORDS = {
+    "home", "work", "office", "park", "school", "store", "hospital",
+    "market", "temple", "road", "here", "there", "sofa", "restaurant",
+}
+_FALLBACK_SUBJECT_PRONOUNS = {"i", "you", "he", "she", "we", "they", "it"}
+_FALLBACK_OBJECT_PRONOUNS = {"me", "him", "her", "us", "them"}
+_FALLBACK_QUESTION_WORDS = {"what", "where", "when", "why", "how", "who", "which", "whom"}
+_FALLBACK_ACTION_WORDS = {
+    "eat", "drink", "sleep", "wake", "read", "write", "call", "go",
+    "come", "walk", "run", "sit", "stand", "play", "study", "like",
+    "love", "hate", "want", "need", "help", "give", "find", "buy", "make",
+}
+_FALLBACK_COPULAS = {"is", "am", "are", "was", "were", "be", "been", "being"}
+
+
+def _heuristic_roles(text: str) -> Dict[str, Any]:
+    clean = re.sub(r"[\.,!?;:'\"]", "", text.lower()).strip()
+    tokens = [token for token in clean.split() if token]
+    roles = {
+        "subject": [],
+        "verb": [],
+        "object": [],
+        "indirect_object": [],
+        "time": [],
+        "location": [],
+        "modifier": [],
+        "negation": [],
+        "auxiliary": [],
+    }
+
+    stop_words = {"the", "a", "an", "my", "your", "our", "their", "please", "to", "at", "in", "on"}
+    is_question = bool(tokens and tokens[0] in _FALLBACK_QUESTION_WORDS) or text.rstrip().endswith("?")
+    has_negation = any(token in _FALLBACK_NEGATION_WORDS for token in tokens)
+
+    if has_negation:
+        roles["negation"] = [token for token in tokens if token in _FALLBACK_NEGATION_WORDS]
+
+    for token in tokens:
+        if token in _FALLBACK_TIME_WORDS:
+            roles["time"].append(token)
+        elif token in _FALLBACK_LOCATION_WORDS:
+            roles["location"].append(token)
+        elif token in _FALLBACK_COPULAS:
+            roles["auxiliary"].append(token)
+
+    if tokens and tokens[0] == "please" and any(token in _FALLBACK_ACTION_WORDS for token in tokens):
+        roles["subject"].append("you")
+
+    verb = next((token for token in tokens if token in _FALLBACK_ACTION_WORDS or token.endswith("ing") or token.endswith("ed")), None)
+    if verb:
+        roles["verb"].append(verb)
+
+    subject = None
+    if roles["subject"]:
+        subject = roles["subject"][0]
+    else:
+        for token in tokens:
+            if token in _FALLBACK_QUESTION_WORDS or token in stop_words or token in _FALLBACK_COPULAS or token in _FALLBACK_ACTION_WORDS or token in _FALLBACK_TIME_WORDS or token in _FALLBACK_LOCATION_WORDS:
+                continue
+            if token in _FALLBACK_SUBJECT_PRONOUNS:
+                subject = token
+                break
+            if token not in _FALLBACK_OBJECT_PRONOUNS:
+                subject = token
+                break
+
+    if subject:
+        roles["subject"].append(subject)
+
+    for token in tokens:
+        if token in _FALLBACK_OBJECT_PRONOUNS:
+            roles["indirect_object"].append(token)
+            continue
+
+        if token in roles["time"] or token in roles["location"] or token in roles["negation"] or token in roles["auxiliary"]:
+            continue
+        if token in _FALLBACK_QUESTION_WORDS or token in stop_words or token == subject or token == verb:
+            continue
+        if token not in roles["object"]:
+            roles["object"].append(token)
+
+    for token in tokens:
+        if token in roles["time"] or token in roles["location"] or token in roles["negation"] or token in roles["auxiliary"] or token in roles["subject"] or token in roles["verb"] or token in roles["object"] or token in roles["indirect_object"]:
+            continue
+        if token not in stop_words and token not in _FALLBACK_QUESTION_WORDS:
+            roles["modifier"].append(token)
+
+    if is_question and not roles["location"] and roles["object"]:
+        roles["location"] = roles["object"][:]
+        roles["object"] = []
+
+    return {
+        "semantic_roles": roles,
+        "is_question": is_question,
+        "has_negation": has_negation,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -237,7 +336,6 @@ class SemanticAnalyzer:
         Falls back to rule-based if the model is unavailable.
         """
         if self._pipe is None:
-            # Try once more in case it was loaded after __init__
             self._pipe = _get_pipeline()
 
         if self._pipe is None:
@@ -253,7 +351,12 @@ class SemanticAnalyzer:
             logger.error(f"Flan-T5 inference error: {e}; falling back.")
             return _fallback_analyze(text)
 
-        # Override is_question with a deterministic check too
+        if not any(len(value) > 0 for value in roles.values()):
+            fallback = _heuristic_roles(text)
+            roles = fallback["semantic_roles"]
+            is_question = is_question or fallback["is_question"]
+            has_negation = has_negation or fallback["has_negation"]
+
         is_question = is_question or text.rstrip().endswith("?")
 
         tense  = self._detect_tense_from_text(text)

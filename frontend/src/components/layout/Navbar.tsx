@@ -64,9 +64,6 @@ export default function Navbar() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="text-[13px] font-medium text-text-secondary hover:text-text-primary px-4 py-2 transition-colors">
-            Sign In
-          </button>
           <Link
             href="/translate"
             className="bg-accent text-white text-[13px] font-medium px-5 py-2.5 rounded-sm hover:bg-accent-hover transition-all flex items-center gap-2"
@@ -108,9 +105,6 @@ export default function Navbar() {
               ))}
               <hr className="border-border" />
               <div className="flex flex-col gap-4">
-                <button className="text-lg font-medium text-text-secondary text-left">
-                  Sign In
-                </button>
                 <Link
                   href="/translate"
                   className="bg-accent text-white text-center py-3 rounded-sm font-medium"
