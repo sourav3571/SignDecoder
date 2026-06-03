@@ -54,7 +54,7 @@ export default function TranslateInput({ onTranslate, isLoading }: TranslateInpu
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Type a sentence in English...&#10;e.g. Sourav is eating breakfast at home yesterday"
+            placeholder="Type a sentence in English...&#10;e.g. I am happy today."
             className={cn(
               "w-full bg-surface-elevated border border-border rounded-md px-5 py-4 text-[15px] leading-relaxed transition-all duration-200 outline-none resize-none",
               "focus:bg-white focus:border-accent focus:ring-1 focus:ring-accent/10 focus:shadow-sm"

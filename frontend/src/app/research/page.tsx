@@ -5,7 +5,7 @@ export default function ResearchPage() {
   return (
     <div className="pt-32 pb-32 bg-white">
       <article className="max-w-[720px] mx-auto px-6">
-        {/* Paper Header */}
+        {}
         <header className="mb-16 border-b border-border pb-16">
           <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.1em] mb-6 block">
             RESEARCH PAPER &middot; 2024
@@ -26,7 +26,7 @@ export default function ResearchPage() {
           </div>
         </header>
 
-        {/* Abstract */}
+        {}
         <section className="mb-16">
           <h2 className="text-[13px] font-bold text-text-muted uppercase tracking-[0.1em] mb-6">
             Abstract
@@ -36,7 +36,7 @@ export default function ResearchPage() {
           </p>
         </section>
 
-        {/* Methodology */}
+        {}
         <section className="mb-16">
           <h2 className="text-[13px] font-bold text-text-muted uppercase tracking-[0.1em] mb-6">
             Methodology
@@ -45,7 +45,7 @@ export default function ResearchPage() {
             The SignSpeak pipeline follows a strictly defined four-stage process to ensure linguistic accuracy and visual clarity.
           </p>
           
-          {/* Pipeline Diagram */}
+          {}
           <div className="bg-surface-elevated border border-border p-8 rounded-md mb-10">
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-6">
@@ -86,7 +86,7 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* Dataset */}
+        {}
         <section className="mb-16">
           <h2 className="text-[13px] font-bold text-text-muted uppercase tracking-[0.1em] mb-6">
             Dataset & Training
@@ -101,7 +101,7 @@ export default function ResearchPage() {
           </ul>
         </section>
 
-        {/* Results */}
+        {}
         <section className="mb-16">
           <h2 className="text-[13px] font-bold text-text-muted uppercase tracking-[0.1em] mb-6">
             Evaluation Results
@@ -136,7 +136,7 @@ export default function ResearchPage() {
           </div>
         </section>
 
-        {/* References */}
+        {}
         <section className="border-t border-border pt-16">
           <h2 className="text-[13px] font-bold text-text-muted uppercase tracking-[0.1em] mb-8">
             Selected References

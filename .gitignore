@@ -86,6 +86,8 @@ models/
 *.pt
 *.h5
 *.pkl
+backend/test_output/
+emoji_flan/models/
 
 # ════════════════════════════════════════════════════════════════════
 # Docker

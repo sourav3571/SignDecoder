@@ -8,7 +8,7 @@ from app.nlp.analyzer import analyzer
 from app.nlp.isl_config import CURRENT_SIGN_LANGUAGE
 import logging
 
-# Ensure backend/models/ is on sys.path for emoji_ml imports
+
 _here = os.path.abspath(__file__)
 _backend_dir = os.path.dirname(os.path.dirname(os.path.dirname(_here)))
 _models_dir = os.path.join(_backend_dir, "models")
@@ -29,18 +29,21 @@ class TranslationService:
 
         logger.info(f"Translating with {sign_language} pipeline (simple word mapping)")
 
+        
         cleaned_text = preprocessor.clean_text(request.text)
 
-        # Run semantic analysis to extract tokens
+        
+        
         analysis_result = analyzer.analyze(cleaned_text)
         tokens = analysis_result.get("tokens", [])
 
-        # Use ISL reorderer for grammar reordering
+        
         from app.nlp.isl_reorderer import isl_reorderer
         reordered_result = isl_reorderer.reorder(analysis_result)
         gloss_sequence = reordered_result.get("reordered_gloss", [])
         
-        # Heuristic fallback if reorderer produces empty output
+        
+        
         if not gloss_sequence:
             _STOP = {
                 "a", "an", "the", "is", "am", "are", "was", "were",
@@ -61,17 +64,29 @@ class TranslationService:
                 if not gloss_sequence:
                     gloss_sequence = [w.upper() for w in words if w]
 
-        from emoji_ml.inference import EmojiPredictor
-        predictor = EmojiPredictor()
-        gloss_string = " ".join(gloss_sequence)
-        prediction = predictor.predict(gloss_string)
-        predicted_emoji_str = prediction.get("emoji", "")
         
+        gloss_string = " ".join(gloss_sequence)
+        
+        # ── STAGE 4: FLAN-T5 model prediction ──
+        predicted_emoji_str = ""
+        raw_ml_prediction = ""
+        predictor_available = False
+        try:
+            from emoji_ml.inference import EmojiPredictor
+            predictor = EmojiPredictor()
+            if predictor.model_available:
+                predictor_available = True
+                prediction = predictor.predict(gloss_string)
+                predicted_emoji_str = prediction.get("emoji", "")
+                raw_ml_prediction = prediction.get("raw_prediction", "")
+        except Exception as e:
+            logger.warning(f"Failed to load or run EmojiPredictor: {e}")
+
         # Split predicted emoji string to align 1-to-1 with gloss sequence
-        predicted_emoji_tokens = predicted_emoji_str.strip().split()
+        predicted_emoji_tokens = predicted_emoji_str.strip().split() if predicted_emoji_str else []
         
         mapped_emojis = []
-        if len(predicted_emoji_tokens) == len(gloss_sequence):
+        if predictor_available and len(predicted_emoji_tokens) == len(gloss_sequence):
             for i, word in enumerate(gloss_sequence):
                 mapped_emojis.append({
                     "word": word,
@@ -83,23 +98,34 @@ class TranslationService:
                     "lottie_file": None,
                 })
         else:
-            # If lengths don't match, map word-by-word to guarantee 1-to-1 alignment
+            # If lengths don't match, try word-by-word prediction or fall back
             for word in gloss_sequence:
-                single_pred = predictor.predict(word)
-                single_emoji = single_pred.get("emoji", "❓").strip()
+                single_emoji = ""
+                method = "none"
+                confidence = 1.0
+                if predictor_available:
+                    try:
+                        single_pred = predictor.predict(word)
+                        single_emoji = single_pred.get("emoji", "").strip()
+                        if single_emoji:
+                            method = "ml-fallback-word"
+                            confidence = 0.7
+                    except Exception:
+                        pass
+                
                 mapped_emojis.append({
                     "word": word,
-                    "emoji": single_emoji if single_emoji else "❓",
-                    "confidence": 0.7,
-                    "method": "ml-fallback-word",
+                    "emoji": single_emoji,
+                    "confidence": confidence,
+                    "method": method,
                     "category": "object",
                     "alternatives": [],
                     "lottie_file": None,
                 })
 
-        emoji_display = " ".join([m["emoji"] for m in mapped_emojis])
+        emoji_display = " ".join([m["emoji"] for m in mapped_emojis if m["emoji"]])
 
-        # ── Build a word→role reverse lookup from semantic_roles ──
+        
         _ROLE_MAP = {
             "subject": "SUBJECT",
             "verb": "VERB",
@@ -112,15 +138,15 @@ class TranslationService:
             "auxiliary": "VERB",
         }
         
-        # Fallback mapping for common sign language words if NLP fails to assign a role
+        
         _COMMON_WORD_ROLES = {
-            # TIME
+            
             "YESTERDAY": "TIME", "TODAY": "TIME", "TOMORROW": "TIME",
             "MORNING": "TIME", "NIGHT": "TIME", "AFTERNOON": "TIME", "EVENING": "TIME",
             "WEEK": "TIME", "YEAR": "TIME", "MONTH": "TIME", "DAILY": "TIME",
             "BEFORE": "TIME", "AFTER": "TIME", "NOW": "TIME", "CLOCK": "TIME",
             "SUMMER": "TIME", "WINTER": "TIME", "RAINY": "TIME",
-            # SUBJECTS / PRONOUNS
+            
             "I": "SUBJECT", "YOU": "SUBJECT", "HE": "SUBJECT", "SHE": "SUBJECT",
             "WE": "SUBJECT", "THEY": "SUBJECT", "MY": "SUBJECT", "YOUR": "SUBJECT",
             "HIS": "SUBJECT", "HER": "SUBJECT", "OUR": "SUBJECT", "THEIR": "SUBJECT",
@@ -128,10 +154,10 @@ class TranslationService:
             "SOURAV": "SUBJECT", "PRIYA": "SUBJECT", "AMIT": "SUBJECT",
             "VIKRAM": "SUBJECT", "ANJALI": "SUBJECT", "RAHUL": "SUBJECT",
             "NEHA": "SUBJECT", "ARJUN": "SUBJECT", "POOJA": "SUBJECT", "ROHAN": "SUBJECT",
-            # NEGATION
+            
             "NOT": "NEGATION", "NEVER": "NEGATION", "NO": "NEGATION", "DONT": "NEGATION",
             "CANT": "NEGATION", "WON T": "NEGATION", "WONT": "NEGATION",
-            # VERBS
+            
             "EAT": "VERB", "GO": "VERB", "RUN": "VERB", "PLAY": "VERB",
             "COOK": "VERB", "CELEBRATE": "VERB", "TRAVEL": "VERB", "FEEL": "VERB",
             "SEE": "VERB", "LOOK": "VERB", "BUY": "VERB", "WORK": "VERB",
@@ -143,7 +169,7 @@ class TranslationService:
             "DRINK": "VERB", "SLEEP": "VERB", "WALK": "VERB", "DRIVE": "VERB",
             "FLY": "VERB", "RIDE": "VERB", "CLEAN": "VERB", "WASH": "VERB",
             "OPEN": "VERB", "CLOSE": "VERB", "START": "VERB", "STOP": "VERB",
-            # LOCATIONS
+            
             "HOME": "LOCATION", "SCHOOL": "LOCATION", "BANK": "LOCATION",
             "OFFICE": "LOCATION", "SHOP": "LOCATION", "BEACH": "LOCATION",
             "STORE": "LOCATION", "CITY": "LOCATION", "HOSPITAL": "LOCATION",
@@ -196,9 +222,14 @@ class TranslationService:
         if request.include_details:
             tokens_list = analysis_result.get("tokens", [])
             for token in tokens_list:
-                word_text = token.get("text", "")
-                pred = predictor.predict(word_text)
-                token["emoji"] = pred.get("emoji", "❓").strip() or "❓"
+                token["emoji"] = ""
+                if predictor_available:
+                    try:
+                        word_text = token.get("text", "")
+                        pred = predictor.predict(word_text)
+                        token["emoji"] = pred.get("emoji", "").strip()
+                    except Exception:
+                        pass
             analysis_data.tokens = tokens_list
 
         logger.info(f"Translation complete in {processing_time_ms}ms (ISL: {CURRENT_SIGN_LANGUAGE})")
@@ -209,8 +240,9 @@ class TranslationService:
             gloss_string=gloss_string,
             emoji_sequence=emoji_cards,
             emoji_display=emoji_display,
-            confidence_score=0.9 if predictor.model_available else 0.7,
+            confidence_score=0.9 if predictor_available else 0.7,
             processing_time_ms=processing_time_ms,
             analysis=analysis_data,
+            raw_ml_prediction=raw_ml_prediction if predictor_available else None,
             warnings=[]
         )

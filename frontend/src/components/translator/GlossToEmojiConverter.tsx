@@ -1,26 +1,6 @@
 "use client";
 
-/**
- * GlossToEmojiConverter.tsx
- * ─────────────────────────
- * ML-powered gloss-to-emoji converter that matches the app's editorial
- * white/light design system exactly.
- *
- * @prop glossText  ISL gloss string from the main translator result.
- *
- * Features (zero new npm dependencies):
- *  ✦ Staggered bounce animations   (framer-motion)
- *  ✦ History — last 10             (localStorage)
- *  ✦ Favorites ⭐                   (localStorage)
- *  ✦ Export as PNG                  (Canvas API)
- *  ✦ Social sharing                 (window.open)
- *  ✦ Settings panel                 (localStorage)
- *  ✦ Keyboard shortcuts + modal     (keydown)
- *  ✦ Stats — total / today          (localStorage)
- *  ✦ Example prompts grid
- *  ✦ Confetti on success            (Canvas API)
- *  ✦ Sound effects                  (Web Audio API, opt-in)
- */
+
 
 import React, {
   useState,
@@ -53,9 +33,9 @@ import {
   VolumeX,
 } from "lucide-react";
 
-// ═══════════════════════════════════════════════════════════
-// TYPES
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 interface ConversionResult {
   id: string;
@@ -86,9 +66,9 @@ export interface GlossToEmojiConverterProps {
   glossText?: string;
 }
 
-// ═══════════════════════════════════════════════════════════
-// CONSTANTS
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 const API_URL   = "/api/convert-to-emoji";
 const MAX_HIST  = 10;
@@ -116,9 +96,9 @@ const SHORTCUTS = [
   { keys: ["Esc"],                 label: "Close any open panel"         },
 ] as const;
 
-// ═══════════════════════════════════════════════════════════
-// UTILS — localStorage
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 function lsGet<T>(k: string, fb: T): T {
   if (typeof window === "undefined") return fb;
@@ -127,7 +107,7 @@ function lsGet<T>(k: string, fb: T): T {
 }
 function lsSet(k: string, v: unknown) {
   if (typeof window === "undefined") return;
-  try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* noop */ }
+  try { localStorage.setItem(k, JSON.stringify(v)); } catch {  }
 }
 function todayStr() { return new Date().toISOString().slice(0, 10); }
 function relTime(ts: number): string {
@@ -139,20 +119,20 @@ function relTime(ts: number): string {
 }
 function makeId() { return Math.random().toString(36).slice(2, 9) + Date.now().toString(36); }
 
-// ═══════════════════════════════════════════════════════════
-// UTILS — Web Audio
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 function tone(freq: number, dur = 0.2, vol = 0.06) {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    
     const C = new (window.AudioContext || (window as any).webkitAudioContext)() as AudioContext;
     const o = C.createOscillator(), g = C.createGain();
     o.type = "sine"; o.frequency.setValueAtTime(freq, C.currentTime);
     g.gain.setValueAtTime(vol, C.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, C.currentTime + dur);
     o.connect(g); g.connect(C.destination); o.start(); o.stop(C.currentTime + dur);
-  } catch { /* noop */ }
+  } catch {  }
 }
 const sfx = {
   click:   () => tone(880, 0.07, 0.04),
@@ -161,48 +141,48 @@ const sfx = {
   star:    () => tone(1318, 0.09, 0.04),
 };
 
-// ═══════════════════════════════════════════════════════════
-// UTILS — Canvas PNG export  (matches app accent colour)
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 async function exportAsPng(input: string, emoji: string) {
   const W = 880, H = 380;
   const cv = document.createElement("canvas"); cv.width = W; cv.height = H;
   const ctx = cv.getContext("2d")!;
 
-  // Background — very light stone (matches app bg)
+  
   ctx.fillStyle = "#FAFAF9"; ctx.fillRect(0, 0, W, H);
 
-  // Top accent bar
+  
   ctx.fillStyle = "#0F172A"; ctx.fillRect(0, 0, W, 6);
 
-  // Title
+  
   ctx.fillStyle = "#0F172A"; ctx.font = "bold 22px Arial";
   ctx.fillText("ML Emoji Translation", 40, 56);
 
-  // Divider
+  
   ctx.strokeStyle = "#E7E5E4"; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(40, 72); ctx.lineTo(W - 40, 72); ctx.stroke();
 
-  // Input label
+  
   ctx.fillStyle = "#A8A29E"; ctx.font = "bold 10px Arial";
   ctx.fillText("GLOSS INPUT", 40, 100);
 
-  // Input text
+  
   ctx.fillStyle = "#1C1917"; ctx.font = "16px 'Courier New', monospace";
   ctx.fillText(input.length > 75 ? input.slice(0, 75) + "…" : input, 40, 124);
 
-  // Emoji label
+  
   ctx.fillStyle = "#A8A29E"; ctx.font = "bold 10px Arial";
   ctx.fillText("EMOJI SEQUENCE", 40, 164);
 
-  // Emojis
+  
   ctx.font = "48px serif";
   const tokens = emoji.split(/\s+/).filter(Boolean);
   const sp = Math.min(72, (W - 80) / Math.max(tokens.length, 1));
   tokens.forEach((e, i) => ctx.fillText(e, 40 + i * sp, 228));
 
-  // Footer
+  
   ctx.fillStyle = "#F5F5F4"; ctx.fillRect(0, H - 44, W, 44);
   ctx.strokeStyle = "#E7E5E4"; ctx.beginPath(); ctx.moveTo(0, H - 44); ctx.lineTo(W, H - 44); ctx.stroke();
   ctx.fillStyle = "#A8A29E"; ctx.font = "11px Arial";
@@ -216,9 +196,9 @@ async function exportAsPng(input: string, emoji: string) {
   a.href = cv.toDataURL(); a.click();
 }
 
-// ═══════════════════════════════════════════════════════════
-// SUB — Confetti (fixed overlay, canvas-based)
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 interface Particle { x:number; y:number; vx:number; vy:number; color:string; size:number; alpha:number; decay:number; rotation:number; rotSpeed:number; rect:boolean; }
 
@@ -262,9 +242,9 @@ function ConfettiCanvas({ animKey }: { animKey: number }) {
   return <canvas ref={ref} aria-hidden className="pointer-events-none fixed inset-0 w-full h-full z-[9998]" />;
 }
 
-// ═══════════════════════════════════════════════════════════
-// SUB — Toast stack  (uses app accent colour)
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 function ToastStack({ items, remove }: { items: ToastItem[]; remove: (id: number) => void }) {
   return (
@@ -292,9 +272,9 @@ function ToastStack({ items, remove }: { items: ToastItem[]; remove: (id: number
   );
 }
 
-// ═══════════════════════════════════════════════════════════
-// SUB — Keyboard Shortcuts Modal  (app white theme)
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 function ShortcutsModal({ onClose }: { onClose: () => void }) {
   return (
@@ -344,9 +324,9 @@ function ShortcutsModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-// ═══════════════════════════════════════════════════════════
-// SUB — Settings Panel  (inline, app white theme)
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 function SettingsPanel({ settings, onChange, onClose }: {
   settings: AppSettings; onChange: (s: AppSettings) => void; onClose: () => void;
@@ -395,9 +375,9 @@ function ToggleRow({ label, desc, icon, checked, onChange }: { label: string; de
   );
 }
 
-// ═══════════════════════════════════════════════════════════
-// SUB — Share Modal  (app white theme)
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 function ShareModal({ input, emoji, onClose, onToast }: {
   input: string; emoji: string; onClose: () => void;
@@ -443,9 +423,9 @@ function ShareModal({ input, emoji, onClose, onToast }: {
   );
 }
 
-// ═══════════════════════════════════════════════════════════
-// SUB — Micro buttons  (app style)
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 function IconBtn({ id, onClick, icon, title, active = false }: { id?: string; onClick: () => void; icon: React.ReactNode; title?: string; active?: boolean }) {
   return (
@@ -467,15 +447,15 @@ function ActionBtn({ id, onClick, icon, label, title, active = false }: { id?: s
   );
 }
 
-// ═══════════════════════════════════════════════════════════
-// MAIN COMPONENT
-// ═══════════════════════════════════════════════════════════
+
+
+
 
 let _tid = 0;
 
 export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiConverterProps) {
 
-  // ── State ──────────────────────────────────────────────────
+  
   const [text,        setText]        = useState(glossText || "");
   const [isLoading,   setIsLoading]   = useState(false);
   const [result,      setResult]      = useState<ConversionResult | null>(null);
@@ -494,7 +474,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
   const [showShare,     setShowShare]     = useState(false);
   const [showExamples,  setShowExamples]  = useState(false);
 
-  // ── Hydrate ────────────────────────────────────────────────
+  
   useEffect(() => {
     setHistory(lsGet<ConversionResult[]>(SK.history, []));
     setSettings(lsGet<AppSettings>(SK.settings, { animationsEnabled: true, soundEnabled: false }));
@@ -505,12 +485,12 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
 
   useEffect(() => { lsSet(SK.settings, settings); }, [settings]);
 
-  // ── Derived ────────────────────────────────────────────────
+  
   const emojiTokens   = useMemo(() => result?.emoji ? result.emoji.split(/\s+/).filter(Boolean) : [], [result]);
   const favoriteCount = useMemo(() => history.filter(h => h.isFavorite).length, [history]);
   const anim          = settings.animationsEnabled;
 
-  // ── Helpers ────────────────────────────────────────────────
+  
   const toast = useCallback((message: string, type: ToastItem["type"] = "info") => {
     const id = ++_tid;
     setToasts(p => [...p, { id, message, type }]);
@@ -541,7 +521,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
     if (settings.soundEnabled) sfx.star();
   }, [settings.soundEnabled]);
 
-  // ── Convert ────────────────────────────────────────────────
+  
   const handleConvert = useCallback(async (text: string) => {
     if (!text.trim()) { toast("No gloss text — translate something first.", "info"); return; }
     setIsLoading(true); setError(null); setResult(null);
@@ -561,7 +541,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
     } finally { setIsLoading(false); }
   }, [toast, pushHistory, bumpStats, settings.soundEnabled]);
 
-  // Sync prop changes and auto-convert
+  
   useEffect(() => {
     setText(glossText);
     if (glossText.trim()) {
@@ -569,7 +549,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
     }
   }, [glossText, handleConvert]);
 
-  // ── Copy ───────────────────────────────────────────────────
+  
   const handleCopy = useCallback(() => {
     if (!result?.emoji) return;
     navigator.clipboard.writeText(result.emoji).then(() => {
@@ -579,14 +559,14 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
     });
   }, [result, toast, settings.soundEnabled]);
 
-  // ── Export ─────────────────────────────────────────────────
+  
   const handleExport = useCallback(async () => {
     if (!result) return;
     try { await exportAsPng(result.input, result.emoji); toast("Image saved! 📸", "success"); }
     catch { toast("Export failed — try again.", "error"); }
   }, [result, toast]);
 
-  // ── Keyboard shortcuts ─────────────────────────────────────
+  
   useEffect(() => {
     const fn = (e: KeyboardEvent) => {
       const ctrl    = e.ctrlKey || e.metaKey;
@@ -606,9 +586,9 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
     return () => window.removeEventListener("keydown", fn);
   }, [text, result, handleConvert, handleCopy, handleExport, toggleFav]);
 
-  // ─────────────────────────────────────────────────────────
-  // RENDER
-  // ─────────────────────────────────────────────────────────
+  
+  
+  
 
   return (
     <>
@@ -624,15 +604,15 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
         )}
       </AnimatePresence>
 
-      {/* ── Section header ─────────────────────────────────── */}
+      {}
       <div className="flex items-center justify-between mb-4">
         <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
           ML Emoji Translation
         </span>
 
-        {/* Stats + controls */}
+        {}
         <div className="flex items-center gap-3">
-          {/* Stats pills */}
+          {}
           <span className="hidden sm:flex items-center gap-2.5 text-[11px] text-text-muted">
             <span className="flex items-center gap-1"><TrendingUp size={10} className="text-accent" />{stats.total} total</span>
             <span className="w-px h-3 bg-border" />
@@ -646,14 +626,14 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
         </div>
       </div>
 
-      {/* Settings panel */}
+      {}
       <AnimatePresence>
         {showSettings && (
           <SettingsPanel settings={settings} onChange={setSettings} onClose={() => setShowSettings(false)} />
         )}
       </AnimatePresence>
 
-      {/* ── Example prompts ─────────────────────────────────── */}
+      {}
       <div className="mb-4">
         <button id="toggle-examples-btn" onClick={() => setShowExamples(v => !v)}
           className="flex items-center gap-1.5 text-[11px] font-bold text-text-muted hover:text-text-secondary uppercase tracking-[0.08em] transition-colors mb-2"
@@ -677,7 +657,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
         </AnimatePresence>
       </div>
 
-      {/* ── Gloss input display ─────────────────────────────── */}
+      {}
       <div className="relative overflow-hidden bg-white border border-border rounded-md px-4 py-3 mb-4 shadow-sm focus-within:border-accent transition-colors">
         <textarea
           value={text}
@@ -696,7 +676,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
         )}
       </div>
 
-      {/* ── Convert button ───────────────────────────────────── */}
+      {}
       <motion.button id="convert-to-emoji-btn"
         onClick={() => handleConvert(text)}
         disabled={isLoading || !text.trim()}
@@ -721,7 +701,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
         )}
       </motion.button>
 
-      {/* ── Error ───────────────────────────────────────────── */}
+      {}
       <AnimatePresence>
         {error && (
           <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
@@ -733,12 +713,12 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
         )}
       </AnimatePresence>
 
-      {/* ── Result ──────────────────────────────────────────── */}
+      {}
       <AnimatePresence mode="wait">
         {result ? (
           <motion.div key={result.id} initial={anim ? { opacity: 0, y: 10 } : {}} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
 
-            {/* Emoji display */}
+            {}
             <div className="bg-surface-elevated border border-border rounded-sm px-5 py-5 mb-3 min-h-[80px] flex items-center justify-center">
               {emojiTokens.length > 0 ? (
                 <div className="flex flex-wrap gap-3 justify-center">
@@ -757,7 +737,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
               )}
             </div>
 
-            {/* Action bar */}
+            {}
             <div className="grid grid-cols-5 gap-2">
               <ActionBtn id="copy-emoji-btn"     onClick={handleCopy}                  icon={copied ? <Check size={13} className="text-highlight" /> : <Copy size={13} />}  label={copied ? "Copied" : "Copy"}  title="Copy (Ctrl+Shift+C)" />
               <ActionBtn id="favorite-emoji-btn" onClick={() => toggleFav(result.id)} icon={<Star size={13} className={result.isFavorite ? "fill-current" : ""} />}          label={result.isFavorite ? "Saved" : "Save"} title="Favourite (F)" active={result.isFavorite} />
@@ -775,7 +755,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
         ) : null}
       </AnimatePresence>
 
-      {/* ── History ─────────────────────────────────────────── */}
+      {}
       {history.length > 0 && (
         <div className="mt-6 pt-5 border-t border-border">
           <button id="toggle-history-btn" onClick={() => setShowHistory(v => !v)}

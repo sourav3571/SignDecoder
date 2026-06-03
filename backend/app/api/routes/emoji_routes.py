@@ -34,23 +34,23 @@ from pydantic import BaseModel, field_validator
 
 logger = logging.getLogger(__name__)
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Python-path fix
-# ──────────────────────────────────────────────────────────────────────────────
-# File hierarchy:
-#   backend/
-#     app/api/routes/emoji_routes.py   ← __file__
-#     models/emoji_ml/                 ← what we want on sys.path
-#
-# We walk up three parent directories from this file to reach backend/, then
-# append backend/models/ so that `import emoji_ml.inference` resolves.
-# ──────────────────────────────────────────────────────────────────────────────
 
-_here        = os.path.abspath(__file__)           # .../app/api/routes/emoji_routes.py
-_backend_dir = os.path.dirname(              # .../backend/
-               os.path.dirname(              # .../app/
-               os.path.dirname(              # .../app/api/
-               os.path.dirname(_here))))    # .../app/api/routes/
+
+
+
+
+
+
+
+
+
+
+
+_here        = os.path.abspath(__file__)           
+_backend_dir = os.path.dirname(              
+               os.path.dirname(              
+               os.path.dirname(              
+               os.path.dirname(_here))))    
 _models_dir  = os.path.join(_backend_dir, "models")
 
 logger.debug(f"emoji_routes: resolved backend dir → {_backend_dir}")
@@ -59,12 +59,12 @@ logger.debug(f"emoji_routes: adding to sys.path   → {_models_dir}")
 if _models_dir not in sys.path:
     sys.path.insert(0, _models_dir)
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Lazy singleton
-# ──────────────────────────────────────────────────────────────────────────────
 
-_predictor = None          # type: Optional[object]
-_load_error: Optional[str] = None   # cached load-error message
+
+
+
+_predictor = None          
+_load_error: Optional[str] = None   
 
 
 def _get_predictor():
@@ -79,11 +79,11 @@ def _get_predictor():
     """
     global _predictor, _load_error
 
-    # Fast path — model already available
+    
     if _predictor is not None:
         return _predictor
 
-    # Re-raise cached load error so we don't spam the disk on every request
+    
     if _load_error is not None:
         raise RuntimeError(_load_error)
 
@@ -92,7 +92,7 @@ def _get_predictor():
     t0 = time.perf_counter()
 
     try:
-        from emoji_ml.inference import EmojiPredictor  # noqa: PLC0415
+        from emoji_ml.inference import EmojiPredictor  
         _predictor = EmojiPredictor()
         elapsed = time.perf_counter() - t0
         logger.info(f"✓ [emoji] Model loaded in {elapsed:.2f}s — ready for inference")
@@ -127,9 +127,9 @@ def _get_predictor():
         raise RuntimeError(msg) from exc
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Pydantic schemas
-# ──────────────────────────────────────────────────────────────────────────────
+
+
+
 
 class EmojiRequest(BaseModel):
     """
@@ -181,12 +181,12 @@ class EmojiResponse(BaseModel):
     input:   str
     emoji:   str
     model:   str = "GlossToEmojiModel"
-    tokens:  int = 0          # number of emoji tokens — useful for frontend
+    tokens:  int = 0          
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Router
-# ──────────────────────────────────────────────────────────────────────────────
+
+
+
 
 router = APIRouter(
     prefix="/api",
@@ -240,7 +240,7 @@ async def convert_to_emoji(request: EmojiRequest, http_req: Request) -> EmojiRes
         + ("…" if len(request.text) > 80 else "")
     )
 
-    # ── Load model (lazy, cached after first call) ────────────────────────────
+    
     t_load = time.perf_counter()
     try:
         predictor = _get_predictor()
@@ -257,7 +257,7 @@ async def convert_to_emoji(request: EmojiRequest, http_req: Request) -> EmojiRes
 
     logger.debug(f"[emoji] Model retrieval took {(time.perf_counter() - t_load)*1000:.1f}ms")
 
-    # ── Run inference ─────────────────────────────────────────────────────────
+    
     t_infer = time.perf_counter()
     try:
         result: dict = predictor.predict(request.text)
@@ -290,9 +290,9 @@ async def convert_to_emoji(request: EmojiRequest, http_req: Request) -> EmojiRes
     )
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Debug endpoint — model status (only in DEBUG mode)
-# ──────────────────────────────────────────────────────────────────────────────
+
+
+
 
 @router.get(
     "/emoji-model-status",

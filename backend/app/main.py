@@ -93,8 +93,8 @@ app.include_router(
 from app.api.routes import translate
 app.include_router(translate.router, prefix=settings.API_V1_STR)
 
-# ── Emoji ML route ─────────────────────────────────────────────────────────
-# Provides POST /api/convert-to-emoji powered by the trained GlossToEmojiModel.
-# The router already carries the '/api' prefix internally.
-from app.api.routes import emoji_routes          # noqa: E402
+
+
+
+from app.api.routes import emoji_routes          
 app.include_router(emoji_routes.router)

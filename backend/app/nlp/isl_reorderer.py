@@ -2,11 +2,7 @@ from typing import Dict, List, Any, Set, Tuple
 
 import logging
 
-
-
 logger = logging.getLogger(__name__)
-
-
 
 ISL_FUNCTION_WORDS_TO_DROP = {
 
@@ -32,11 +28,7 @@ ISL_FUNCTION_WORDS_TO_DROP = {
 
 }
 
-
-
 ISL_WH_WORDS = {"what", "where", "when", "why", "how", "who", "which", "whom"}
-
-
 
 ISL_TIME_MARKERS = {
 
@@ -64,8 +56,6 @@ ISL_TIME_MARKERS = {
 
 }
 
-
-
 ISL_LOCATION_MARKERS = {
 
     "home": {"isl_gloss": "HOME", "spatial_position": "center-neutral", "type": "building"},
@@ -92,8 +82,6 @@ ISL_LOCATION_MARKERS = {
 
 }
 
-
-
 ISL_VERB_TYPES = {
 
     "plain": ["want", "like", "think", "know", "remember", "forget"],
@@ -108,11 +96,7 @@ ISL_VERB_TYPES = {
 
 }
 
-
-
 class ISLReorderer:
-
-
 
     def __init__(self, sign_language: str = "ISL"):
 
@@ -130,15 +114,11 @@ class ISLReorderer:
 
         logger.info(f"ISLReorderer initialized for {sign_language}")
 
-
-
     def _filter_function_words(self, words: List[str]) -> List[str]:
 
-        # Also drop WH-words from original semantic roles because we'll place them at the end
+        
 
         return [w for w in words if w.lower() not in ISL_FUNCTION_WORDS_TO_DROP and w.lower() not in ISL_WH_WORDS]
-
-
 
     def _deduplicate_preserve_order(self, words: List[str]) -> List[str]:
 
@@ -156,15 +136,11 @@ class ISLReorderer:
 
         return result
 
-
-
     def _get_time_marking(self, time_roles: List[str]) -> Tuple[List[str], str]:
 
         time_gloss = []
 
         detected_tense = "present"
-
-
 
         for word in time_roles:
 
@@ -178,19 +154,13 @@ class ISLReorderer:
 
                 detected_tense = marker["tense"]
 
-
-
         return self._deduplicate_preserve_order(time_gloss), detected_tense
-
-
 
     def _get_location_marking(self, location_roles: List[str]) -> Tuple[List[str], List[Dict]]:
 
         location_gloss = []
 
         spatial_info = []
-
-
 
         for word in location_roles:
 
@@ -212,11 +182,7 @@ class ISLReorderer:
 
                 })
 
-
-
         return self._deduplicate_preserve_order(location_gloss), spatial_info
-
-
 
     def _normalize_verb(self, word: str) -> str:
         word_lower = word.lower().strip(".,!?;:\"'")
@@ -260,8 +226,6 @@ class ISLReorderer:
 
         return "plain"
 
-
-
     def reorder(self, analysis: Dict[str, Any]) -> Dict[str, Any]:
 
         semantic_roles = analysis.get("semantic_roles", {})
@@ -269,8 +233,6 @@ class ISLReorderer:
         is_question = analysis.get("is_question", False)
 
         has_negation = analysis.get("has_negation", False)
-
-
 
         time_roles = semantic_roles.get("time", [])
 
@@ -286,25 +248,17 @@ class ISLReorderer:
 
         modifier_roles = semantic_roles.get("modifier", [])
 
-
-
         time_gloss, detected_tense = self._get_time_marking(time_roles)
 
         location_gloss, spatial_info = self._get_location_marking(location_roles)
-
-
 
         subject_gloss = self._filter_function_words(subject_roles)
 
         subject_gloss = self._deduplicate_preserve_order(subject_gloss)
 
-
-
         object_gloss = self._filter_function_words(object_roles)
 
         object_gloss = self._deduplicate_preserve_order(object_gloss)
-
-
 
         verb_gloss = self._filter_function_words(verb_roles)
 
@@ -312,15 +266,11 @@ class ISLReorderer:
 
         verb_type = self._classify_verb(verb_gloss[0]) if verb_gloss else "plain"
 
-
-
         modifier_gloss = self._filter_function_words(modifier_roles)
 
         modifier_gloss = self._deduplicate_preserve_order(modifier_gloss)
 
-
-
-        # Detect and extract WH-words to put them at the very end of the sign gloss (standard ISL grammar)
+        
 
         wh_found = []
 
@@ -336,25 +286,17 @@ class ISLReorderer:
 
         wh_gloss = self._deduplicate_preserve_order(wh_found)
 
-
-
         question_marker = []
 
         negation_marker = []
-
-
 
         if is_question:
 
             question_marker = ["QUESTION"]
 
-
-
         if has_negation and verb_gloss:
 
          verb_gloss = [f"NOT-{v.upper()}" for v in verb_gloss]
-
-
 
         reordered_gloss = (
 
@@ -370,17 +312,13 @@ class ISLReorderer:
 
             + modifier_gloss
 
-            + wh_gloss          
+            + wh_gloss
 
             + question_marker
 
         )
 
-
-
         gloss_string = " ".join(reordered_gloss)
-
-
 
         grammatical_structure = {
 
@@ -456,8 +394,6 @@ class ISLReorderer:
 
         }
 
-
-
         isl_metadata = {
 
             "sign_language": "ISL",
@@ -474,8 +410,6 @@ class ISLReorderer:
 
         }
 
-
-
         return {
 
             "original_text": analysis.get("original_text", ""),
@@ -491,8 +425,6 @@ class ISLReorderer:
             "isl_metadata": isl_metadata
 
         }
-
-
 
 isl_reorderer = ISLReorderer(sign_language="ISL")
 

@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="bg-accent text-text-muted py-16 px-6">
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-          {/* Logo & Tagline */}
+          {}
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <div className="w-8 h-8 bg-white text-accent flex items-center justify-center rounded-sm font-bold text-lg">
@@ -23,7 +23,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Links */}
+          {}
           <div>
             <h4 className="text-white font-medium text-[15px] mb-6">Product</h4>
             <ul className="space-y-4 text-[14px]">

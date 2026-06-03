@@ -16,11 +16,11 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
-# Flan-T5 loader (lazy, singleton)
-# ---------------------------------------------------------------------------
 
-_pipeline = None  # HuggingFace text2text-generation pipeline
+
+
+
+_pipeline = None  
 
 def _get_pipeline():
     """Load Flan-T5 once and cache it."""
@@ -44,9 +44,9 @@ def _get_pipeline():
     return _pipeline
 
 
-# ---------------------------------------------------------------------------
-# Prompt template
-# ---------------------------------------------------------------------------
+
+
+
 
 PROMPT_TEMPLATE = """Extract semantic roles from the English sentence below and return a JSON object with these keys:
 subject, verb, object, indirect_object, time, location, modifier, negation, auxiliary, is_question, has_negation.
@@ -63,9 +63,9 @@ Sentence: {sentence}
 JSON:"""
 
 
-# ---------------------------------------------------------------------------
-# Parser for model output
-# ---------------------------------------------------------------------------
+
+
+
 
 _ROLE_KEYS = [
     "subject", "verb", "object", "indirect_object",
@@ -211,9 +211,9 @@ def _heuristic_roles(text: str) -> Dict[str, Any]:
     }
 
 
-# ---------------------------------------------------------------------------
-# Token-level helpers (lightweight, no spaCy needed)
-# ---------------------------------------------------------------------------
+
+
+
 
 def _tokenize(text: str) -> List[Dict[str, str]]:
     """Very simple whitespace tokenizer that returns token dicts."""
@@ -224,7 +224,7 @@ def _tokenize(text: str) -> List[Dict[str, str]]:
             tokens.append({
                 "text": clean,
                 "lemma": clean.lower(),
-                "pos": "NOUN",   # unknown without a tagger
+                "pos": "NOUN",   
                 "tag": "NN",
                 "dep": "dep",
                 "head": clean,
@@ -233,9 +233,9 @@ def _tokenize(text: str) -> List[Dict[str, str]]:
     return tokens
 
 
-# ---------------------------------------------------------------------------
-# Fallback analyzer (no model available)
-# ---------------------------------------------------------------------------
+
+
+
 
 _NEG_WORDS  = {"not", "no", "never", "none", "n't"}
 _TIME_WORDS = {
@@ -282,9 +282,9 @@ def _fallback_analyze(text: str) -> Dict[str, Any]:
     }
 
 
-# ---------------------------------------------------------------------------
-# Main analyzer class
-# ---------------------------------------------------------------------------
+
+
+
 
 class SemanticAnalyzer:
     """
@@ -297,12 +297,12 @@ class SemanticAnalyzer:
 
     def __init__(self, model_name: str = "google/flan-t5-base"):
         self.model_name = model_name
-        # Eagerly attempt to warm up the model so the first request is faster
+        
         self._pipe = _get_pipeline()
 
-    # ------------------------------------------------------------------
-    # Tense / aspect helpers (rule-based, no model needed)
-    # ------------------------------------------------------------------
+    
+    
+    
 
     @staticmethod
     def _detect_tense_from_text(text: str) -> str:
@@ -326,9 +326,9 @@ class SemanticAnalyzer:
             return "perfective"
         return "habitual"
 
-    # ------------------------------------------------------------------
-    # Core analysis
-    # ------------------------------------------------------------------
+    
+    
+    
 
     def analyze(self, text: str) -> Dict[str, Any]:
         """
@@ -376,9 +376,9 @@ class SemanticAnalyzer:
         }
 
 
-# ---------------------------------------------------------------------------
-# Module-level singletons (used by translation_service via `from analyzer import analyzer`)
-# ---------------------------------------------------------------------------
+
+
+
 
 _analyzer: Optional[SemanticAnalyzer] = None
 
@@ -394,5 +394,5 @@ def analyze_text(text: str) -> Dict[str, Any]:
     return get_analyzer().analyze(text)
 
 
-# Singleton instance imported directly by translation_service
+
 analyzer = SemanticAnalyzer()

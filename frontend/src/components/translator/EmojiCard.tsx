@@ -59,7 +59,7 @@ export default function EmojiCard({
           if (onAnimationComplete) {
             onAnimationComplete();
           }
-        }, 1200); // 1.2s display duration per card fallback
+        }, 1200); 
         return () => clearTimeout(timer);
       }
     }
@@ -80,10 +80,10 @@ export default function EmojiCard({
       )}
       aria-label={`${word} (${role})`}
     >
-      {/* Role Indicator Dot */}
+      {}
       <div className={cn("absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full", ROLE_COLORS[role])} />
 
-      {/* Media Content */}
+      {}
       <div className="my-3 flex items-center justify-center h-[60px] w-full">
         {animationData ? (
           <Lottie
@@ -103,7 +103,7 @@ export default function EmojiCard({
         )}
       </div>
 
-      {/* Word Label */}
+      {}
       <div className="text-center mt-2">
         <span className="block text-[14px] font-medium text-text-primary leading-tight">
           {word}
@@ -113,7 +113,7 @@ export default function EmojiCard({
         </span>
       </div>
 
-      {/* Progress Line (Active State) */}
+      {}
       {isActive && (
         <motion.div 
           layoutId="active-indicator"

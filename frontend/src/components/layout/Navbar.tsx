@@ -36,7 +36,7 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
+        {}
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 bg-accent text-white flex items-center justify-center rounded-sm font-bold text-lg transition-transform group-hover:scale-105">
             S
@@ -46,7 +46,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
+        {}
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <Link
@@ -62,7 +62,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Desktop Actions */}
+        {}
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="/translate"
@@ -73,7 +73,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {}
         <button
           className="md:hidden text-text-primary"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -82,7 +82,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div

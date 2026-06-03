@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface ConfidenceIndicatorProps {
-  score: number; // 0 to 1
+  score: number; 
 }
 
 export default function ConfidenceIndicator({ score }: ConfidenceIndicatorProps) {

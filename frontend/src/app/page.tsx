@@ -7,10 +7,10 @@ import { cn } from "@/lib/utils";
 export default function LandingPage() {
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
+      {}
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-20 px-6 bg-background overflow-hidden">
         <div className="max-w-[1200px] mx-auto flex flex-col items-center text-center">
-          {/* Badge */}
+          {}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-border rounded-full shadow-xs mb-10 transition-transform hover:scale-105">
             <span className="text-[13px] font-medium text-text-secondary flex items-center gap-2">
               🏆 <span className="hidden sm:inline">B.Tech NLP based project</span>
@@ -18,17 +18,17 @@ export default function LandingPage() {
             </span>
           </div>
 
-          {/* Headline */}
+          {}
           <h1 className="font-serif text-[48px] md:text-[64px] leading-[1.1] text-text-primary max-w-[700px] mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             Understanding Sign Language, Made Simple.
           </h1>
 
-          {/* Subheadline */}
+          {}
           <p className="text-[17px] md:text-[18px] text-text-secondary leading-[1.7] max-w-[520px] mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
             SignDecoder converts English text into sign language emoji sequences using advanced NLP — making communication accessible for everyone.
           </p>
 
-          {/* CTAs */}
+          {}
           <div className="flex flex-col sm:flex-row items-center gap-4 mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
             <Link
               href="/translate"
@@ -49,7 +49,7 @@ export default function LandingPage() {
             Free to use &middot; No account required
           </p>
 
-          {/* Hero Visual: Emoji Sequence */}
+          {}
           <div className="relative w-full max-w-[720px] animate-in fade-in zoom-in-95 duration-1000 delay-500">
             <div className="flex items-center justify-center flex-wrap gap-4 p-8 bg-white/50 border border-border rounded-lg shadow-lg backdrop-blur-sm">
               <EmojiCard index={0} emoji="⬅️" word="Yesterday" role="TIME" />
@@ -65,7 +65,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Social Proof / Partners */}
+      {}
       <section className="py-12 border-t border-b border-border bg-background">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 opacity-50 grayscale transition-all hover:grayscale-0 hover:opacity-100">
@@ -82,7 +82,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {}
       <section className="py-24 bg-surface-elevated">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -105,7 +105,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {}
       <section id="how-it-works" className="py-32 bg-white">
         <div className="max-w-[720px] mx-auto px-6">
           <div className="text-center mb-20">
@@ -128,7 +128,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Research Section */}
+      {}
       <section className="py-24 bg-white border-t border-border">
         <div className="max-w-[1000px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -155,7 +155,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {}
       <section className="py-24 bg-accent text-white text-center px-6">
         <h2 className="font-serif text-[42px] mb-8">Ready to start communicating?</h2>
         <Link

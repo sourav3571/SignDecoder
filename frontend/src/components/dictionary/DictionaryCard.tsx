@@ -5,7 +5,7 @@ interface DictionaryCardProps {
   word: string;
   emoji: string;
   category: string;
-  example: string;
+  example?: string;
   confidence?: number;
 }
 
@@ -26,11 +26,13 @@ export default function DictionaryCard({ word, emoji, category, example, confide
         {category}
       </span>
       
-      <div className="pt-4 border-t border-border">
-        <p className="text-[13px] text-text-secondary leading-relaxed italic">
-          "{example}"
-        </p>
-      </div>
+      {example && (
+        <div className="pt-4 border-t border-border">
+          <p className="text-[13px] text-text-secondary leading-relaxed italic">
+            "{example}"
+          </p>
+        </div>
+      )}
     </div>
   );
 }
