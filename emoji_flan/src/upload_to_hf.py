@@ -27,11 +27,26 @@ def main():
     repo_id = f"souravbehera3571/{repo_name}"
     
     # 3. Model directory
-    default_model_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models", "flan_emoji"))
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    default_model_dir = os.path.join(project_root, "models", "flan_emoji")
     model_dir = input(f"Enter model directory to upload [Default: {default_model_dir}]: ").strip()
     if not model_dir:
         model_dir = default_model_dir
         
+    if not os.path.exists(model_dir):
+        # Resolve path relative to the project root directory
+        cleaned_dir = model_dir.lstrip("/\\")
+        # Try both the root level and under emoji_flan
+        paths_to_try = [
+            os.path.abspath(os.path.join(project_root, cleaned_dir)),
+            os.path.abspath(os.path.join(project_root, "emoji_flan", cleaned_dir)),
+            os.path.abspath(os.path.join(project_root, "..", cleaned_dir))
+        ]
+        for p in paths_to_try:
+            if os.path.exists(p):
+                model_dir = p
+                break
+                
     if not os.path.exists(model_dir):
         print(f"Error: Model directory '{model_dir}' does not exist.")
         return
