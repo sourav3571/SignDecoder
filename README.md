@@ -1,4 +1,4 @@
-# SignSpeak - NLP-Powered Sign Language Translation
+# SignDecoder - NLP-Powered Sign Language Translation
 
 > **Turn Words Into Signs. Instantly.**
 
