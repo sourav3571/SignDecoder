@@ -11,6 +11,8 @@ from app.core.redis import get_redis
 from sqlalchemy import text
 
 logger = logging.getLogger(__name__)
+# FastAPI 0.110+ removed the legacy on_startup/on_shutdown params.
+# No lifecycle callbacks are needed for the health router, so we instantiate it plainly.
 router = APIRouter()
 
 class ServiceStatus(BaseModel):

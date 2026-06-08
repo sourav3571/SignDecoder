@@ -332,3 +332,43 @@ async def emoji_model_status():
         "models_dir": _models_dir,
         "hint":       "Send a POST /api/convert-to-emoji request to trigger model loading.",
     }
+
+
+from typing import List, Dict
+
+class ExploreRequest(BaseModel):
+    text: str
+
+class ExploreResponse(BaseModel):
+    success: bool = True
+    query: str
+    vector_slice: List[float]
+    neighbors: List[Dict]
+
+@router.post(
+    "/embeddings/explore",
+    response_model=ExploreResponse,
+    summary="Explore nearest neighbors in semantic projection space",
+)
+async def explore_embeddings(request: ExploreRequest) -> ExploreResponse:
+    try:
+        predictor = _get_predictor()
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail=str(exc),
+        )
+    
+    data = predictor.get_embedding_visualization_data(request.text)
+    if not data:
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to retrieve embedding visualization data from model.",
+        )
+        
+    return ExploreResponse(
+        success=True,
+        query=data["query"],
+        vector_slice=data["vector_slice"],
+        neighbors=data["neighbors"]
+    )

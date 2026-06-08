@@ -18,13 +18,25 @@ def main():
     with open(args.raw_dataset, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Process into cleaned input-output pairs
     processed_pairs = []
     seen = set()
     for item in raw_data:
         # Support both 'word' (raw text) and 'text_emoji_sequence' (bracketed labels)
-        word = item.get("word", "").strip().lower()
-        emoji_labels = item.get("text_emoji_sequence", "").strip()
+        word = item.get("word", "")
+        if not word:
+            word = item.get("input", "")
+        word = word.strip().lower()
+
+        cluster = item.get("cluster", "NEUTRAL")
+
+        emoji_labels = item.get("text_emoji_sequence", "")
+        if not emoji_labels and "output" in item:
+            output_val = item["output"]
+            if isinstance(output_val, list):
+                emoji_labels = " ".join(f"[{x}]" for x in output_val)
+            else:
+                emoji_labels = str(output_val)
+        emoji_labels = emoji_labels.strip()
 
         if not word or not emoji_labels:
             continue
@@ -33,8 +45,8 @@ def main():
         input_str = f"translate gloss to emoji: {word}"
         output_str = emoji_labels
 
-        if (input_str, output_str) not in seen:
-            seen.add((input_str, output_str))
+        if input_str not in seen:
+            seen.add(input_str)
             processed_pairs.append({
                 "input": input_str,
                 "output": output_str

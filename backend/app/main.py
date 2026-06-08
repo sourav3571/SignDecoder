@@ -38,8 +38,8 @@ async def lifespan(app: FastAPI):
         await init_redis()
         logger.info("✓ Redis cache ready")
 
-    except Exception as e:
-        logger.error(f"⚠ Redis initialization failed (continuing without cache): {e}")
+    except Exception:
+        logger.warning("⚠ Redis initialization skipped (continuing without cache)")
 
     logger.info("═" * 60)
     logger.info("✓ SignSpeak API is running!")
@@ -98,3 +98,7 @@ app.include_router(translate.router, prefix=settings.API_V1_STR)
 
 from app.api.routes import emoji_routes          
 app.include_router(emoji_routes.router)
+
+from app.api.routes import embeddings as embeddings_routes
+app.include_router(embeddings_routes.router)
+

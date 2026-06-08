@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def create_async_db_engine(database_url: str):
     return create_async_engine(
         database_url,
-        echo=settings.DEBUG,
+        echo=False,
         poolclass=NullPool,
         connect_args={"timeout": 10},
     )

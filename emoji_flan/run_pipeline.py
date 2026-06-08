@@ -80,6 +80,22 @@ def main():
                 print(f"  Copied {f_name}")
             else:
                 print(f"  Warning: {f_name} not found in output directory")
+                
+        # Also copy semantic projection files
+        proj_files = ["semantic_projection.pt", "learned_embeddings.pt"]
+        src_proj_dir = os.path.join(_HERE, "models")
+        for f_name in proj_files:
+            src_f = os.path.join(src_proj_dir, f_name)
+            if not os.path.exists(src_f):
+                # Check args.model_dir fallback
+                src_f = os.path.join(args.model_dir, f_name)
+            
+            dst_f = os.path.join(backend_model_dir, f_name)
+            if os.path.exists(src_f):
+                shutil.copy2(src_f, dst_f)
+                print(f"  Copied {f_name}")
+            else:
+                print(f"  Warning: {f_name} not found in models folder")
 
     # 4. Print Training Summary
     print("\n" + "=" * 50)

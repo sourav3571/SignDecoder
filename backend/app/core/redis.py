@@ -22,7 +22,7 @@ async def init_redis():
         await redis_client.ping()
         logger.info("✓ Redis connection established")
     except Exception as e:
-        logger.error(f"✗ Failed to connect to Redis: {e}")
+        logger.warning(f"⚠ Redis connection not available: {e}")
         raise
 
 async def close_redis():

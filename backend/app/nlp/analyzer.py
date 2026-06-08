@@ -21,21 +21,39 @@ logger = logging.getLogger(__name__)
 
 
 _pipeline = None  
+_is_test_model = False
 
 def _get_pipeline():
     """Load Flan-T5 once and cache it."""
-    global _pipeline
+    global _pipeline, _is_test_model
     if _pipeline is not None:
         return _pipeline
 
     try:
         from transformers import pipeline as hf_pipeline
-        logger.info("Loading google/flan-t5-base …")
-        _pipeline = hf_pipeline(
-            "text2text-generation",
-            model="google/flan-t5-base",
-            max_new_tokens=256,
-        )
+        import os
+        _here = os.path.dirname(os.path.abspath(__file__)) # backend/app/nlp
+        model_path = os.path.abspath(os.path.join(_here, "..", "..", "models", "emoji_ml", "Test"))
+        
+        if not os.path.exists(model_path):
+            model_path = r"d:\SignDecoder\backend\models\emoji_ml\Test"
+            
+        if os.path.exists(model_path):
+            logger.info(f"Loading local T5 model from {model_path} …")
+            _pipeline = hf_pipeline(
+                "text2text-generation",
+                model=model_path,
+                max_new_tokens=256,
+            )
+            _is_test_model = True
+        else:
+            logger.info("Local Test model path not found, loading google/flan-t5-base …")
+            _pipeline = hf_pipeline(
+                "text2text-generation",
+                model="google/flan-t5-base",
+                max_new_tokens=256,
+            )
+            _is_test_model = False
         logger.info("✓ Flan-T5 loaded successfully")
     except Exception as e:
         logger.error(f"✗ Failed to load Flan-T5: {e}")
@@ -335,12 +353,80 @@ class SemanticAnalyzer:
         Run Flan-T5 semantic analysis on *text*.
         Falls back to rule-based if the model is unavailable.
         """
+        global _is_test_model
         if self._pipe is None:
             self._pipe = _get_pipeline()
 
         if self._pipe is None:
             logger.warning("Flan-T5 unavailable — using rule-based fallback.")
             return _fallback_analyze(text)
+
+        if _is_test_model:
+            try:
+                # 1. POS Tagging
+                prompt_pos = f"Please tag grammatical parts: {text}"
+                pos_tags = self._pipe(prompt_pos, do_sample=False, max_new_tokens=128)[0]["generated_text"].strip()
+                logger.info(f"Test model POS tags output: {pos_tags}")
+                
+                # 2. ISL Translation
+                prompt_isl = f"translate english to isl: sentence: {text} | {pos_tags}"
+                isl_gloss = self._pipe(prompt_isl, do_sample=False, max_new_tokens=128)[0]["generated_text"].strip()
+                logger.info(f"Test model ISL translation output: {isl_gloss}")
+                
+                # Parse POS tags to populate semantic roles
+                roles = {
+                    "subject": [], "verb": [], "object": [], "indirect_object": [],
+                    "time": [], "location": [], "negation": [], "auxiliary": [], "modifier": [],
+                }
+                
+                # POS tag format is typically: word/TAG word/TAG ...
+                # Let's parse it safely
+                pos_pattern = re.compile(r"([^\s/]+)/([^\s/]+)")
+                matches = pos_pattern.findall(pos_tags)
+                
+                is_question = text.rstrip().endswith("?")
+                has_negation = False
+                
+                for word, tag in matches:
+                    tag_lower = tag.lower()
+                    word_clean = word.strip().lower()
+                    if tag_lower in ("noun", "pronoun", "subject"):
+                        if not roles["subject"]:
+                            roles["subject"].append(word_clean)
+                        else:
+                            roles["object"].append(word_clean)
+                    elif tag_lower in ("verb", "action"):
+                        roles["verb"].append(word_clean)
+                    elif tag_lower in ("negation", "neg"):
+                        roles["negation"].append(word_clean)
+                        has_negation = True
+                    elif tag_lower in ("time", "temporal"):
+                        roles["time"].append(word_clean)
+                    elif tag_lower in ("location", "spatial", "place"):
+                        roles["location"].append(word_clean)
+                    elif tag_lower in ("question", "query"):
+                        is_question = True
+                    else:
+                        roles["modifier"].append(word_clean)
+                        
+                tense = self._detect_tense_from_text(text)
+                aspect = self._detect_aspect_from_text(text)
+                
+                return {
+                    "original_text": text,
+                    "tokens": _tokenize(text),
+                    "entities": [],
+                    "semantic_roles": roles,
+                    "is_question": is_question,
+                    "tense": tense,
+                    "aspect": aspect,
+                    "has_negation": has_negation,
+                    "model_used": "local-isl-t5-test-model",
+                    "analysis_timestamp": datetime.utcnow().isoformat(),
+                    "isl_gloss_override": isl_gloss
+                }
+            except Exception as e:
+                logger.error(f"Error running local Test model: {e}; falling back to standard prompt.")
 
         prompt = PROMPT_TEMPLATE.format(sentence=text)
 

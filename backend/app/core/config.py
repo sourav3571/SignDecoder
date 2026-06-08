@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     MONGODB_URL: str = "mongodb://mongo:27017"
     MONGODB_DB_NAME: str = "signspeak_db"
 
-    REDIS_URL: str = "redis://redis:6379/0"
+    REDIS_URL: str = "redis://localhost:6379/0"
     REDIS_CACHE_TTL: int = 3600  
 
     PINECONE_API_KEY: Optional[str] = None

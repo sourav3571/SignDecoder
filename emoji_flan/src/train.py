@@ -3,8 +3,8 @@ import sys
 import json
 import argparse
 import torch
-
-
+import torch.nn.functional as F
+import numpy as np
 
 from datasets import load_dataset
 from transformers import (
@@ -16,6 +16,76 @@ from transformers import (
     TrainerCallback
 )
 
+# No hardcoded cluster names or lists as per embedding-driven requirement
+
+class CustomDataCollator(DataCollatorForSeq2Seq):
+    def __call__(self, features, return_tensors=None):
+        sem_embs = {}
+        for key in ["input_sem_emb", "output_sem_emb"]:
+            if features and key in features[0]:
+                sem_embs[key] = torch.tensor([f[key] for f in features], dtype=torch.float32)
+                for f in features:
+                    f.pop(key, None)
+        batch = super().__call__(features, return_tensors=return_tensors)
+        for key, val in sem_embs.items():
+            batch[key] = val
+        return batch
+
+class CustomSeq2SeqTrainer(Seq2SeqTrainer):
+    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
+        # Pop semantic embeddings so they don't go to model forward pass
+        input_sem_emb = inputs.pop("input_sem_emb", None)
+        output_sem_emb = inputs.pop("output_sem_emb", None)
+        
+        # Forward pass
+        outputs = model(**inputs)
+        loss = outputs.loss
+        
+        # Auxiliary loss for embedding alignment
+        if model.training and input_sem_emb is not None and output_sem_emb is not None:
+            encoder_hidden = getattr(outputs, "encoder_last_hidden_state", None)
+            if encoder_hidden is not None:
+                # Mean pool using attention_mask
+                attention_mask = inputs.get("attention_mask", None)
+                if attention_mask is not None:
+                    mask = attention_mask.unsqueeze(-1).expand_as(encoder_hidden).float()
+                    sum_embeddings = torch.sum(encoder_hidden * mask, dim=1)
+                    sum_mask = torch.clamp(mask.sum(dim=1), min=1e-9)
+                    t5_embeddings = sum_embeddings / sum_mask
+                else:
+                    t5_embeddings = encoder_hidden.mean(dim=1)
+                
+                # Get base model to access projector if using PEFT model wrapping
+                active_model = model
+                if hasattr(model, "base_model") and hasattr(model.base_model, "model"):
+                    active_model = model.base_model.model
+                
+                # Project T5 embeddings
+                proj_t5 = active_model.sem_projector(t5_embeddings)
+                
+                # Normalize for cosine similarity
+                norm_t5 = F.normalize(proj_t5, p=2, dim=-1)
+                norm_st = F.normalize(output_sem_emb, p=2, dim=-1)
+                
+                # Cosine similarity matrix: (batch_size, batch_size)
+                sim_matrix = torch.matmul(norm_t5, norm_st.t())
+                
+                # InfoNCE loss: maximize diagonal, minimize off-diagonals
+                batch_size = norm_t5.size(0)
+                targets = torch.arange(batch_size, device=model.device)
+                temp = 0.07
+                
+                loss_i2o = F.cross_entropy(sim_matrix / temp, targets)
+                loss_o2i = F.cross_entropy(sim_matrix.t() / temp, targets)
+                contrastive_loss = (loss_i2o + loss_o2i) / 2.0
+                
+                # Add auxiliary loss weight
+                alpha = 0.1
+                loss = loss + alpha * contrastive_loss
+                
+        return (loss, outputs) if return_outputs else loss
+
+
 class EpochInferenceCallback(TrainerCallback):
     def __init__(self, model, tokenizer, device):
         self.model = model
@@ -23,6 +93,8 @@ class EpochInferenceCallback(TrainerCallback):
         self.device = device
         self.last_train_loss = "N/A"
         self.last_eval_loss = "N/A"
+        self.last_eval_acc = "N/A"
+        self.last_eval_overlap = "N/A"
 
     def on_log(self, args, state, control, logs=None, **kwargs):
         if logs is not None:
@@ -32,12 +104,20 @@ class EpochInferenceCallback(TrainerCallback):
             if "eval_loss" in logs:
                 self.last_eval_loss = f"{logs['eval_loss']:.4f}"
                 print(f"  [Step {state.global_step}] Eval Loss: {self.last_eval_loss}")
+            if "eval_accuracy" in logs:
+                self.last_eval_acc = f"{logs['eval_accuracy']*100:.2f}%"
+                print(f"  [Step {state.global_step}] Eval Accuracy (EM): {self.last_eval_acc}")
+            if "eval_token_overlap" in logs:
+                self.last_eval_overlap = f"{logs['eval_token_overlap']*100:.2f}%"
+                print(f"  [Step {state.global_step}] Eval Token Overlap: {self.last_eval_overlap}")
 
     def on_epoch_end(self, args, state, control, **kwargs):
         print(f"\n" + "="*60)
         print(f"📊 EPOCH {state.epoch:.0f} STATUS SUMMARY")
-        print(f"  Training Loss   : {self.last_train_loss}")
-        print(f"  Validation Loss : {self.last_eval_loss}")
+        print(f"  Training Loss      : {self.last_train_loss}")
+        print(f"  Validation Loss    : {self.last_eval_loss}")
+        print(f"  Validation Acc (EM): {self.last_eval_acc}")
+        print(f"  Val Token Overlap  : {self.last_eval_overlap}")
         print("="*60)
         print("🔮 Intermediate Test Predictions:")
         
@@ -64,8 +144,8 @@ if hasattr(sys.stdout, "reconfigure"):
 
 def main():
     parser = argparse.ArgumentParser(description="Fine-tune FLAN-T5-base for emoji prediction.")
-    parser.add_argument("--train_path", type=str, default="data/train.json", help="Path to train JSON file")
-    parser.add_argument("--val_path", type=str, default="data/val.json", help="Path to val JSON file")
+    parser.add_argument("--train_path", type=str, default="emoji_flan/data/train.json", help="Path to train JSON file")
+    parser.add_argument("--val_path", type=str, default="emoji_flan/data/val.json", help="Path to val JSON file")
     parser.add_argument("--epochs", type=int, default=5, help="Number of training epochs")
     parser.add_argument("--batch_size", type=int, default=8, help="Batch size per device")
     parser.add_argument("--lr", type=float, default=3e-4, help="Learning rate")
@@ -152,6 +232,10 @@ def main():
             if lm_weights is not None:
                 model.lm_head.weight[-added:] = lm_weights
         print("Semantic initialization of new token embeddings complete.")
+        
+        # Attach semantic projection layer for embedding alignment before wrapping with PEFT
+        print("Attaching semantic projection layer for embedding alignment...")
+        model.sem_projector = torch.nn.Linear(model.config.d_model, 384)
             
     # 2. Configure PEFT / LoRA
     print("\n>>> Wrapping model with LoRA...")
@@ -165,7 +249,6 @@ def main():
         print("Is encoder.embed_tokens model.shared?", model.encoder.embed_tokens is model.shared)
         print("Is decoder.embed_tokens model.shared?", model.decoder.embed_tokens is model.shared)
         print("Is encoder.embed_tokens model.lm_head?", model.encoder.embed_tokens is model.lm_head)
-        
         peft_kwargs = {
             "task_type": TaskType.SEQ_2_SEQ_LM,
             "inference_mode": False,
@@ -173,7 +256,7 @@ def main():
             "lora_alpha": 64,
             "lora_dropout": 0.1,
             "target_modules": ["q", "v", "k", "o", "wi_0", "wi_1", "wo"],
-            "modules_to_save": ["shared", "lm_head"], # Crucial: saves the newly learned token embeddings inside the LoRA adapter!
+            "modules_to_save": ["shared", "lm_head", "sem_projector"], # Crucial: saves the newly learned token embeddings and projection layer inside the LoRA adapter!
         }
         
         if "ensure_weight_tying" in inspect.signature(LoraConfig.__init__).parameters:
@@ -209,6 +292,23 @@ def main():
     data_files = {"train": args.train_path, "validation": args.val_path}
     dataset = load_dataset("json", data_files=data_files)
     
+    # Precompute sentence transformer embeddings for InfoNCE loss
+    print("\n>>> Loading SentenceTransformer for semantic alignment...")
+    from sentence_transformers import SentenceTransformer
+    st_model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
+    
+    # Extract unique inputs and outputs to encode efficiently
+    print("Pre-encoding inputs and outputs...")
+    all_inputs = list(set(list(dataset["train"]["input"]) + list(dataset["validation"]["input"])))
+    all_outputs = list(set(list(dataset["train"]["output"]) + list(dataset["validation"]["output"])))
+    
+    # Encode
+    input_embs = st_model.encode(all_inputs, show_progress_bar=True, convert_to_tensor=False)
+    output_embs = st_model.encode(all_outputs, show_progress_bar=True, convert_to_tensor=False)
+    
+    input_emb_dict = dict(zip(all_inputs, input_embs))
+    output_emb_dict = dict(zip(all_outputs, output_embs))
+    
     # Tokenization preprocessing function
     def preprocess_function(examples):
         model_inputs = tokenizer(
@@ -232,6 +332,11 @@ def main():
             label_ids.append(clean_ids)
             
         model_inputs["labels"] = label_ids
+        
+        # Add semantic embeddings
+        model_inputs["input_sem_emb"] = [input_emb_dict[inp] for inp in examples["input"]]
+        model_inputs["output_sem_emb"] = [output_emb_dict[out] for out in examples["output"]]
+
         return model_inputs
         
     tokenized_datasets = dataset.map(
@@ -241,7 +346,7 @@ def main():
     )
     
     # Data collator
-    data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
+    data_collator = CustomDataCollator(tokenizer, model=model)
     
     # Training Arguments: Optimize for GPU/CPU resources
     use_bf16 = False
@@ -278,13 +383,50 @@ def main():
         gradient_accumulation_steps=args.gradient_accumulation,
         logging_steps=10,
         load_best_model_at_end=True,
-        metric_for_best_model="eval_loss", # Changed from loss to eval_loss to prevent overfitting
-        greater_is_better=False,
+        metric_for_best_model="accuracy", # Save the model with the highest validation Exact Match accuracy
+        greater_is_better=True,
         report_to="none"
     )
     
     # Trainer
     test_callback = EpochInferenceCallback(model, tokenizer, device)
+    
+    def compute_metrics(eval_preds):
+        preds, labels = eval_preds
+        if isinstance(preds, tuple):
+            preds = preds[0]
+        
+        # Replace negative token ids (like -100) in preds and labels with pad_token_id
+        preds = np.where(preds >= 0, preds, tokenizer.pad_token_id)
+        labels = np.where(labels >= 0, labels, tokenizer.pad_token_id)
+        
+        decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
+        decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
+        
+        clean_preds = [p.strip() for p in decoded_preds]
+        clean_labels = [l.strip() for l in decoded_labels]
+        
+        correct = sum(1 for p, l in zip(clean_preds, clean_labels) if p == l)
+        em_accuracy = correct / len(clean_labels) if len(clean_labels) > 0 else 0.0
+        
+        overlaps = []
+        for p, l in zip(clean_preds, clean_labels):
+            p_toks = p.split()
+            l_toks = l.split()
+            if not p_toks and not l_toks:
+                overlaps.append(1.0)
+            elif not p_toks or not l_toks:
+                overlaps.append(0.0)
+            else:
+                p_set = set(p_toks)
+                l_set = set(l_toks)
+                overlaps.append(len(p_set & l_set) / len(p_set | l_set))
+        token_overlap = sum(overlaps) / len(overlaps) if overlaps else 0.0
+        
+        return {
+            "accuracy": em_accuracy,
+            "token_overlap": token_overlap
+        }
     
     import inspect
     trainer_kwargs = {
@@ -293,15 +435,16 @@ def main():
         "train_dataset": tokenized_datasets["train"],
         "eval_dataset": tokenized_datasets["validation"],
         "data_collator": data_collator,
+        "compute_metrics": compute_metrics,
         "callbacks": [test_callback]
     }
-    sig = inspect.signature(Seq2SeqTrainer.__init__)
+    sig = inspect.signature(CustomSeq2SeqTrainer.__init__)
     if "processing_class" in sig.parameters:
         trainer_kwargs["processing_class"] = tokenizer
     else:
         trainer_kwargs["tokenizer"] = tokenizer
 
-    trainer = Seq2SeqTrainer(**trainer_kwargs)
+    trainer = CustomSeq2SeqTrainer(**trainer_kwargs)
     
     # Train
     print("Training model...")

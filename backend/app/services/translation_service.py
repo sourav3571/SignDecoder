@@ -17,6 +17,25 @@ if _models_dir not in sys.path:
 
 logger = logging.getLogger(__name__)
 
+GLOSS_TO_EMOJI_HEURISTIC = {
+    "I": "👤", "ME": "👤", "MY": "👤", "SELF": "👤",
+    "YOU": "👋", "YOUR": "👋", "HE": "👉", "SHE": "👉", "HIM": "👉", "HER": "👉",
+    "WE": "👥", "THEY": "👥", "US": "👥", "THEM": "👥",
+    "YESTERDAY": "🗓️", "TODAY": "📅", "TOMORROW": "📆",
+    "MORNING": "☀️", "NIGHT": "🌙", "AFTERNOON": "🌤️", "EVENING": "🌇",
+    "HOME": "🏠", "HOUSE": "🏠", "SCHOOL": "🏫", "OFFICE": "🏢", "HOSPITAL": "🏥",
+    "BANK": "🏦", "STORE": "🏪", "PARK": "🌳", "KITCHEN": "🍳",
+    "EAT": "😋", "ATE": "😋", "GO": "🏃", "WENT": "🏃", "RUN": "🏃", "PLAY": "⚽",
+    "COOK": "🧑‍🍳", "DRINK": "🥛", "SLEEP": "😴", "WALK": "🚶", "DRIVE": "🚗",
+    "GIVE": "🤲", "WANT": "🥺", "LIKE": "👍", "LOVE": "❤️", "TAKE": "🤲",
+    "SEE": "👁️", "KNOW": "🧠",
+    "PIZZA": "🍕", "BURGER": "🍔", "FOOD": "🍕", "WATER": "💧", "MILK": "🥛",
+    "FAMILY": "👨‍👩‍👧‍👦", "NO": "❌", "NOT": "❌", "NEVER": "❌", "QUESTION": "🤔",
+    "HELLO": "👋", "PLEASE": "🙏", "HAPPY": "😊", "SAD": "😔",
+    "BEAUTIFUL": "✨", "NATURE": "🌲",
+}
+
+
 class TranslationService:
     @staticmethod
     def translate(request: TranslationRequest) -> TranslationResponse:
@@ -67,61 +86,204 @@ class TranslationService:
         
         gloss_string = " ".join(gloss_sequence)
         
-        # ── STAGE 4: FLAN-T5 model prediction ──
-        predicted_emoji_str = ""
-        raw_ml_prediction = ""
+        # Initialize predictor early if available
         predictor_available = False
+        predictor = None
         try:
             from emoji_ml.inference import EmojiPredictor
             predictor = EmojiPredictor()
             if predictor.model_available:
                 predictor_available = True
+        except Exception as e:
+            logger.warning(f"Failed to load EmojiPredictor: {e}")
+
+        # Determine any OOV words in the input gloss sequence and map them
+        oov_replacements = {}
+        resolved_gloss_sequence = []
+        
+        for word in gloss_sequence:
+            word_upper = word.upper()
+            if word_upper in GLOSS_TO_EMOJI_HEURISTIC:
+                resolved_gloss_sequence.append(word_upper)
+            else:
+                # OOV word, try to find nearest neighbor in vocab
+                replaced = False
+                if predictor_available and predictor is not None:
+                    try:
+                        nearest = predictor.find_nearest_glosses(word_upper, k=3)
+                        if nearest:
+                            top_match = nearest[0]
+                            if top_match.get("similarity", 0) >= 0.35:
+                                replacement_gloss = top_match["word"].upper()
+                                resolved_gloss_sequence.append(replacement_gloss)
+                                oov_replacements[word_upper] = {
+                                    "replacement": replacement_gloss,
+                                    "nearest_neighbors": nearest
+                                }
+                                replaced = True
+                    except Exception as e:
+                        logger.error(f"Error resolving OOV word {word_upper} via embeddings: {e}")
+                
+                if not replaced:
+                    resolved_gloss_sequence.append(word_upper)
+
+        # Re-build the gloss string with OOV resolved words
+        gloss_string = " ".join(resolved_gloss_sequence)
+
+        # ── STAGE 4: FLAN-T5 model prediction ──
+        predicted_emoji_str = ""
+        raw_ml_prediction = ""
+        semantic_cluster = "NEUTRAL"
+        cluster_confidence = 0.5
+        
+        if predictor_available and predictor is not None:
+            try:
                 prediction = predictor.predict(gloss_string)
+                semantic_cluster = prediction.get("semantic_cluster", "NEUTRAL")
+                cluster_confidence = prediction.get("cluster_confidence", 0.5)
                 predicted_emoji_str = prediction.get("emoji", "")
                 raw_ml_prediction = prediction.get("raw_prediction", "")
-        except Exception as e:
-            logger.warning(f"Failed to load or run EmojiPredictor: {e}")
+            except Exception as e:
+                logger.warning(f"Failed to run EmojiPredictor prediction: {e}")
 
-        # Split predicted emoji string to align 1-to-1 with gloss sequence
-        predicted_emoji_tokens = predicted_emoji_str.strip().split() if predicted_emoji_str else []
+        # Parse the raw ML prediction bracketed tokens to build visual representation cards
+        card_sequence = []
+        if raw_ml_prediction:
+            import re
+            ml_tokens = re.findall(r"\[([^\]]+)\]", raw_ml_prediction)
+            if not ml_tokens:
+                ml_tokens = [t.strip() for t in raw_ml_prediction.split() if t.strip()]
+            card_sequence = [t.strip().upper() for t in ml_tokens if t.strip()]
         
+        # Fallback to resolved gloss sequence if ML output is empty/missing
+        if not card_sequence:
+            card_sequence = resolved_gloss_sequence
+
         mapped_emojis = []
-        if predictor_available and len(predicted_emoji_tokens) == len(gloss_sequence):
-            for i, word in enumerate(gloss_sequence):
-                mapped_emojis.append({
-                    "word": word,
-                    "emoji": predicted_emoji_tokens[i],
-                    "confidence": 0.9,
-                    "method": "ml-model",
-                    "category": "object",
-                    "alternatives": [],
-                    "lottie_file": None,
-                })
-        else:
-            # If lengths don't match, try word-by-word prediction or fall back
-            for word in gloss_sequence:
+        is_from_ml = bool(raw_ml_prediction)
+        
+        for word in card_sequence:
+            word_upper = word.upper()
+            word_lower = word.lower()
+            nearest_glosses = []
+            
+            # Check if this word was a replacement for an OOV word (primarily for fallback/dictionary mapping)
+            original_word = word_upper
+            is_replacement = False
+            for orig_oov, info in oov_replacements.items():
+                if info["replacement"] == word_upper:
+                    original_word = orig_oov
+                    nearest_glosses = info["nearest_neighbors"]
+                    is_replacement = True
+                    break
+            
+            single_emoji = ""
+            method = "none"
+            confidence = 1.0
+
+            # 1. If prediction came from the ML model, map the bracketed token directly to local dictionary
+            if is_from_ml and predictor_available and predictor is not None:
+                single_emoji = predictor.label_to_emoji.get(word_lower, "")
+                if not single_emoji:
+                    # Try partial split match (e.g. food_consumption -> food)
+                    for key, val in predictor.label_to_emoji.items():
+                        if key.split("_")[0] == word_lower:
+                            single_emoji = val
+                            break
+                if single_emoji:
+                    mapped_emojis.append({
+                        "word": word_upper,
+                        "emoji": single_emoji,
+                        "confidence": 0.95,
+                        "method": "ml-model",
+                        "category": "object",
+                        "alternatives": [],
+                        "lottie_file": None,
+                        "nearest_neighbors": None
+                    })
+                    continue
+
+            # 2. Fallback to normal dictionary lookup & proximity mapping
+            if word_upper in GLOSS_TO_EMOJI_HEURISTIC:
+                single_emoji = GLOSS_TO_EMOJI_HEURISTIC[word_upper]
+                method = "semantic-proximity" if is_replacement else "dictionary-heuristic"
+                confidence = 0.95
+            else:
                 single_emoji = ""
                 method = "none"
                 confidence = 1.0
-                if predictor_available:
+                
+                # Check semantic proximity
+                if predictor_available and predictor is not None:
+                    try:
+                        nearest = predictor.find_nearest_glosses(word_upper, k=3)
+                        if nearest:
+                            if not nearest_glosses:
+                                nearest_glosses = nearest
+                            top_match = nearest[0]
+                            if top_match.get("similarity", 0) >= 0.35:
+                                single_emoji = top_match["emoji"]
+                                method = "semantic-proximity"
+                                confidence = round(top_match["similarity"], 2)
+                    except Exception as e:
+                        logger.error(f"Error in semantic proximity lookup for card {word_upper}: {e}")
+                
+                # Fallback to individual ML prediction if semantic proximity failed
+                if not single_emoji and predictor_available and predictor is not None:
                     try:
                         single_pred = predictor.predict(word)
                         single_emoji = single_pred.get("emoji", "").strip()
                         if single_emoji:
+                            # Deduplicate identical consecutive emojis
+                            tokens = single_emoji.split()
+                            deduped = []
+                            for t in tokens:
+                                if not deduped or deduped[-1] != t:
+                                    deduped.append(t)
+                            single_emoji = " ".join(deduped)
                             method = "ml-fallback-word"
                             confidence = 0.7
                     except Exception:
                         pass
-                
-                mapped_emojis.append({
-                    "word": word,
-                    "emoji": single_emoji,
-                    "confidence": confidence,
-                    "method": method,
-                    "category": "object",
-                    "alternatives": [],
-                    "lottie_file": None,
-                })
+            
+            mapped_emojis.append({
+                "word": original_word,
+                "emoji": single_emoji or "❓",
+                "confidence": confidence,
+                "method": method,
+                "category": "object",
+                "alternatives": [n["word"] for n in nearest_glosses] if nearest_glosses else [],
+                "lottie_file": None,
+                "nearest_neighbors": nearest_glosses if nearest_glosses else None
+            })
+
+        # Separate out OOV replacements to pass in `oov_sequence` response field
+        oov_cards = []
+        for orig_oov, info in oov_replacements.items():
+            replacement = info["replacement"]
+            replacement_emoji = ""
+            if predictor_available and predictor is not None:
+                replacement_emoji = predictor.label_to_emoji.get(replacement.lower(), "")
+                if not replacement_emoji:
+                    for key, val in predictor.label_to_emoji.items():
+                        if key.split("_")[0] == replacement.lower():
+                            replacement_emoji = val
+                            break
+            if not replacement_emoji:
+                replacement_emoji = GLOSS_TO_EMOJI_HEURISTIC.get(replacement, "")
+            
+            oov_cards.append(
+                EmojiCard(
+                    word=orig_oov,
+                    emoji=replacement_emoji or "❓",
+                    confidence=round(info["nearest_neighbors"][0]["similarity"], 2) if info["nearest_neighbors"] else 0.95,
+                    method="semantic-proximity",
+                    alternatives=[n["word"] for n in info["nearest_neighbors"]] if info["nearest_neighbors"] else [],
+                    lottie_file=None,
+                    semantic_role="OBJECT",
+                    nearest_neighbors=info["nearest_neighbors"]
+                )
+            )
 
         emoji_display = " ".join([m["emoji"] for m in mapped_emojis if m["emoji"]])
 
@@ -207,6 +369,7 @@ class TranslationService:
                 alternatives=m["alternatives"],
                 lottie_file=m["lottie_file"],
                 semantic_role=_resolve_role(m["word"]),
+                nearest_neighbors=m.get("nearest_neighbors"),
             )
             for m in mapped_emojis
         ]
@@ -234,6 +397,17 @@ class TranslationService:
 
         logger.info(f"Translation complete in {processing_time_ms}ms (ISL: {CURRENT_SIGN_LANGUAGE})")
 
+        vector_slice = None
+        neighbors = None
+        if predictor_available:
+            try:
+                vis_data = predictor.get_embedding_visualization_data(request.text)
+                if vis_data:
+                    vector_slice = vis_data.get("vector_slice")
+                    neighbors = vis_data.get("neighbors")
+            except Exception as e:
+                logger.error(f"Error fetching embedding visualization data in TranslationService: {e}")
+
         return TranslationResponse(
             original_text=request.text,
             preprocessed_text=cleaned_text,
@@ -244,5 +418,13 @@ class TranslationService:
             processing_time_ms=processing_time_ms,
             analysis=analysis_data,
             raw_ml_prediction=raw_ml_prediction if predictor_available else None,
-            warnings=[]
+            warnings=[],
+            semantic_cluster=semantic_cluster,
+            cluster_confidence=cluster_confidence,
+            vector_slice=vector_slice,
+            neighbors=neighbors,
+            oov_sequence=oov_cards
         )
+
+# Trigger reload: Updated OOV mapping synonym booster dictionary v2 (2026-06-07).
+

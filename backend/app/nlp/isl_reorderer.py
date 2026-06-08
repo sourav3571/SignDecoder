@@ -294,29 +294,22 @@ class ISLReorderer:
 
             question_marker = ["QUESTION"]
 
-        if has_negation and verb_gloss:
-
-         verb_gloss = [f"NOT-{v.upper()}" for v in verb_gloss]
-
-        reordered_gloss = (
-
-            time_gloss
-
-            + location_gloss
-
-            + subject_gloss
-
-            + object_gloss
-
-            + verb_gloss
-
-            + modifier_gloss
-
-            + wh_gloss
-
-            + question_marker
-
-        )
+        if "isl_gloss_override" in analysis:
+            isl_gloss = analysis["isl_gloss_override"]
+            reordered_gloss = [w.strip().upper() for w in isl_gloss.split() if w.strip()]
+        else:
+            if has_negation and verb_gloss:
+                verb_gloss = [f"NOT-{v.upper()}" for v in verb_gloss]
+            reordered_gloss = (
+                time_gloss
+                + location_gloss
+                + subject_gloss
+                + object_gloss
+                + verb_gloss
+                + modifier_gloss
+                + wh_gloss
+                + question_marker
+            )
 
         gloss_string = " ".join(reordered_gloss)
 

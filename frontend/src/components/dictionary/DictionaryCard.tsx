@@ -13,7 +13,17 @@ export default function DictionaryCard({ word, emoji, category, example, confide
   return (
     <div className="bg-white border border-border rounded-md p-6 shadow-sm hover:shadow-md transition-all duration-300 group">
       <div className="flex justify-between items-start mb-4">
-        <span className="text-[40px]" role="img">{emoji}</span>
+        <div className="flex items-center gap-2 flex-wrap max-w-[70%]">
+          {(emoji || "").split(/\s+/).filter(Boolean).map((em, idx) => (
+            <span 
+              key={idx} 
+              className={(emoji || "").split(/\s+/).filter(Boolean).length >= 3 ? "text-[30px]" : "text-[40px]"} 
+              role="img"
+            >
+              {em}
+            </span>
+          ))}
+        </div>
         <div className="px-2 py-1 bg-success/10 text-success text-[10px] font-bold rounded-full uppercase tracking-wider">
           {Math.round(confidence * 100)}% Match
         </div>

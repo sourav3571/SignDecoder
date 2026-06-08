@@ -1,1674 +1,2010 @@
 [
   {
-    "input": "translate gloss to emoji: write pencil paper",
-    "output": "[writing] [pencil] [paper]"
+    "input": "translate gloss to emoji: forehand",
+    "output": "[dominant_hand_hit] [forward_stroke]"
   },
   {
-    "input": "translate gloss to emoji: rain over umbrella",
-    "output": "[rain] [umbrella]"
+    "input": "translate gloss to emoji: give",
+    "output": "[give_action]"
   },
   {
-    "input": "translate gloss to emoji: nurse",
-    "output": "[healthcare_professional]"
+    "input": "translate gloss to emoji: dentistry",
+    "output": "[teeth] [dental_care]"
   },
   {
-    "input": "translate gloss to emoji: theater",
-    "output": "[performance]"
+    "input": "translate gloss to emoji: sister",
+    "output": "[female_sibling] [family_female]"
   },
   {
-    "input": "translate gloss to emoji: coffee stain",
-    "output": "[coffee] [stain]"
+    "input": "translate gloss to emoji: properly",
+    "output": "[correct_manner] [appropriate_way]"
   },
   {
-    "input": "translate gloss to emoji: fuzzy socks",
-    "output": "[socks] [fluffy]"
+    "input": "translate gloss to emoji: presentation",
+    "output": "[slides] [communication]"
   },
   {
-    "input": "translate gloss to emoji: go outside",
-    "output": "[walk] [outdoors]"
-  },
-  {
-    "input": "translate gloss to emoji: kiwi",
-    "output": "[kiwi_fruit]"
-  },
-  {
-    "input": "translate gloss to emoji: endurance",
-    "output": "[stamina] [effort]"
-  },
-  {
-    "input": "translate gloss to emoji: before breakfast",
-    "output": "[early_morning] [meal]"
-  },
-  {
-    "input": "translate gloss to emoji: fuzzy feeling",
-    "output": "[confusion] [vague_emotion]"
-  },
-  {
-    "input": "translate gloss to emoji: surprise",
-    "output": "[surprise] [shock]"
-  },
-  {
-    "input": "translate gloss to emoji: moon phases",
-    "output": "[moon] [cycle]"
-  },
-  {
-    "input": "translate gloss to emoji: fever",
-    "output": "[temperature] [illness]"
-  },
-  {
-    "input": "translate gloss to emoji: foreboding",
-    "output": "[fear] [dread]"
-  },
-  {
-    "input": "translate gloss to emoji: complex equation",
-    "output": "[math] [equation]"
-  },
-  {
-    "input": "translate gloss to emoji: mountain climber",
-    "output": "[mountain] [climbing]"
-  },
-  {
-    "input": "translate gloss to emoji: tofu",
-    "output": "[food]"
-  },
-  {
-    "input": "translate gloss to emoji: confession",
-    "output": "[speech] [truth]"
-  },
-  {
-    "input": "translate gloss to emoji: ghost story",
-    "output": "[ghost_supernatural] [storytelling]"
-  },
-  {
-    "input": "translate gloss to emoji: whiteboard",
-    "output": "[board] [writing_surface]"
-  },
-  {
-    "input": "translate gloss to emoji: heal",
-    "output": "[health] [recovery]"
-  },
-  {
-    "input": "translate gloss to emoji: tear",
-    "output": "[eye] [liquid] [sadness]"
-  },
-  {
-    "input": "translate gloss to emoji: wrench",
-    "output": "[tool]"
-  },
-  {
-    "input": "translate gloss to emoji: queen",
-    "output": "[queen_royal]"
-  },
-  {
-    "input": "translate gloss to emoji: right (direction)",
-    "output": "[right_direction]"
-  },
-  {
-    "input": "translate gloss to emoji: car ride singing",
-    "output": "[car] [singing] [music]"
-  },
-  {
-    "input": "translate gloss to emoji: sunrise over mountain",
-    "output": "[sunrise] [mountain]"
-  },
-  {
-    "input": "translate gloss to emoji: app",
-    "output": "[application_software] [device]"
-  },
-  {
-    "input": "translate gloss to emoji: secret",
-    "output": "[secret_concept]"
-  },
-  {
-    "input": "translate gloss to emoji: grocery",
-    "output": "[food] [shopping]"
-  },
-  {
-    "input": "translate gloss to emoji: debt",
-    "output": "[money_loss] [owing]"
-  },
-  {
-    "input": "translate gloss to emoji: bank loan",
-    "output": "[bank_finance] [money] [agreement]"
-  },
-  {
-    "input": "translate gloss to emoji: hate",
-    "output": "[anger] [heartbreak]"
-  },
-  {
-    "input": "translate gloss to emoji: aurora",
-    "output": "[sky] [lights]"
-  },
-  {
-    "input": "translate gloss to emoji: fuzzy blanket",
-    "output": "[blanket] [cozy]"
-  },
-  {
-    "input": "translate gloss to emoji: traffic",
-    "output": "[car] [traffic_light]"
-  },
-  {
-    "input": "translate gloss to emoji: confident",
-    "output": "[confidence] [strength]"
-  },
-  {
-    "input": "translate gloss to emoji: biography",
-    "output": "[book] [person]"
-  },
-  {
-    "input": "translate gloss to emoji: hack",
-    "output": "[computer] [lock] [key]"
-  },
-  {
-    "input": "translate gloss to emoji: spectrum",
-    "output": "[color] [rainbow]"
-  },
-  {
-    "input": "translate gloss to emoji: brain",
-    "output": "[brain]"
-  },
-  {
-    "input": "translate gloss to emoji: the thrill of competition",
-    "output": "[competition_activity] [excitement]"
+    "input": "translate gloss to emoji: astronomy chart",
+    "output": "[star] [space] [map]"
   },
   {
     "input": "translate gloss to emoji: left direction",
     "output": "[left] [direction]"
   },
   {
-    "input": "translate gloss to emoji: gloomy day",
-    "output": "[cloud] [rain]"
+    "input": "translate gloss to emoji: maximum",
+    "output": "[highest_value] [peak_amount]"
   },
   {
-    "input": "translate gloss to emoji: commencement speech",
-    "output": "[graduation] [speech]"
+    "input": "translate gloss to emoji: heart beating",
+    "output": "[heart] [beating]"
   },
   {
-    "input": "translate gloss to emoji: water leak",
-    "output": "[water] [leak]"
+    "input": "translate gloss to emoji: voting",
+    "output": "[ballot] [box]"
   },
   {
-    "input": "translate gloss to emoji: throw",
-    "output": "[throw_action]"
-  },
-  {
-    "input": "translate gloss to emoji: cricket pitch",
-    "output": "[cricket_sport] [field]"
-  },
-  {
-    "input": "translate gloss to emoji: cloudy night",
-    "output": "[cloud] [night]"
-  },
-  {
-    "input": "translate gloss to emoji: open door",
-    "output": "[open] [door]"
-  },
-  {
-    "input": "translate gloss to emoji: film",
-    "output": "[movie] [cinema]"
-  },
-  {
-    "input": "translate gloss to emoji: excited",
-    "output": "[joy] [celebration]"
-  },
-  {
-    "input": "translate gloss to emoji: coincidence",
-    "output": "[chance] [surprise]"
-  },
-  {
-    "input": "translate gloss to emoji: festival",
-    "output": "[celebration] [gathering]"
-  },
-  {
-    "input": "translate gloss to emoji: sleep deprivation",
-    "output": "[sleep] [tiredness]"
-  },
-  {
-    "input": "translate gloss to emoji: resurface",
-    "output": "[water] [rise]"
-  },
-  {
-    "input": "translate gloss to emoji: finding a lost sock",
-    "output": "[search] [sock]"
-  },
-  {
-    "input": "translate gloss to emoji: seal animal",
-    "output": "[seal_animal]"
-  },
-  {
-    "input": "translate gloss to emoji: record (noun)",
-    "output": "[record_object]"
-  },
-  {
-    "input": "translate gloss to emoji: pill",
-    "output": "[medicine_object]"
-  },
-  {
-    "input": "translate gloss to emoji: teacher",
-    "output": "[teacher] [book]"
-  },
-  {
-    "input": "translate gloss to emoji: flashlight",
-    "output": "[flashlight] [light]"
-  },
-  {
-    "input": "translate gloss to emoji: procrastination",
-    "output": "[time_passing] [delay] [thinking]"
-  },
-  {
-    "input": "translate gloss to emoji: dice",
-    "output": "[dice_object]"
-  },
-  {
-    "input": "translate gloss to emoji: go home",
-    "output": "[movement] [home]"
-  },
-  {
-    "input": "translate gloss to emoji: galaxy image",
-    "output": "[galaxy] [image]"
-  },
-  {
-    "input": "translate gloss to emoji: whispering fears",
-    "output": "[whisper] [fear]"
-  },
-  {
-    "input": "translate gloss to emoji: testimony",
-    "output": "[speech] [evidence]"
-  },
-  {
-    "input": "translate gloss to emoji: society",
-    "output": "[people] [community]"
-  },
-  {
-    "input": "translate gloss to emoji: newspaper",
-    "output": "[newspaper] [print]"
-  },
-  {
-    "input": "translate gloss to emoji: trip vacation",
-    "output": "[travel] [airplane] [island]"
-  },
-  {
-    "input": "translate gloss to emoji: podcast subscription",
-    "output": "[audio_media] [subscription]"
-  },
-  {
-    "input": "translate gloss to emoji: commute",
-    "output": "[travel] [vehicle]"
-  },
-  {
-    "input": "translate gloss to emoji: baby stroller",
-    "output": "[baby_stroller]"
-  },
-  {
-    "input": "translate gloss to emoji: dreaming",
-    "output": "[dreaming_activity] [thought]"
-  },
-  {
-    "input": "translate gloss to emoji: bat equipment",
-    "output": "[bat_sports] [equipment]"
-  },
-  {
-    "input": "translate gloss to emoji: the concept of empathy",
-    "output": "[heart] [hug]"
-  },
-  {
-    "input": "translate gloss to emoji: hello",
-    "output": "[greeting] [wave]"
-  },
-  {
-    "input": "translate gloss to emoji: go left",
-    "output": "[direction] [left]"
-  },
-  {
-    "input": "translate gloss to emoji: bridge structure",
-    "output": "[bridge]"
-  },
-  {
-    "input": "translate gloss to emoji: silence quiet",
-    "output": "[silence]"
-  },
-  {
-    "input": "translate gloss to emoji: overcrowded",
-    "output": "[people] [crowd]"
-  },
-  {
-    "input": "translate gloss to emoji: book learning",
-    "output": "[book_object] [education]"
-  },
-  {
-    "input": "translate gloss to emoji: virus outbreak",
-    "output": "[virus] [disease] [outbreak]"
-  },
-  {
-    "input": "translate gloss to emoji: getting lost",
-    "output": "[confusion] [direction]"
-  },
-  {
-    "input": "translate gloss to emoji: sweat bead",
-    "output": "[sweat] [droplet]"
-  },
-  {
-    "input": "translate gloss to emoji: bank river",
-    "output": "[river_bank] [river]"
-  },
-  {
-    "input": "translate gloss to emoji: moonlight",
-    "output": "[moon] [light]"
-  },
-  {
-    "input": "translate gloss to emoji: to fumble with words",
-    "output": "[confusion] [speech]"
-  },
-  {
-    "input": "translate gloss to emoji: shrimp",
-    "output": "[shrimp_food]"
-  },
-  {
-    "input": "translate gloss to emoji: sprint finish line",
-    "output": "[running] [finish_line]"
-  },
-  {
-    "input": "translate gloss to emoji: picnic basket",
-    "output": "[picnic] [basket]"
-  },
-  {
-    "input": "translate gloss to emoji: future",
-    "output": "[time] [prediction]"
-  },
-  {
-    "input": "translate gloss to emoji: acceptance",
-    "output": "[positive_emotion] [agreement]"
-  },
-  {
-    "input": "translate gloss to emoji: swapping clothes",
-    "output": "[exchange_activity] [clothing_object]"
-  },
-  {
-    "input": "translate gloss to emoji: lift",
-    "output": "[lift_device]"
-  },
-  {
-    "input": "translate gloss to emoji: gps",
-    "output": "[map] [location] [satellite]"
-  },
-  {
-    "input": "translate gloss to emoji: sudden realization",
-    "output": "[aha_moment] [surprise]"
-  },
-  {
-    "input": "translate gloss to emoji: eat",
-    "output": "[food] [activity]"
-  },
-  {
-    "input": "translate gloss to emoji: airplane seat",
-    "output": "[airplane] [seat]"
-  },
-  {
-    "input": "translate gloss to emoji: coastal boardwalk",
-    "output": "[sea] [boardwalk] [walk]"
-  },
-  {
-    "input": "translate gloss to emoji: dreamscape",
-    "output": "[dream] [landscape]"
-  },
-  {
-    "input": "translate gloss to emoji: ice cube",
-    "output": "[ice] [cube]"
-  },
-  {
-    "input": "translate gloss to emoji: headache from stress",
-    "output": "[stress] [head_pain]"
-  },
-  {
-    "input": "translate gloss to emoji: onion",
-    "output": "[onion]"
-  },
-  {
-    "input": "translate gloss to emoji: rationality",
-    "output": "[brain] [logic]"
-  },
-  {
-    "input": "translate gloss to emoji: skeptical",
-    "output": "[question] [doubt]"
-  },
-  {
-    "input": "translate gloss to emoji: emoji",
-    "output": "[symbol] [communication]"
-  },
-  {
-    "input": "translate gloss to emoji: virus covid",
-    "output": "[virus] [illness] [protection]"
-  },
-  {
-    "input": "translate gloss to emoji: to negotiate",
-    "output": "[people] [talk] [agreement]"
-  },
-  {
-    "input": "translate gloss to emoji: health",
-    "output": "[wellness] [heart]"
-  },
-  {
-    "input": "translate gloss to emoji: dumpling",
-    "output": "[dumpling]"
-  },
-  {
-    "input": "translate gloss to emoji: slight misunderstanding",
-    "output": "[confusion] [error]"
-  },
-  {
-    "input": "translate gloss to emoji: daydreaming",
-    "output": "[thought] [imagination]"
-  },
-  {
-    "input": "translate gloss to emoji: love",
-    "output": "[love_emotion]"
-  },
-  {
-    "input": "translate gloss to emoji: archaeology",
-    "output": "[dig] [history] [artifact]"
-  },
-  {
-    "input": "translate gloss to emoji: country",
-    "output": "[globe]"
-  },
-  {
-    "input": "translate gloss to emoji: sunrise mountain",
-    "output": "[sunrise] [mountain]"
-  },
-  {
-    "input": "translate gloss to emoji: lightbulb moment",
-    "output": "[lightbulb] [idea]"
-  },
-  {
-    "input": "translate gloss to emoji: plane",
-    "output": "[plane_vehicle]"
-  },
-  {
-    "input": "translate gloss to emoji: mountain climb",
-    "output": "[mountain] [climbing_activity]"
-  },
-  {
-    "input": "translate gloss to emoji: growth",
-    "output": "[seedling] [upward_trend]"
-  },
-  {
-    "input": "translate gloss to emoji: overjoyed",
-    "output": "[joy] [emotion]"
-  },
-  {
-    "input": "translate gloss to emoji: freeze",
-    "output": "[cold] [ice]"
-  },
-  {
-    "input": "translate gloss to emoji: survival",
-    "output": "[danger] [struggle] [help]"
-  },
-  {
-    "input": "translate gloss to emoji: camping trip",
-    "output": "[camping] [nature] [fire]"
-  },
-  {
-    "input": "translate gloss to emoji: a complex plot twist",
-    "output": "[story] [mystery] [surprise]"
-  },
-  {
-    "input": "translate gloss to emoji: video game",
-    "output": "[screen] [game_activity]"
-  },
-  {
-    "input": "translate gloss to emoji: plant flower",
-    "output": "[plant] [flower]"
-  },
-  {
-    "input": "translate gloss to emoji: global summit",
-    "output": "[global] [meeting]"
-  },
-  {
-    "input": "translate gloss to emoji: quiet forest",
-    "output": "[quiet] [forest]"
-  },
-  {
-    "input": "translate gloss to emoji: stadium cheering",
-    "output": "[stadium] [cheering]"
-  },
-  {
-    "input": "translate gloss to emoji: a sudden breakthrough",
-    "output": "[idea] [discovery]"
-  },
-  {
-    "input": "translate gloss to emoji: communicate",
-    "output": "[speech] [message]"
-  },
-  {
-    "input": "translate gloss to emoji: signing a contract",
-    "output": "[signing] [document]"
-  },
-  {
-    "input": "translate gloss to emoji: charge payment",
-    "output": "[card] [money] [transaction]"
-  },
-  {
-    "input": "translate gloss to emoji: pilot",
-    "output": "[pilot_aviation] [airplane]"
-  },
-  {
-    "input": "translate gloss to emoji: prison",
-    "output": "[jail] [bars]"
-  },
-  {
-    "input": "translate gloss to emoji: teach",
-    "output": "[teach_education] [book] [knowledge]"
-  },
-  {
-    "input": "translate gloss to emoji: sunrise over ocean",
-    "output": "[sunrise] [ocean]"
-  },
-  {
-    "input": "translate gloss to emoji: exhaustion",
-    "output": "[tiredness] [sleep]"
-  },
-  {
-    "input": "translate gloss to emoji: twilight",
-    "output": "[sunset] [transition]"
-  },
-  {
-    "input": "translate gloss to emoji: kale",
-    "output": "[food]"
-  },
-  {
-    "input": "translate gloss to emoji: good morning",
-    "output": "[greeting] [sun]"
-  },
-  {
-    "input": "translate gloss to emoji: doctor",
-    "output": "[healthcare_professional]"
-  },
-  {
-    "input": "translate gloss to emoji: sport",
-    "output": "[activity] [medal] [trophy]"
-  },
-  {
-    "input": "translate gloss to emoji: confined space",
-    "output": "[enclosure] [warning]"
-  },
-  {
-    "input": "translate gloss to emoji: underground tunnel",
-    "output": "[underground] [tunnel]"
-  },
-  {
-    "input": "translate gloss to emoji: write letter",
-    "output": "[write_activity] [letter_object]"
-  },
-  {
-    "input": "translate gloss to emoji: headline",
-    "output": "[article] [text]"
-  },
-  {
-    "input": "translate gloss to emoji: hiking",
-    "output": "[activity] [mountain]"
-  },
-  {
-    "input": "translate gloss to emoji: moment of clarity",
-    "output": "[realization] [idea]"
-  },
-  {
-    "input": "translate gloss to emoji: trekking trail",
-    "output": "[hiking_activity] [path]"
-  },
-  {
-    "input": "translate gloss to emoji: broken promise",
-    "output": "[disappointment] [broken_vow]"
-  },
-  {
-    "input": "translate gloss to emoji: rainstorm with umbrella",
-    "output": "[rain] [storm] [umbrella]"
-  },
-  {
-    "input": "translate gloss to emoji: salt",
-    "output": "[salt]"
-  },
-  {
-    "input": "translate gloss to emoji: rise",
-    "output": "[sun] [up]"
-  },
-  {
-    "input": "translate gloss to emoji: overcoming fear",
-    "output": "[courage] [strength]"
-  },
-  {
-    "input": "translate gloss to emoji: searching for something",
-    "output": "[search] [unknown]"
-  },
-  {
-    "input": "translate gloss to emoji: empathy",
-    "output": "[heart] [connection]"
-  },
-  {
-    "input": "translate gloss to emoji: maze",
-    "output": "[puzzle] [path]"
-  },
-  {
-    "input": "translate gloss to emoji: whispered promise",
-    "output": "[whisper] [promise]"
-  },
-  {
-    "input": "translate gloss to emoji: tasting palette",
-    "output": "[taste] [food]"
-  },
-  {
-    "input": "translate gloss to emoji: security",
-    "output": "[protection] [safety]"
-  },
-  {
-    "input": "translate gloss to emoji: train ride",
-    "output": "[train_vehicle] [journey]"
-  },
-  {
-    "input": "translate gloss to emoji: class",
-    "output": "[school] [learning]"
-  },
-  {
-    "input": "translate gloss to emoji: computer & mouse",
-    "output": "[computer] [mouse_device]"
-  },
-  {
-    "input": "translate gloss to emoji: internet",
-    "output": "[global_network] [connection] [data]"
-  },
-  {
-    "input": "translate gloss to emoji: a childhood memory",
-    "output": "[childhood] [memory]"
-  },
-  {
-    "input": "translate gloss to emoji: office meeting",
-    "output": "[office] [meeting] [collaboration]"
-  },
-  {
-    "input": "translate gloss to emoji: whiskey talk",
-    "output": "[whiskey] [talk]"
-  },
-  {
-    "input": "translate gloss to emoji: a power outage",
-    "output": "[power_outage] [darkness]"
-  },
-  {
-    "input": "translate gloss to emoji: harbor life",
-    "output": "[harbor] [ship] [water]"
-  },
-  {
-    "input": "translate gloss to emoji: record (verb)",
-    "output": "[microphone] [camera]"
-  },
-  {
-    "input": "translate gloss to emoji: distance",
-    "output": "[measurement] [space]"
-  },
-  {
-    "input": "translate gloss to emoji: drum",
-    "output": "[drum_object]"
-  },
-  {
-    "input": "translate gloss to emoji: dashboard",
-    "output": "[data_display] [technology]"
-  },
-  {
-    "input": "translate gloss to emoji: swaddle",
-    "output": "[baby] [wrap]"
-  },
-  {
-    "input": "translate gloss to emoji: construction site",
-    "output": "[construction] [site]"
-  },
-  {
-    "input": "translate gloss to emoji: police",
-    "output": "[police_officer] [police_car]"
-  },
-  {
-    "input": "translate gloss to emoji: selling",
-    "output": "[commerce] [money]"
-  },
-  {
-    "input": "translate gloss to emoji: anger storm",
-    "output": "[anger] [storm]"
-  },
-  {
-    "input": "translate gloss to emoji: ancient ruins",
-    "output": "[ancient] [ruin]"
-  },
-  {
-    "input": "translate gloss to emoji: hope",
-    "output": "[hope_emotion]"
-  },
-  {
-    "input": "translate gloss to emoji: lost signal",
-    "output": "[signal_loss] [communication_failure]"
-  },
-  {
-    "input": "translate gloss to emoji: sailing",
-    "output": "[boat] [water]"
-  },
-  {
-    "input": "translate gloss to emoji: perfume",
-    "output": "[scent] [flower] [product]"
-  },
-  {
-    "input": "translate gloss to emoji: ask",
-    "output": "[question]"
-  },
-  {
-    "input": "translate gloss to emoji: bridge over river",
-    "output": "[bridge] [river] [water]"
-  },
-  {
-    "input": "translate gloss to emoji: elephant",
-    "output": "[elephant_animal]"
-  },
-  {
-    "input": "translate gloss to emoji: press newspaper",
-    "output": "[news] [newspaper]"
-  },
-  {
-    "input": "translate gloss to emoji: recycle",
-    "output": "[recycle_process]"
-  },
-  {
-    "input": "translate gloss to emoji: picnic blanket",
-    "output": "[picnic] [blanket]"
-  },
-  {
-    "input": "translate gloss to emoji: byte",
-    "output": "[data] [bit]"
-  },
-  {
-    "input": "translate gloss to emoji: goal celebration",
-    "output": "[goal_sports] [celebration]"
-  },
-  {
-    "input": "translate gloss to emoji: exhausting journey",
-    "output": "[tiredness] [journey]"
-  },
-  {
-    "input": "translate gloss to emoji: witnessing an event",
-    "output": "[people] [gathering] [viewing]"
-  },
-  {
-    "input": "translate gloss to emoji: grocery list",
-    "output": "[food] [shopping_list]"
-  },
-  {
-    "input": "translate gloss to emoji: sweat",
-    "output": "[sweat]"
-  },
-  {
-    "input": "translate gloss to emoji: competition",
-    "output": "[trophy] [medal]"
-  },
-  {
-    "input": "translate gloss to emoji: pondering",
-    "output": "[thinking] [thought]"
-  },
-  {
-    "input": "translate gloss to emoji: cricket (sport)",
-    "output": "[bat_sports] [ball]"
-  },
-  {
-    "input": "translate gloss to emoji: blueprint",
-    "output": "[plan] [diagram]"
-  },
-  {
-    "input": "translate gloss to emoji: learn",
-    "output": "[book] [knowledge] [study]"
-  },
-  {
-    "input": "translate gloss to emoji: coworker",
-    "output": "[person] [work]"
-  },
-  {
-    "input": "translate gloss to emoji: beach bonfire",
-    "output": "[beach] [fire]"
-  },
-  {
-    "input": "translate gloss to emoji: database",
-    "output": "[data_storage] [structure]"
-  },
-  {
-    "input": "translate gloss to emoji: mirth",
-    "output": "[joy] [laughter]"
-  },
-  {
-    "input": "translate gloss to emoji: celebration cake",
-    "output": "[celebration] [cake]"
-  },
-  {
-    "input": "translate gloss to emoji: silence whisper",
-    "output": "[quiet_speech]"
-  },
-  {
-    "input": "translate gloss to emoji: forgive",
-    "output": "[peace] [heart]"
-  },
-  {
-    "input": "translate gloss to emoji: restaurant",
-    "output": "[restaurant] [food]"
-  },
-  {
-    "input": "translate gloss to emoji: routine",
-    "output": "[schedule] [cycle]"
-  },
-  {
-    "input": "translate gloss to emoji: windstorm",
-    "output": "[wind] [storm]"
-  },
-  {
-    "input": "translate gloss to emoji: office chair",
-    "output": "[office] [chair]"
-  },
-  {
-    "input": "translate gloss to emoji: opera mask",
-    "output": "[opera] [mask]"
-  },
-  {
-    "input": "translate gloss to emoji: trophy",
-    "output": "[award]"
-  },
-  {
-    "input": "translate gloss to emoji: agriculture",
-    "output": "[farm] [crop] [plant]"
-  },
-  {
-    "input": "translate gloss to emoji: money",
-    "output": "[currency] [wealth]"
-  },
-  {
-    "input": "translate gloss to emoji: the feeling of gratitude",
-    "output": "[thankful] [heart]"
-  },
-  {
-    "input": "translate gloss to emoji: spring coil",
-    "output": "[spring_object] [coil]"
-  },
-  {
-    "input": "translate gloss to emoji: turmoil",
-    "output": "[chaos] [distress]"
-  },
-  {
-    "input": "translate gloss to emoji: handshake business",
-    "output": "[handshake] [business_deal]"
-  },
-  {
-    "input": "translate gloss to emoji: tether",
-    "output": "[connection] [rope]"
+    "input": "translate gloss to emoji: sad face",
+    "output": "[sad] [face]"
   },
   {
     "input": "translate gloss to emoji: ocean tide",
     "output": "[ocean] [water] [tide]"
   },
   {
-    "input": "translate gloss to emoji: innovation",
-    "output": "[idea] [lightbulb]"
+    "input": "translate gloss to emoji: delhi",
+    "output": "[national_capital] [india_center]"
   },
   {
-    "input": "translate gloss to emoji: plant living",
-    "output": "[plant] [nature]"
+    "input": "translate gloss to emoji: icecream",
+    "output": "[food]"
   },
   {
-    "input": "translate gloss to emoji: classroom",
-    "output": "[classroom] [book] [desk]"
-  },
-  {
-    "input": "translate gloss to emoji: cake",
-    "output": "[food] [dessert]"
-  },
-  {
-    "input": "translate gloss to emoji: dragonfly",
-    "output": "[insect]"
-  },
-  {
-    "input": "translate gloss to emoji: dreaming big",
-    "output": "[dream] [big_scale]"
-  },
-  {
-    "input": "translate gloss to emoji: fête",
-    "output": "[celebration] [festival]"
-  },
-  {
-    "input": "translate gloss to emoji: invisible",
-    "output": "[unseen] [ethereal]"
-  },
-  {
-    "input": "translate gloss to emoji: rainbow over city",
-    "output": "[rainbow] [city]"
-  },
-  {
-    "input": "translate gloss to emoji: draft beer",
-    "output": "[beer]"
-  },
-  {
-    "input": "translate gloss to emoji: sun",
-    "output": "[sun] [light]"
-  },
-  {
-    "input": "translate gloss to emoji: rain lightning",
-    "output": "[rain] [lightning]"
-  },
-  {
-    "input": "translate gloss to emoji: summer heat",
-    "output": "[summer] [heat]"
-  },
-  {
-    "input": "translate gloss to emoji: siren",
-    "output": "[warning] [alarm]"
-  },
-  {
-    "input": "translate gloss to emoji: to stumble",
-    "output": "[fall] [loss_of_balance]"
-  },
-  {
-    "input": "translate gloss to emoji: whiskey moment",
-    "output": "[whiskey_drink] [relaxation]"
-  },
-  {
-    "input": "translate gloss to emoji: treadmill",
-    "output": "[exercise_equipment]"
-  },
-  {
-    "input": "translate gloss to emoji: morning commute",
-    "output": "[morning] [transportation]"
-  },
-  {
-    "input": "translate gloss to emoji: gravity pull",
-    "output": "[downward_force] [pull]"
-  },
-  {
-    "input": "translate gloss to emoji: evidence",
-    "output": "[evidence_proof] [data]"
-  },
-  {
-    "input": "translate gloss to emoji: universe",
-    "output": "[star] [galaxy]"
-  },
-  {
-    "input": "translate gloss to emoji: secret",
-    "output": "[secret]"
-  },
-  {
-    "input": "translate gloss to emoji: pavement",
-    "output": "[road]"
-  },
-  {
-    "input": "translate gloss to emoji: fluorescent",
-    "output": "[light] [bulb]"
-  },
-  {
-    "input": "translate gloss to emoji: skin",
-    "output": "[body] [outer_layer]"
-  },
-  {
-    "input": "translate gloss to emoji: skateboard park",
-    "output": "[skateboard_object] [park_place]"
-  },
-  {
-    "input": "translate gloss to emoji: share",
-    "output": "[share_concept] [connection]"
-  },
-  {
-    "input": "translate gloss to emoji: seamstress",
-    "output": "[sewing] [thread] [clothing]"
-  },
-  {
-    "input": "translate gloss to emoji: forest clearing",
-    "output": "[tree] [sun] [grass]"
-  },
-  {
-    "input": "translate gloss to emoji: quick",
-    "output": "[fast] [speed]"
-  },
-  {
-    "input": "translate gloss to emoji: grief",
-    "output": "[sadness] [tears]"
-  },
-  {
-    "input": "translate gloss to emoji: rainbow sun",
-    "output": "[rainbow] [sun]"
-  },
-  {
-    "input": "translate gloss to emoji: communal space",
-    "output": "[community] [lounge]"
-  },
-  {
-    "input": "translate gloss to emoji: garden hose",
-    "output": "[garden] [water]"
-  },
-  {
-    "input": "translate gloss to emoji: train engine",
-    "output": "[train]"
-  },
-  {
-    "input": "translate gloss to emoji: swear",
-    "output": "[profanity] [speech]"
-  },
-  {
-    "input": "translate gloss to emoji: silence in the city",
-    "output": "[silence] [city]"
-  },
-  {
-    "input": "translate gloss to emoji: on the phone",
-    "output": "[phone] [call]"
-  },
-  {
-    "input": "translate gloss to emoji: failure",
-    "output": "[❌] [📉]"
-  },
-  {
-    "input": "translate gloss to emoji: go travel",
-    "output": "[travel_activity] [journey]"
-  },
-  {
-    "input": "translate gloss to emoji: stretch",
-    "output": "[activity]"
-  },
-  {
-    "input": "translate gloss to emoji: toaster",
-    "output": "[kitchen_appliance] [bread]"
-  },
-  {
-    "input": "translate gloss to emoji: bacteria",
-    "output": "[microbe]"
-  },
-  {
-    "input": "translate gloss to emoji: opinion",
-    "output": "[thought] [speech]"
-  },
-  {
-    "input": "translate gloss to emoji: silence of the sea",
-    "output": "[sea] [calm]"
-  },
-  {
-    "input": "translate gloss to emoji: light (illumination)",
-    "output": "[illumination]"
-  },
-  {
-    "input": "translate gloss to emoji: run business",
-    "output": "[business] [money] [work]"
-  },
-  {
-    "input": "translate gloss to emoji: charge fee",
-    "output": "[money] [cost]"
-  },
-  {
-    "input": "translate gloss to emoji: clock tower",
-    "output": "[building] [clock]"
-  },
-  {
-    "input": "translate gloss to emoji: surprised",
-    "output": "[surprise] [emotion]"
-  },
-  {
-    "input": "translate gloss to emoji: deadline pressure",
-    "output": "[time] [stress]"
-  },
-  {
-    "input": "translate gloss to emoji: utensils",
-    "output": "[kitchen_utensil] [eating_tool]"
-  },
-  {
-    "input": "translate gloss to emoji: interstellar travel",
-    "output": "[space] [galaxy] [rocket]"
-  },
-  {
-    "input": "translate gloss to emoji: deep sigh",
-    "output": "[sigh] [emotion]"
-  },
-  {
-    "input": "translate gloss to emoji: economy growth",
-    "output": "[money] [upward_trend]"
-  },
-  {
-    "input": "translate gloss to emoji: scream",
-    "output": "[scream] [loud_sound]"
-  },
-  {
-    "input": "translate gloss to emoji: fluorescent light",
-    "output": "[light] [bulb]"
-  },
-  {
-    "input": "translate gloss to emoji: blind date",
-    "output": "[unknown] [social_meeting]"
-  },
-  {
-    "input": "translate gloss to emoji: care",
-    "output": "[heart] [hug]"
-  },
-  {
-    "input": "translate gloss to emoji: cruelty",
-    "output": "[pain] [heartbreak]"
+    "input": "translate gloss to emoji: laboratory experiment",
+    "output": "[science] [lab] [experiment]"
   },
   {
     "input": "translate gloss to emoji: high speed",
     "output": "[speed] [fast]"
   },
   {
-    "input": "translate gloss to emoji: meteor shower",
-    "output": "[meteor] [sky]"
+    "input": "translate gloss to emoji: whispering lullaby",
+    "output": "[song] [sleep] [whisper]"
   },
   {
-    "input": "translate gloss to emoji: historical reenactment",
-    "output": "[history] [roleplay] [people]"
+    "input": "translate gloss to emoji: a crowded market",
+    "output": "[market] [crowd]"
   },
   {
-    "input": "translate gloss to emoji: factory pandemic",
-    "output": "[factory] [pandemic]"
+    "input": "translate gloss to emoji: traffic light change",
+    "output": "[traffic_light] [change]"
   },
   {
-    "input": "translate gloss to emoji: wind (air)",
-    "output": "[wind] [air]"
+    "input": "translate gloss to emoji: online class",
+    "output": "[internet] [learning]"
   },
   {
-    "input": "translate gloss to emoji: kitchen stove",
-    "output": "[kitchen] [stove]"
+    "input": "translate gloss to emoji: cricket sport",
+    "output": "[bat_sports] [ball]"
   },
   {
-    "input": "translate gloss to emoji: physics",
-    "output": "[science] [study]"
+    "input": "translate gloss to emoji: finger painting",
+    "output": "[finger] [paint] [art_activity]"
   },
   {
-    "input": "translate gloss to emoji: echo",
-    "output": "[sound] [repeat]"
+    "input": "translate gloss to emoji: vocabulary",
+    "output": "[word_collection] [language_words]"
   },
   {
-    "input": "translate gloss to emoji: raincoat",
-    "output": "[rain] [coat]"
+    "input": "translate gloss to emoji: computer laptop mouse",
+    "output": "[computer] [laptop] [mouse_device]"
   },
   {
-    "input": "translate gloss to emoji: rainbow cat",
-    "output": "[rainbow] [cat]"
+    "input": "translate gloss to emoji: current (water)",
+    "output": "[water] [flow]"
   },
   {
-    "input": "translate gloss to emoji: family",
-    "output": "[people] [group]"
+    "input": "translate gloss to emoji: with a tear",
+    "output": "[cry] [sadness]"
   },
   {
-    "input": "translate gloss to emoji: climb",
-    "output": "[climb] [mountain]"
+    "input": "translate gloss to emoji: city street",
+    "output": "[city] [street]"
   },
   {
-    "input": "translate gloss to emoji: drive",
-    "output": "[car_activity] [road]"
+    "input": "translate gloss to emoji: astronaut training",
+    "output": "[astronaut] [space] [training]"
   },
   {
-    "input": "translate gloss to emoji: dream logic",
-    "output": "[dream_state] [confusion]"
-  },
-  {
-    "input": "translate gloss to emoji: observation",
-    "output": "[magnifying_glass] [eye] [notebook]"
-  },
-  {
-    "input": "translate gloss to emoji: calm",
-    "output": "[calm]"
-  },
-  {
-    "input": "translate gloss to emoji: read aloud",
-    "output": "[book] [speaking]"
-  },
-  {
-    "input": "translate gloss to emoji: wave hello",
-    "output": "[wave] [hello]"
-  },
-  {
-    "input": "translate gloss to emoji: art",
-    "output": "[art_concept]"
-  },
-  {
-    "input": "translate gloss to emoji: wash",
-    "output": "[soap] [water] [cleaning]"
-  },
-  {
-    "input": "translate gloss to emoji: sentence",
-    "output": "[text] [language]"
-  },
-  {
-    "input": "translate gloss to emoji: business meeting",
-    "output": "[business] [meeting]"
-  },
-  {
-    "input": "translate gloss to emoji: friend hug",
-    "output": "[friend] [hug]"
-  },
-  {
-    "input": "translate gloss to emoji: smile with tears",
-    "output": "[smile] [tears]"
-  },
-  {
-    "input": "translate gloss to emoji: ripple effect",
-    "output": "[wave] [spread]"
-  },
-  {
-    "input": "translate gloss to emoji: break",
-    "output": "[rest] [pause]"
+    "input": "translate gloss to emoji: swimming",
+    "output": "[water_movement] [pool_exercise]"
   },
   {
     "input": "translate gloss to emoji: metro station",
     "output": "[train] [station]"
   },
   {
-    "input": "translate gloss to emoji: bank (money & riverbank)",
-    "output": "[bank_financial] [riverbank]"
+    "input": "translate gloss to emoji: fall autumn",
+    "output": "[leaf] [autumn]"
   },
   {
-    "input": "translate gloss to emoji: new phone",
-    "output": "[phone_device]"
+    "input": "translate gloss to emoji: timepiece watch",
+    "output": "[timepiece] [watch]"
   },
   {
-    "input": "translate gloss to emoji: virus",
-    "output": "[virus_pathogen]"
+    "input": "translate gloss to emoji: tennis racket",
+    "output": "[tennis_sport] [racket]"
   },
   {
-    "input": "translate gloss to emoji: mountain hiking",
-    "output": "[mountain] [hiking]"
+    "input": "translate gloss to emoji: laugh out loud",
+    "output": "[laughing] [loud]"
   },
   {
-    "input": "translate gloss to emoji: self-esteem",
-    "output": "[self] [positive_feeling]"
+    "input": "translate gloss to emoji: quiet storm",
+    "output": "[calm] [storm]"
   },
   {
-    "input": "translate gloss to emoji: time clock",
-    "output": "[clock_device]"
+    "input": "translate gloss to emoji: editor",
+    "output": "[writing] [text]"
   },
   {
-    "input": "translate gloss to emoji: judge",
-    "output": "[law] [gavel]"
+    "input": "translate gloss to emoji: classroom",
+    "output": "[classroom] [learning]"
   },
   {
-    "input": "translate gloss to emoji: compass",
-    "output": "[compass_object]"
+    "input": "translate gloss to emoji: dance movement",
+    "output": "[dance_activity] [movement]"
   },
   {
-    "input": "translate gloss to emoji: navigate",
-    "output": "[map] [compass]"
+    "input": "translate gloss to emoji: wide",
+    "output": "[off_target_bowl] [extra_run]"
   },
   {
-    "input": "translate gloss to emoji: jumping rope",
-    "output": "[activity] [rope]"
+    "input": "translate gloss to emoji: media",
+    "output": "[information_channel] [news_platform]"
   },
   {
-    "input": "translate gloss to emoji: hurricane eye",
-    "output": "[hurricane] [eye]"
+    "input": "translate gloss to emoji: exhale relief",
+    "output": "[exhale] [relief]"
   },
   {
-    "input": "translate gloss to emoji: anthropocene",
-    "output": "[human_impact] [earth] [change]"
+    "input": "translate gloss to emoji: crunchy",
+    "output": "[snack] [crispy]"
   },
   {
-    "input": "translate gloss to emoji: rainbow color",
-    "output": "[rainbow] [color]"
+    "input": "translate gloss to emoji: jam preserve",
+    "output": "[fruit] [spread] [sweet]"
   },
   {
-    "input": "translate gloss to emoji: seal close",
-    "output": "[seal_action] [close]"
+    "input": "translate gloss to emoji: childhood memories",
+    "output": "[child_time] [memory] [nostalgia]"
   },
   {
-    "input": "translate gloss to emoji: fortitude",
-    "output": "[strength] [courage]"
+    "input": "translate gloss to emoji: yearning",
+    "output": "[longing] [heart]"
   },
   {
-    "input": "translate gloss to emoji: message",
-    "output": "[text] [communication]"
+    "input": "translate gloss to emoji: masala",
+    "output": "[spice_mix] [cooking_blend]"
   },
   {
-    "input": "translate gloss to emoji: plastic",
-    "output": "[material] [recycling]"
+    "input": "translate gloss to emoji: dryer",
+    "output": "[clothes_dryer] [fabric_drying_machine]"
   },
   {
-    "input": "translate gloss to emoji: steak",
-    "output": "[food]"
+    "input": "translate gloss to emoji: journal",
+    "output": "[journal_object]"
   },
   {
-    "input": "translate gloss to emoji: storm lightning",
-    "output": "[storm] [lightning]"
+    "input": "translate gloss to emoji: seed",
+    "output": "[plant] [seed]"
   },
   {
-    "input": "translate gloss to emoji: tie competition",
-    "output": "[competition_event] [draw]"
+    "input": "translate gloss to emoji: match sports",
+    "output": "[sport_event] [competition]"
   },
   {
-    "input": "translate gloss to emoji: exhausted",
-    "output": "[tiredness]"
+    "input": "translate gloss to emoji: electricity_bill",
+    "output": "[power_cost] [monthly_utility_charge]"
   },
   {
-    "input": "translate gloss to emoji: referee whistle",
-    "output": "[referee] [whistle]"
+    "input": "translate gloss to emoji: peaceful",
+    "output": "[peace] [calm]"
   },
   {
-    "input": "translate gloss to emoji: cliff",
-    "output": "[cliff]"
+    "input": "translate gloss to emoji: immunization",
+    "output": "[vaccine] [shield] [health]"
   },
   {
-    "input": "translate gloss to emoji: crowded",
-    "output": "[people] [density]"
+    "input": "translate gloss to emoji: etiquette",
+    "output": "[social_manners] [behavior_standard]"
   },
   {
-    "input": "translate gloss to emoji: file",
-    "output": "[folder]"
+    "input": "translate gloss to emoji: accountability",
+    "output": "[result_ownership] [answer_for_action]"
   },
   {
-    "input": "translate gloss to emoji: curfew",
-    "output": "[time] [restriction] [night]"
+    "input": "translate gloss to emoji: sorcerer",
+    "output": "[magic] [wizard]"
   },
   {
-    "input": "translate gloss to emoji: boss",
-    "output": "[authority] [professional]"
+    "input": "translate gloss to emoji: net",
+    "output": "[sport_barrier] [goal_mesh]"
   },
   {
-    "input": "translate gloss to emoji: whisper battle",
-    "output": "[whisper] [battle_activity]"
+    "input": "translate gloss to emoji: whistle blow",
+    "output": "[whistle] [signal]"
   },
   {
-    "input": "translate gloss to emoji: seed (plant)",
-    "output": "[seed] [plant]"
+    "input": "translate gloss to emoji: construction",
+    "output": "[construction_activity] [building] [worker]"
   },
   {
-    "input": "translate gloss to emoji: belief",
-    "output": "[thought] [idea]"
+    "input": "translate gloss to emoji: solar eclipse",
+    "output": "[sun] [eclipse]"
   },
   {
-    "input": "translate gloss to emoji: physics",
-    "output": "[science] [atom] [energy]"
+    "input": "translate gloss to emoji: service_tax",
+    "output": "[professional_charge] [service_levy]"
   },
   {
-    "input": "translate gloss to emoji: cloudy day",
-    "output": "[cloud] [weather]"
+    "input": "translate gloss to emoji: music notes",
+    "output": "[music_notes]"
   },
   {
-    "input": "translate gloss to emoji: sculpt",
-    "output": "[sculpture] [art]"
+    "input": "translate gloss to emoji: debug",
+    "output": "[computer] [bug] [fix]"
   },
   {
-    "input": "translate gloss to emoji: alibi",
-    "output": "[investigation] [evidence]"
-  },
-  {
-    "input": "translate gloss to emoji: seal",
-    "output": "[seal_animal]"
-  },
-  {
-    "input": "translate gloss to emoji: rainbow sunset",
-    "output": "[rainbow] [sunset]"
-  },
-  {
-    "input": "translate gloss to emoji: hotel",
-    "output": "[hotel_place]"
-  },
-  {
-    "input": "translate gloss to emoji: broccoli",
-    "output": "[broccoli_food]"
-  },
-  {
-    "input": "translate gloss to emoji: tardiness",
+    "input": "translate gloss to emoji: to be late",
     "output": "[time] [delay]"
   },
   {
-    "input": "translate gloss to emoji: snow",
-    "output": "[snow] [weather]"
+    "input": "translate gloss to emoji: score",
+    "output": "[point_count] [game_result]"
   },
   {
-    "input": "translate gloss to emoji: swaddling clothes",
-    "output": "[baby] [clothing]"
+    "input": "translate gloss to emoji: motion",
+    "output": "[movement] [action]"
   },
   {
-    "input": "translate gloss to emoji: kindergarten class",
-    "output": "[school] [learning] [child]"
+    "input": "translate gloss to emoji: study group",
+    "output": "[book] [people]"
   },
   {
-    "input": "translate gloss to emoji: violin",
-    "output": "[musical_instrument]"
+    "input": "translate gloss to emoji: zumba",
+    "output": "[dance_fitness] [latin_exercise]"
   },
   {
-    "input": "translate gloss to emoji: homework",
-    "output": "[school] [book] [assignment]"
+    "input": "translate gloss to emoji: singing",
+    "output": "[singing] [music]"
   },
   {
-    "input": "translate gloss to emoji: tidal",
-    "output": "[water] [wave]"
-  },
-  {
-    "input": "translate gloss to emoji: thought bubble",
-    "output": "[thought] [bubble]"
-  },
-  {
-    "input": "translate gloss to emoji: feeling safe",
-    "output": "[calm] [secure]"
-  },
-  {
-    "input": "translate gloss to emoji: virus mutation",
-    "output": "[virus] [dna] [change]"
-  },
-  {
-    "input": "translate gloss to emoji: sofa",
-    "output": "[furniture]"
-  },
-  {
-    "input": "translate gloss to emoji: wonder",
-    "output": "[awe] [marvel]"
-  },
-  {
-    "input": "translate gloss to emoji: easter egg",
-    "output": "[easter] [egg] [surprise]"
-  },
-  {
-    "input": "translate gloss to emoji: poem",
-    "output": "[writing] [literature]"
-  },
-  {
-    "input": "translate gloss to emoji: heartbeat",
-    "output": "[heart] [beat]"
-  },
-  {
-    "input": "translate gloss to emoji: lost language",
-    "output": "[language] [lost]"
-  },
-  {
-    "input": "translate gloss to emoji: bark",
-    "output": "[tree_part]"
-  },
-  {
-    "input": "translate gloss to emoji: to recall a dream",
-    "output": "[memory] [dream]"
-  },
-  {
-    "input": "translate gloss to emoji: teach",
-    "output": "[book] [graduation_cap]"
-  },
-  {
-    "input": "translate gloss to emoji: sunrise beach",
-    "output": "[sunrise] [beach]"
-  },
-  {
-    "input": "translate gloss to emoji: swollen ankle",
-    "output": "[injury] [ankle]"
-  },
-  {
-    "input": "translate gloss to emoji: write song",
-    "output": "[write_activity] [music_song]"
-  },
-  {
-    "input": "translate gloss to emoji: coral",
-    "output": "[marine_object] [ocean]"
-  },
-  {
-    "input": "translate gloss to emoji: road",
-    "output": "[road] [path]"
-  },
-  {
-    "input": "translate gloss to emoji: tapestry",
-    "output": "[art] [pattern]"
-  },
-  {
-    "input": "translate gloss to emoji: forest",
-    "output": "[tree] [nature]"
+    "input": "translate gloss to emoji: correction",
+    "output": "[fix_action] [error_remedy]"
   },
   {
     "input": "translate gloss to emoji: read",
     "output": "[book] [reading]"
   },
   {
-    "input": "translate gloss to emoji: fossil digging",
-    "output": "[fossil] [excavation]"
+    "input": "translate gloss to emoji: fire smoke",
+    "output": "[fire] [smoke]"
   },
   {
-    "input": "translate gloss to emoji: patience",
-    "output": "[patience] [calm]"
+    "input": "translate gloss to emoji: rainbow after storm",
+    "output": "[storm] [rainbow]"
   },
   {
-    "input": "translate gloss to emoji: adventure",
-    "output": "[activity] [journey]"
+    "input": "translate gloss to emoji: sand",
+    "output": "[sand] [beach]"
   },
   {
-    "input": "translate gloss to emoji: curiosity",
-    "output": "[thinking] [question] [idea]"
+    "input": "translate gloss to emoji: in the city",
+    "output": "[city_place]"
   },
   {
-    "input": "translate gloss to emoji: taxation",
-    "output": "[money] [government]"
+    "input": "translate gloss to emoji: press",
+    "output": "[newspaper] [communication]"
   },
   {
-    "input": "translate gloss to emoji: fire passion",
-    "output": "[fire] [passion]"
+    "input": "translate gloss to emoji: wave hello",
+    "output": "[wave] [hello]"
   },
   {
-    "input": "translate gloss to emoji: lead verb",
-    "output": "[direction] [guidance]"
+    "input": "translate gloss to emoji: scrolling",
+    "output": "[scroll]"
   },
   {
-    "input": "translate gloss to emoji: towel",
-    "output": "[towel]"
+    "input": "translate gloss to emoji: slippery floor",
+    "output": "[wet] [caution]"
   },
   {
-    "input": "translate gloss to emoji: queue line",
-    "output": "[line] [people] [waiting]"
+    "input": "translate gloss to emoji: rupee",
+    "output": "[indian_currency] [INR]"
   },
   {
-    "input": "translate gloss to emoji: harmony",
-    "output": "[music] [peace]"
+    "input": "translate gloss to emoji: weather",
+    "output": "[weather] [sky]"
   },
   {
-    "input": "translate gloss to emoji: upload",
-    "output": "[cloud] [up_arrow] [data]"
+    "input": "translate gloss to emoji: them",
+    "output": "[others] [other_group]"
   },
   {
-    "input": "translate gloss to emoji: station",
-    "output": "[train_station] [train]"
+    "input": "translate gloss to emoji: mathematics",
+    "output": "[math] [number] [equation]"
   },
   {
-    "input": "translate gloss to emoji: meditate",
-    "output": "[meditation] [calm]"
+    "input": "translate gloss to emoji: recycling",
+    "output": "[waste_reuse] [eco_process]"
   },
   {
-    "input": "translate gloss to emoji: library quiet",
-    "output": "[library] [quiet]"
+    "input": "translate gloss to emoji: painter",
+    "output": "[paint] [brush] [art]"
   },
   {
-    "input": "translate gloss to emoji: cooking pot",
-    "output": "[cooking] [pot]"
+    "input": "translate gloss to emoji: cricket insect",
+    "output": "[insect]"
   },
   {
-    "input": "translate gloss to emoji: cat fish",
-    "output": "[fish]"
+    "input": "translate gloss to emoji: thirsty",
+    "output": "[water] [heat]"
   },
   {
-    "input": "translate gloss to emoji: draft military",
-    "output": "[military_service] [duty]"
+    "input": "translate gloss to emoji: time warp",
+    "output": "[time] [distortion]"
   },
   {
-    "input": "translate gloss to emoji: viral",
-    "output": "[microbe] [spread]"
+    "input": "translate gloss to emoji: the feeling of nostalgia",
+    "output": "[memory] [past] [emotion]"
   },
   {
-    "input": "translate gloss to emoji: memory lane",
-    "output": "[memory] [past]"
+    "input": "translate gloss to emoji: evening",
+    "output": "[sunset] [dusk]"
   },
   {
-    "input": "translate gloss to emoji: quantum physics",
-    "output": "[quantum_physics]"
+    "input": "translate gloss to emoji: rainbow flag",
+    "output": "[rainbow] [flag]"
   },
   {
-    "input": "translate gloss to emoji: heartbeat",
-    "output": "[heart] [pulse]"
+    "input": "translate gloss to emoji: canopy",
+    "output": "[tree] [leaves]"
   },
   {
-    "input": "translate gloss to emoji: traffic jam cars road",
-    "output": "[traffic_jam] [car] [road]"
+    "input": "translate gloss to emoji: speaking language",
+    "output": "[speaking] [language]"
   },
   {
-    "input": "translate gloss to emoji: size",
-    "output": "[measurement] [dimension]"
+    "input": "translate gloss to emoji: stability",
+    "output": "[balance]"
   },
   {
-    "input": "translate gloss to emoji: beach vacation",
-    "output": "[beach] [sun]"
+    "input": "translate gloss to emoji: cooking",
+    "output": "[cooking_activity] [food]"
   },
   {
-    "input": "translate gloss to emoji: love arrow",
-    "output": "[love] [arrow]"
+    "input": "translate gloss to emoji: only",
+    "output": "[exclusive_selection] [single_choice]"
+  },
+  {
+    "input": "translate gloss to emoji: forest picnic",
+    "output": "[forest] [picnic]"
+  },
+  {
+    "input": "translate gloss to emoji: curriculum",
+    "output": "[education_program] [study_framework]"
+  },
+  {
+    "input": "translate gloss to emoji: investor",
+    "output": "[money_placer] [financial_backer]"
+  },
+  {
+    "input": "translate gloss to emoji: commodity",
+    "output": "[trade_product] [market_goods]"
+  },
+  {
+    "input": "translate gloss to emoji: interrogation room",
+    "output": "[police] [questioning]"
+  },
+  {
+    "input": "translate gloss to emoji: subway platform",
+    "output": "[subway_transit] [station_platform]"
+  },
+  {
+    "input": "translate gloss to emoji: season",
+    "output": "[cycle] [time]"
+  },
+  {
+    "input": "translate gloss to emoji: heart + smile",
+    "output": "[heart] [smile]"
+  },
+  {
+    "input": "translate gloss to emoji: notice",
+    "output": "[formal_communication] [official_alert]"
+  },
+  {
+    "input": "translate gloss to emoji: pin",
+    "output": "[small_fastener] [sharp_holder]"
+  },
+  {
+    "input": "translate gloss to emoji: gas",
+    "output": "[fuel_utility] [cooking_gas]"
+  },
+  {
+    "input": "translate gloss to emoji: glitch",
+    "output": "[error] [digital_malfunction]"
+  },
+  {
+    "input": "translate gloss to emoji: ocean view",
+    "output": "[ocean] [view]"
+  },
+  {
+    "input": "translate gloss to emoji: mouse animal",
+    "output": "[mouse_animal]"
+  },
+  {
+    "input": "translate gloss to emoji: lightning bolt",
+    "output": "[lightning]"
+  },
+  {
+    "input": "translate gloss to emoji: heart attack",
+    "output": "[heart] [medical_emergency]"
+  },
+  {
+    "input": "translate gloss to emoji: book flight",
+    "output": "[booking_activity] [flight_transportation]"
+  },
+  {
+    "input": "translate gloss to emoji: press newspaper",
+    "output": "[news] [newspaper]"
+  },
+  {
+    "input": "translate gloss to emoji: sanction",
+    "output": "[official_penalty] [trade_restriction]"
+  },
+  {
+    "input": "translate gloss to emoji: telescope",
+    "output": "[telescope] [stars]"
+  },
+  {
+    "input": "translate gloss to emoji: grocery list",
+    "output": "[food] [shopping_list]"
+  },
+  {
+    "input": "translate gloss to emoji: truck",
+    "output": "[vehicle]"
+  },
+  {
+    "input": "translate gloss to emoji: play",
+    "output": "[activity] [game]"
+  },
+  {
+    "input": "translate gloss to emoji: suitcase",
+    "output": "[luggage] [travel]"
+  },
+  {
+    "input": "translate gloss to emoji: salt",
+    "output": "[salt]"
+  },
+  {
+    "input": "translate gloss to emoji: chutney",
+    "output": "[sauce_condiment] [spicy_dip]"
+  },
+  {
+    "input": "translate gloss to emoji: wifi",
+    "output": "[wifi_signal]"
+  },
+  {
+    "input": "translate gloss to emoji: sun over mountain",
+    "output": "[sun] [mountain]"
+  },
+  {
+    "input": "translate gloss to emoji: fire",
+    "output": "[fire]"
+  },
+  {
+    "input": "translate gloss to emoji: mourning period",
+    "output": "[grief] [remembrance] [loss]"
+  },
+  {
+    "input": "translate gloss to emoji: swirling colors",
+    "output": "[color] [spectrum]"
+  },
+  {
+    "input": "translate gloss to emoji: justice fairness",
+    "output": "[justice_concept] [balance]"
+  },
+  {
+    "input": "translate gloss to emoji: bring",
+    "output": "[action] [movement]"
+  },
+  {
+    "input": "translate gloss to emoji: police car",
+    "output": "[police_car]"
+  },
+  {
+    "input": "translate gloss to emoji: recipe ingredients",
+    "output": "[recipe] [ingredients] [food]"
+  },
+  {
+    "input": "translate gloss to emoji: chess",
+    "output": "[board_game]"
+  },
+  {
+    "input": "translate gloss to emoji: custom",
+    "output": "[social_practice] [cultural_habit]"
+  },
+  {
+    "input": "translate gloss to emoji: respite",
+    "output": "[rest] [calm]"
+  },
+  {
+    "input": "translate gloss to emoji: motorcycle",
+    "output": "[motorcycle]"
+  },
+  {
+    "input": "translate gloss to emoji: row",
+    "output": "[line_arrangement]"
+  },
+  {
+    "input": "translate gloss to emoji: quartz",
+    "output": "[mineral] [gemstone]"
+  },
+  {
+    "input": "translate gloss to emoji: pullup",
+    "output": "[bar_exercise] [upper_body_pull]"
+  },
+  {
+    "input": "translate gloss to emoji: the smell of cinnamon",
+    "output": "[cinnamon] [aroma]"
+  },
+  {
+    "input": "translate gloss to emoji: new year",
+    "output": "[calendar] [celebration] [fireworks]"
+  },
+  {
+    "input": "translate gloss to emoji: lock",
+    "output": "[lock_object]"
+  },
+  {
+    "input": "translate gloss to emoji: friend",
+    "output": "[friend_relationship]"
+  },
+  {
+    "input": "translate gloss to emoji: dandelion",
+    "output": "[flower] [plant]"
+  },
+  {
+    "input": "translate gloss to emoji: withdrawal",
+    "output": "[money_remove] [bank_debit]"
+  },
+  {
+    "input": "translate gloss to emoji: lob",
+    "output": "[high_arc_shot] [defensive_play]"
+  },
+  {
+    "input": "translate gloss to emoji: cat video",
+    "output": "[cat] [video]"
+  },
+  {
+    "input": "translate gloss to emoji: jump",
+    "output": "[activity]"
+  },
+  {
+    "input": "translate gloss to emoji: road closure",
+    "output": "[road] [closure]"
+  },
+  {
+    "input": "translate gloss to emoji: flood",
+    "output": "[water] [disaster]"
+  },
+  {
+    "input": "translate gloss to emoji: slowing down",
+    "output": "[slow_pace] [deceleration]"
+  },
+  {
+    "input": "translate gloss to emoji: investigation",
+    "output": "[inquiry_process] [fact_finding]"
+  },
+  {
+    "input": "translate gloss to emoji: build",
+    "output": "[construction] [structure]"
+  },
+  {
+    "input": "translate gloss to emoji: thirst",
+    "output": "[water] [dry]"
+  },
+  {
+    "input": "translate gloss to emoji: purple",
+    "output": "[color] [purple]"
+  },
+  {
+    "input": "translate gloss to emoji: moon over sea",
+    "output": "[moon] [sea]"
+  },
+  {
+    "input": "translate gloss to emoji: lecture",
+    "output": "[education] [speaking]"
+  },
+  {
+    "input": "translate gloss to emoji: forest trees",
+    "output": "[forest] [tree]"
+  },
+  {
+    "input": "translate gloss to emoji: heartbreak song",
+    "output": "[heartbreak] [music]"
+  },
+  {
+    "input": "translate gloss to emoji: sport",
+    "output": "[activity] [medal] [trophy]"
+  },
+  {
+    "input": "translate gloss to emoji: by the fire",
+    "output": "[fire]"
+  },
+  {
+    "input": "translate gloss to emoji: calendar",
+    "output": "[calendar] [date]"
+  },
+  {
+    "input": "translate gloss to emoji: average",
+    "output": "[middle_value] [mean_calculation]"
+  },
+  {
+    "input": "translate gloss to emoji: stroller ride",
+    "output": "[stroller] [walk]"
+  },
+  {
+    "input": "translate gloss to emoji: suspense",
+    "output": "[time_passing] [mystery]"
+  },
+  {
+    "input": "translate gloss to emoji: love",
+    "output": "[love_emotion]"
+  },
+  {
+    "input": "translate gloss to emoji: know",
+    "output": "[knowledge_state] [awareness_activity]"
+  },
+  {
+    "input": "translate gloss to emoji: whiteboard",
+    "output": "[board] [writing_surface]"
+  },
+  {
+    "input": "translate gloss to emoji: booking",
+    "output": "[reservation_action] [advance_arrangement]"
+  },
+  {
+    "input": "translate gloss to emoji: fireworks",
+    "output": "[fireworks] [celebration]"
+  },
+  {
+    "input": "translate gloss to emoji: lead (verb)",
+    "output": "[direction] [guide]"
+  },
+  {
+    "input": "translate gloss to emoji: match light",
+    "output": "[match] [light]"
+  },
+  {
+    "input": "translate gloss to emoji: microscope view",
+    "output": "[microscope] [magnify]"
+  },
+  {
+    "input": "translate gloss to emoji: their",
+    "output": "[belonging_others] [group_ownership]"
+  },
+  {
+    "input": "translate gloss to emoji: weighing_scale",
+    "output": "[weight_device] [mass_measure]"
+  },
+  {
+    "input": "translate gloss to emoji: music",
+    "output": "[music] [sound]"
+  },
+  {
+    "input": "translate gloss to emoji: rainbow over sea",
+    "output": "[rainbow] [sea]"
+  },
+  {
+    "input": "translate gloss to emoji: garden hose",
+    "output": "[garden] [hose]"
+  },
+  {
+    "input": "translate gloss to emoji: empty stomach",
+    "output": "[stomach] [hunger]"
+  },
+  {
+    "input": "translate gloss to emoji: dew drop",
+    "output": "[water] [drop]"
+  },
+  {
+    "input": "translate gloss to emoji: courage fear",
+    "output": "[courage] [fear]"
+  },
+  {
+    "input": "translate gloss to emoji: vacuum cleaner",
+    "output": "[vacuum_cleaner] [clean]"
+  },
+  {
+    "input": "translate gloss to emoji: neuron",
+    "output": "[brain] [nerve]"
+  },
+  {
+    "input": "translate gloss to emoji: bustling market",
+    "output": "[market] [crowd] [goods]"
+  },
+  {
+    "input": "translate gloss to emoji: finding a lost sock",
+    "output": "[search] [sock]"
+  },
+  {
+    "input": "translate gloss to emoji: mountain summit",
+    "output": "[mountain] [summit]"
+  },
+  {
+    "input": "translate gloss to emoji: file",
+    "output": "[folder]"
+  },
+  {
+    "input": "translate gloss to emoji: thermometer",
+    "output": "[temperature_measure] [fever_check]"
+  },
+  {
+    "input": "translate gloss to emoji: claim",
+    "output": "[insurance_request] [benefit_demand]"
+  },
+  {
+    "input": "translate gloss to emoji: hot coffee",
+    "output": "[coffee] [hot]"
+  },
+  {
+    "input": "translate gloss to emoji: slice",
+    "output": "[food_piece]"
+  },
+  {
+    "input": "translate gloss to emoji: homework assignment",
+    "output": "[book] [pencil]"
+  },
+  {
+    "input": "translate gloss to emoji: the feeling of wonder",
+    "output": "[wonder] [awe]"
+  },
+  {
+    "input": "translate gloss to emoji: weight_measure",
+    "output": "[mass_calculation] [scale_reading]"
+  },
+  {
+    "input": "translate gloss to emoji: passing notes",
+    "output": "[hand] [note]"
+  },
+  {
+    "input": "translate gloss to emoji: gratitude",
+    "output": "[thankfulness] [heart]"
+  },
+  {
+    "input": "translate gloss to emoji: sushi",
+    "output": "[food]"
+  },
+  {
+    "input": "translate gloss to emoji: exasperation",
+    "output": "[frustration] [anger]"
+  },
+  {
+    "input": "translate gloss to emoji: justice scales",
+    "output": "[justice_scales]"
+  },
+  {
+    "input": "translate gloss to emoji: jam fruit spread",
+    "output": "[jam] [fruit]"
+  },
+  {
+    "input": "translate gloss to emoji: boil",
+    "output": "[heat] [water] [steam]"
+  },
+  {
+    "input": "translate gloss to emoji: dance party",
+    "output": "[dance_activity] [music] [party_event]"
+  },
+  {
+    "input": "translate gloss to emoji: cloud rain",
+    "output": "[cloud] [rain]"
+  },
+  {
+    "input": "translate gloss to emoji: concert",
+    "output": "[music] [performance]"
+  },
+  {
+    "input": "translate gloss to emoji: newborn_care",
+    "output": "[infant_support] [baby_health]"
+  },
+  {
+    "input": "translate gloss to emoji: turmeric",
+    "output": "[yellow_spice] [antiseptic_powder]"
+  },
+  {
+    "input": "translate gloss to emoji: go north",
+    "output": "[direction] [north]"
+  },
+  {
+    "input": "translate gloss to emoji: lime",
+    "output": "[lime_fruit]"
+  },
+  {
+    "input": "translate gloss to emoji: fork",
+    "output": "[fork_object]"
+  },
+  {
+    "input": "translate gloss to emoji: script",
+    "output": "[written_dialog] [performance_text]"
+  },
+  {
+    "input": "translate gloss to emoji: overjoyed",
+    "output": "[joy] [emotion]"
+  },
+  {
+    "input": "translate gloss to emoji: want",
+    "output": "[desire] [wish]"
+  },
+  {
+    "input": "translate gloss to emoji: root (plant)",
+    "output": "[plant] [root]"
+  },
+  {
+    "input": "translate gloss to emoji: souvenir",
+    "output": "[travel_memory_item] [place_keepsake]"
+  },
+  {
+    "input": "translate gloss to emoji: rights",
+    "output": "[legal_entitlement] [citizen_freedom]"
+  },
+  {
+    "input": "translate gloss to emoji: volume",
+    "output": "[space_measure] [3D_capacity]"
+  },
+  {
+    "input": "translate gloss to emoji: mutual_fund",
+    "output": "[pooled_investment] [shared_fund]"
+  },
+  {
+    "input": "translate gloss to emoji: tractor",
+    "output": "[tractor]"
+  },
+  {
+    "input": "translate gloss to emoji: passing time",
+    "output": "[time_passage] [activity]"
+  },
+  {
+    "input": "translate gloss to emoji: feast",
+    "output": "[food] [celebration]"
+  },
+  {
+    "input": "translate gloss to emoji: trekking uphill",
+    "output": "[hiking_activity] [mountain]"
+  },
+  {
+    "input": "translate gloss to emoji: charge (attack)",
+    "output": "[running] [impact]"
+  },
+  {
+    "input": "translate gloss to emoji: the perfect angle",
+    "output": "[angle] [perfect]"
+  },
+  {
+    "input": "translate gloss to emoji: germs",
+    "output": "[microbe]"
+  },
+  {
+    "input": "translate gloss to emoji: downloading files",
+    "output": "[download] [file]"
+  },
+  {
+    "input": "translate gloss to emoji: belt",
+    "output": "[waist_accessory] [pant_holder]"
+  },
+  {
+    "input": "translate gloss to emoji: thumbs up",
+    "output": "[thumbs_up]"
+  },
+  {
+    "input": "translate gloss to emoji: debriefing",
+    "output": "[discussion] [review]"
+  },
+  {
+    "input": "translate gloss to emoji: glove",
+    "output": "[hand_protection] [sport_glove]"
+  },
+  {
+    "input": "translate gloss to emoji: pediatrician",
+    "output": "[child_doctor] [kid_health_expert]"
+  },
+  {
+    "input": "translate gloss to emoji: echo chamber",
+    "output": "[sound] [repetition] [closed_system]"
+  },
+  {
+    "input": "translate gloss to emoji: freedom",
+    "output": "[open_space] [wings]"
+  },
+  {
+    "input": "translate gloss to emoji: punjabi",
+    "output": "[north_indian_language] [punjab_tongue]"
+  },
+  {
+    "input": "translate gloss to emoji: grocery aisle",
+    "output": "[shopping] [food] [aisle]"
+  },
+  {
+    "input": "translate gloss to emoji: curiosity gap",
+    "output": "[curiosity] [question]"
+  },
+  {
+    "input": "translate gloss to emoji: seal",
+    "output": "[seal_animal]"
+  },
+  {
+    "input": "translate gloss to emoji: shoes",
+    "output": "[footwear]"
+  },
+  {
+    "input": "translate gloss to emoji: shop",
+    "output": "[shopping_bags]"
+  },
+  {
+    "input": "translate gloss to emoji: bookstore",
+    "output": "[bookstore] [book]"
+  },
+  {
+    "input": "translate gloss to emoji: highway",
+    "output": "[road] [car]"
   },
   {
     "input": "translate gloss to emoji: experiment",
     "output": "[science] [test]"
   },
   {
-    "input": "translate gloss to emoji: plant factory",
-    "output": "[plant_facility] [factory]"
+    "input": "translate gloss to emoji: lose",
+    "output": "[sadness] [defeat]"
   },
   {
-    "input": "translate gloss to emoji: kitchen sink",
-    "output": "[kitchen] [sink]"
+    "input": "translate gloss to emoji: whiskey smudge",
+    "output": "[whiskey] [smudge]"
   },
   {
-    "input": "translate gloss to emoji: checkpoint",
-    "output": "[progress_marker] [location]"
+    "input": "translate gloss to emoji: opera performance",
+    "output": "[opera] [theater] [music]"
   },
   {
-    "input": "translate gloss to emoji: lightning storm",
-    "output": "[lightning] [storm]"
+    "input": "translate gloss to emoji: overcoming fear",
+    "output": "[courage] [strength]"
   },
   {
-    "input": "translate gloss to emoji: timezone",
-    "output": "[time] [global_location]"
+    "input": "translate gloss to emoji: tapestry weaving",
+    "output": "[weaving] [thread] [art]"
   },
   {
-    "input": "translate gloss to emoji: hospital",
-    "output": "[healthcare] [building]"
+    "input": "translate gloss to emoji: field",
+    "output": "[agricultural_land] [farming_area]"
   },
   {
-    "input": "translate gloss to emoji: a long conversation",
-    "output": "[chat] [speech]"
+    "input": "translate gloss to emoji: beach",
+    "output": "[sand] [water]"
+  },
+  {
+    "input": "translate gloss to emoji: currency",
+    "output": "[money] [coin] [bank]"
+  },
+  {
+    "input": "translate gloss to emoji: traffic lights",
+    "output": "[traffic_light] [signal]"
+  },
+  {
+    "input": "translate gloss to emoji: sudden change",
+    "output": "[sudden] [change]"
+  },
+  {
+    "input": "translate gloss to emoji: ceiling",
+    "output": "[room_top] [overhead_surface]"
+  },
+  {
+    "input": "translate gloss to emoji: junction box",
+    "output": "[electrical_connection] [power]"
+  },
+  {
+    "input": "translate gloss to emoji: play sport",
+    "output": "[play_activity] [sport_activity]"
+  },
+  {
+    "input": "translate gloss to emoji: binge-watching",
+    "output": "[media_consumption] [television] [comfort]"
+  },
+  {
+    "input": "translate gloss to emoji: hope for tomorrow",
+    "output": "[hope] [sunrise]"
+  },
+  {
+    "input": "translate gloss to emoji: scared",
+    "output": "[fear] [scared]"
+  },
+  {
+    "input": "translate gloss to emoji: proposal",
+    "output": "[formal_suggestion] [business_offer]"
+  },
+  {
+    "input": "translate gloss to emoji: kidney",
+    "output": "[filtration_organ] [waste_remover]"
+  },
+  {
+    "input": "translate gloss to emoji: airport",
+    "output": "[airplane] [travel]"
+  },
+  {
+    "input": "translate gloss to emoji: bank - river",
+    "output": "[river] [bank_geographical]"
+  },
+  {
+    "input": "translate gloss to emoji: stain",
+    "output": "[mark] [discoloration]"
+  },
+  {
+    "input": "translate gloss to emoji: blood_donation",
+    "output": "[life_saving_gift] [blood_bank_contribution]"
+  },
+  {
+    "input": "translate gloss to emoji: viva",
+    "output": "[oral_exam] [spoken_assessment]"
+  },
+  {
+    "input": "translate gloss to emoji: unseen currents",
+    "output": "[flow] [invisible]"
+  },
+  {
+    "input": "translate gloss to emoji: day and night",
+    "output": "[day] [night]"
+  },
+  {
+    "input": "translate gloss to emoji: loneliness single person",
+    "output": "[loneliness] [person]"
+  },
+  {
+    "input": "translate gloss to emoji: mitochondria",
+    "output": "[biology] [cell] [energy]"
+  },
+  {
+    "input": "translate gloss to emoji: basil",
+    "output": "[sacred_herb] [tulsi_plant]"
+  },
+  {
+    "input": "translate gloss to emoji: hotel",
+    "output": "[hotel_place]"
+  },
+  {
+    "input": "translate gloss to emoji: historical reenactment",
+    "output": "[history] [roleplay] [people]"
+  },
+  {
+    "input": "translate gloss to emoji: watch clock",
+    "output": "[timepiece] [watch]"
+  },
+  {
+    "input": "translate gloss to emoji: square",
+    "output": "[geometric_shape]"
+  },
+  {
+    "input": "translate gloss to emoji: cholesterol",
+    "output": "[blood_fat] [cardiac_risk_factor]"
+  },
+  {
+    "input": "translate gloss to emoji: drill",
+    "output": "[drill_tool]"
+  },
+  {
+    "input": "translate gloss to emoji: loser",
+    "output": "[last_place] [competition_defeated]"
+  },
+  {
+    "input": "translate gloss to emoji: road_tax",
+    "output": "[vehicle_charge] [transport_tax]"
+  },
+  {
+    "input": "translate gloss to emoji: councillor",
+    "output": "[ward_representative] [local_elected_person]"
+  },
+  {
+    "input": "translate gloss to emoji: a shared secret",
+    "output": "[secret] [share]"
+  },
+  {
+    "input": "translate gloss to emoji: soccer",
+    "output": "[soccer] [ball]"
+  },
+  {
+    "input": "translate gloss to emoji: sleeping",
+    "output": "[sleep] [rest]"
+  },
+  {
+    "input": "translate gloss to emoji: lighter",
+    "output": "[flame_device] [portable_fire]"
+  },
+  {
+    "input": "translate gloss to emoji: backhand",
+    "output": "[opposite_hand_hit] [reverse_stroke]"
+  },
+  {
+    "input": "translate gloss to emoji: viral video",
+    "output": "[trending] [video]"
+  },
+  {
+    "input": "translate gloss to emoji: rainbow",
+    "output": "[sky] [color_spectrum]"
+  },
+  {
+    "input": "translate gloss to emoji: artifact",
+    "output": "[ancient_object] [history]"
+  },
+  {
+    "input": "translate gloss to emoji: getting ready",
+    "output": "[ready_state]"
+  },
+  {
+    "input": "translate gloss to emoji: antibody",
+    "output": "[immune_system] [defense]"
+  },
+  {
+    "input": "translate gloss to emoji: archaeology",
+    "output": "[dig] [artifact] [history]"
+  },
+  {
+    "input": "translate gloss to emoji: moment of clarity",
+    "output": "[realization] [idea]"
+  },
+  {
+    "input": "translate gloss to emoji: seal official",
+    "output": "[seal_object] [official_mark]"
+  },
+  {
+    "input": "translate gloss to emoji: train",
+    "output": "[train_vehicle]"
+  },
+  {
+    "input": "translate gloss to emoji: daycare",
+    "output": "[child_center] [working_parent_support]"
+  },
+  {
+    "input": "translate gloss to emoji: eye",
+    "output": "[eye]"
+  },
+  {
+    "input": "translate gloss to emoji: rtgs",
+    "output": "[real_time_transfer] [large_fund_transfer]"
+  },
+  {
+    "input": "translate gloss to emoji: awe",
+    "output": "[wonder] [starry_sky]"
+  },
+  {
+    "input": "translate gloss to emoji: struggle",
+    "output": "[effort] [difficulty]"
+  },
+  {
+    "input": "translate gloss to emoji: sway",
+    "output": "[movement] [flow]"
+  },
+  {
+    "input": "translate gloss to emoji: heart symbol",
+    "output": "[heart] [symbol]"
+  },
+  {
+    "input": "translate gloss to emoji: first",
+    "output": "[initial_position] [number_one_rank]"
+  },
+  {
+    "input": "translate gloss to emoji: wrench",
+    "output": "[tool]"
+  },
+  {
+    "input": "translate gloss to emoji: adoption",
+    "output": "[child_take] [legal_parenthood]"
+  },
+  {
+    "input": "translate gloss to emoji: tie neck",
+    "output": "[clothing_feature]"
+  },
+  {
+    "input": "translate gloss to emoji: big",
+    "output": "[large_size]"
+  },
+  {
+    "input": "translate gloss to emoji: stranger",
+    "output": "[person] [unknown]"
+  },
+  {
+    "input": "translate gloss to emoji: avalanche",
+    "output": "[snow] [mountain] [disaster]"
+  },
+  {
+    "input": "translate gloss to emoji: virus spread",
+    "output": "[germ] [spread]"
+  },
+  {
+    "input": "translate gloss to emoji: locker",
+    "output": "[bank_safe] [valuables_storage]"
+  },
+  {
+    "input": "translate gloss to emoji: recipe testing",
+    "output": "[cooking] [test]"
+  },
+  {
+    "input": "translate gloss to emoji: nail_polish",
+    "output": "[nail_color] [finger_cosmetic]"
+  },
+  {
+    "input": "translate gloss to emoji: exhausted",
+    "output": "[tiredness]"
+  },
+  {
+    "input": "translate gloss to emoji: virus biological",
+    "output": "[microbe] [science]"
+  },
+  {
+    "input": "translate gloss to emoji: mystery puzzle",
+    "output": "[mystery] [puzzle]"
+  },
+  {
+    "input": "translate gloss to emoji: server",
+    "output": "[computer] [network]"
+  },
+  {
+    "input": "translate gloss to emoji: neutrino",
+    "output": "[physics] [particle]"
+  },
+  {
+    "input": "translate gloss to emoji: break sleep",
+    "output": "[rest] [sleep]"
+  },
+  {
+    "input": "translate gloss to emoji: still",
+    "output": "[continuing_state] [ongoing_action]"
+  },
+  {
+    "input": "translate gloss to emoji: mustard",
+    "output": "[seed_spice] [yellow_condiment]"
+  },
+  {
+    "input": "translate gloss to emoji: yoga session",
+    "output": "[yoga_practice] [activity]"
+  },
+  {
+    "input": "translate gloss to emoji: fast forward",
+    "output": "[fast_forward]"
+  },
+  {
+    "input": "translate gloss to emoji: under the bridge",
+    "output": "[bridge_object]"
+  },
+  {
+    "input": "translate gloss to emoji: overpass structure",
+    "output": "[bridge] [structure]"
   },
   {
     "input": "translate gloss to emoji: resonate",
     "output": "[sound] [emotion]"
   },
   {
-    "input": "translate gloss to emoji: sailing trip",
-    "output": "[boat] [water] [activity]"
+    "input": "translate gloss to emoji: salwar",
+    "output": "[traditional_pants] [indian_female_wear]"
   },
   {
-    "input": "translate gloss to emoji: conflict",
-    "output": "[disagreement] [struggle]"
+    "input": "translate gloss to emoji: mouth",
+    "output": "[mouth]"
   },
   {
-    "input": "translate gloss to emoji: state",
-    "output": "[geography] [boundary]"
+    "input": "translate gloss to emoji: psychologist",
+    "output": "[behavior_specialist] [counseling_expert]"
   },
   {
-    "input": "translate gloss to emoji: village",
-    "output": "[place] [community]"
+    "input": "translate gloss to emoji: socks",
+    "output": "[foot_cover] [inner_footwear]"
   },
   {
-    "input": "translate gloss to emoji: pork",
+    "input": "translate gloss to emoji: berry",
+    "output": "[berry_food]"
+  },
+  {
+    "input": "translate gloss to emoji: bottom",
+    "output": "[lowest_point] [lower_surface]"
+  },
+  {
+    "input": "translate gloss to emoji: fence",
+    "output": "[property_border] [boundary_barrier]"
+  },
+  {
+    "input": "translate gloss to emoji: past",
+    "output": "[time] [memory]"
+  },
+  {
+    "input": "translate gloss to emoji: underground bunker",
+    "output": "[underground] [shelter] [bunker_object]"
+  },
+  {
+    "input": "translate gloss to emoji: bicycle - city",
+    "output": "[bicycle] [city]"
+  },
+  {
+    "input": "translate gloss to emoji: embarrassed",
+    "output": "[blush] [emotion]"
+  },
+  {
+    "input": "translate gloss to emoji: bee",
+    "output": "[honey_insect] [pollinator]"
+  },
+  {
+    "input": "translate gloss to emoji: bathroom",
+    "output": "[bathroom]"
+  },
+  {
+    "input": "translate gloss to emoji: emblem",
+    "output": "[official_symbol] [nation_badge]"
+  },
+  {
+    "input": "translate gloss to emoji: auction",
+    "output": "[bidding_sale] [highest_offer_sell]"
+  },
+  {
+    "input": "translate gloss to emoji: food_chain",
+    "output": "[energy_flow] [predator_prey_cycle]"
+  },
+  {
+    "input": "translate gloss to emoji: the glow of candlelight",
+    "output": "[candle] [light]"
+  },
+  {
+    "input": "translate gloss to emoji: run business",
+    "output": "[business] [money] [work]"
+  },
+  {
+    "input": "translate gloss to emoji: print",
+    "output": "[paper_output] [document_production]"
+  },
+  {
+    "input": "translate gloss to emoji: while cooking",
+    "output": "[cooking] [food_preparation]"
+  },
+  {
+    "input": "translate gloss to emoji: invitation",
+    "output": "[message] [celebration]"
+  },
+  {
+    "input": "translate gloss to emoji: education_scheme",
+    "output": "[learning_program] [academic_welfare]"
+  },
+  {
+    "input": "translate gloss to emoji: to hesitate",
+    "output": "[think] [ponder]"
+  },
+  {
+    "input": "translate gloss to emoji: metro",
+    "output": "[transportation_system]"
+  },
+  {
+    "input": "translate gloss to emoji: slight embarrassment",
+    "output": "[mild_emotion] [embarrassment]"
+  },
+  {
+    "input": "translate gloss to emoji: video game",
+    "output": "[screen] [game_activity]"
+  },
+  {
+    "input": "translate gloss to emoji: say",
+    "output": "[speech_bubble] [talking]"
+  },
+  {
+    "input": "translate gloss to emoji: heritage_site",
+    "output": "[protected_history] [cultural_landmark]"
+  },
+  {
+    "input": "translate gloss to emoji: urban",
+    "output": "[city_based] [metropolitan_area]"
+  },
+  {
+    "input": "translate gloss to emoji: locker_room",
+    "output": "[player_change_room] [sport_facility]"
+  },
+  {
+    "input": "translate gloss to emoji: nuclear_plant",
+    "output": "[atomic_energy] [nuclear_power]"
+  },
+  {
+    "input": "translate gloss to emoji: youth",
+    "output": "[young_generation] [energetic_age_group]"
+  },
+  {
+    "input": "translate gloss to emoji: jogging",
+    "output": "[running] [activity]"
+  },
+  {
+    "input": "translate gloss to emoji: streaming service",
+    "output": "[video] [internet]"
+  },
+  {
+    "input": "translate gloss to emoji: rainbow sunset",
+    "output": "[rainbow] [sunset]"
+  },
+  {
+    "input": "translate gloss to emoji: sailor",
+    "output": "[sea] [boat]"
+  },
+  {
+    "input": "translate gloss to emoji: storm cloud",
+    "output": "[storm] [cloud]"
+  },
+  {
+    "input": "translate gloss to emoji: housing_scheme",
+    "output": "[shelter_program] [home_welfare]"
+  },
+  {
+    "input": "translate gloss to emoji: recovery",
+    "output": "[health] [healing] [strength]"
+  },
+  {
+    "input": "translate gloss to emoji: dollar",
+    "output": "[US_currency] [USD]"
+  },
+  {
+    "input": "translate gloss to emoji: mythology character",
+    "output": "[ancient_story] [figure]"
+  },
+  {
+    "input": "translate gloss to emoji: to negotiate",
+    "output": "[people] [talk] [agreement]"
+  },
+  {
+    "input": "translate gloss to emoji: treatment",
+    "output": "[medical_care] [health_remedy]"
+  },
+  {
+    "input": "translate gloss to emoji: camping campfire",
+    "output": "[camping] [fire]"
+  },
+  {
+    "input": "translate gloss to emoji: later",
+    "output": "[future_moment] [after_current]"
+  },
+  {
+    "input": "translate gloss to emoji: deadline work",
+    "output": "[time_pressure] [work_task]"
+  },
+  {
+    "input": "translate gloss to emoji: january",
+    "output": "[first_month] [winter_month]"
+  },
+  {
+    "input": "translate gloss to emoji: left (direction & remaining)",
+    "output": "[direction]"
+  },
+  {
+    "input": "translate gloss to emoji: fall season",
+    "output": "[autumn] [leaf]"
+  },
+  {
+    "input": "translate gloss to emoji: script_writer",
+    "output": "[story_creator] [dialog_writer]"
+  },
+  {
+    "input": "translate gloss to emoji: climate change",
+    "output": "[earth] [heat] [water_rise] [warning]"
+  },
+  {
+    "input": "translate gloss to emoji: olympics",
+    "output": "[global_sport_event] [international_games]"
+  },
+  {
+    "input": "translate gloss to emoji: street performer",
+    "output": "[street] [performance] [music]"
+  },
+  {
+    "input": "translate gloss to emoji: suggestion",
+    "output": "[improvement_idea] [proposed_action]"
+  },
+  {
+    "input": "translate gloss to emoji: storm weather",
+    "output": "[storm] [weather]"
+  },
+  {
+    "input": "translate gloss to emoji: love triangle",
+    "output": "[love] [three_people]"
+  },
+  {
+    "input": "translate gloss to emoji: bacteria",
+    "output": "[microbe]"
+  },
+  {
+    "input": "translate gloss to emoji: during the day",
+    "output": "[daytime] [sun]"
+  },
+  {
+    "input": "translate gloss to emoji: crash car",
+    "output": "[crash] [car]"
+  },
+  {
+    "input": "translate gloss to emoji: bench",
+    "output": "[player_seat] [substitute_area]"
+  },
+  {
+    "input": "translate gloss to emoji: global warming",
+    "output": "[earth] [heat] [rise]"
+  },
+  {
+    "input": "translate gloss to emoji: workshop",
+    "output": "[learning] [activity] [tools]"
+  },
+  {
+    "input": "translate gloss to emoji: blueprint sketch",
+    "output": "[plan] [drawing] [architecture]"
+  },
+  {
+    "input": "translate gloss to emoji: the hum of the city",
+    "output": "[city_place] [sound]"
+  },
+  {
+    "input": "translate gloss to emoji: escape",
+    "output": "[running] [freedom]"
+  },
+  {
+    "input": "translate gloss to emoji: amendment",
+    "output": "[law_change] [rule_update]"
+  },
+  {
+    "input": "translate gloss to emoji: paint",
+    "output": "[paint] [art]"
+  },
+  {
+    "input": "translate gloss to emoji: parade",
+    "output": "[people] [celebration]"
+  },
+  {
+    "input": "translate gloss to emoji: cooperative",
+    "output": "[joint_venture] [shared_enterprise]"
+  },
+  {
+    "input": "translate gloss to emoji: confused look",
+    "output": "[confusion] [look]"
+  },
+  {
+    "input": "translate gloss to emoji: greeting",
+    "output": "[welcoming_message] [social_wish]"
+  },
+  {
+    "input": "translate gloss to emoji: behind the curtain",
+    "output": "[mystery] [curtain]"
+  },
+  {
+    "input": "translate gloss to emoji: red apple",
+    "output": "[apple]"
+  },
+  {
+    "input": "translate gloss to emoji: comment",
+    "output": "[speech_bubble]"
+  },
+  {
+    "input": "translate gloss to emoji: seamstress",
+    "output": "[sewing] [thread] [clothing]"
+  },
+  {
+    "input": "translate gloss to emoji: flute",
+    "output": "[musical_instrument]"
+  },
+  {
+    "input": "translate gloss to emoji: global",
+    "output": "[worldwide_scope] [international_context]"
+  },
+  {
+    "input": "translate gloss to emoji: harbor life",
+    "output": "[harbor] [ship] [water]"
+  },
+  {
+    "input": "translate gloss to emoji: charger",
+    "output": "[plug] [battery]"
+  },
+  {
+    "input": "translate gloss to emoji: yogurt",
     "output": "[food]"
   },
   {
-    "input": "translate gloss to emoji: the perfect angle",
-    "output": "[angle] [perfect]"
+    "input": "translate gloss to emoji: color",
+    "output": "[rainbow] [palette]"
+  },
+  {
+    "input": "translate gloss to emoji: soldier",
+    "output": "[military_person] [defense_fighter]"
+  },
+  {
+    "input": "translate gloss to emoji: demand",
+    "output": "[product_need] [consumer_want]"
+  },
+  {
+    "input": "translate gloss to emoji: light source",
+    "output": "[light_emission] [source]"
+  },
+  {
+    "input": "translate gloss to emoji: today",
+    "output": "[time] [date]"
+  },
+  {
+    "input": "translate gloss to emoji: watch movie",
+    "output": "[activity_viewing] [movie_object]"
+  },
+  {
+    "input": "translate gloss to emoji: humanitarian",
+    "output": "[human_welfare] [social_aid]"
+  },
+  {
+    "input": "translate gloss to emoji: bravery",
+    "output": "[bravery_trait] [strength]"
+  },
+  {
+    "input": "translate gloss to emoji: vending",
+    "output": "[vending_machine] [snack]"
+  },
+  {
+    "input": "translate gloss to emoji: adulthood",
+    "output": "[person_adult]"
+  },
+  {
+    "input": "translate gloss to emoji: virus outbreak",
+    "output": "[virus] [disease] [outbreak]"
+  },
+  {
+    "input": "translate gloss to emoji: typing fast",
+    "output": "[keyboard] [speed]"
+  },
+  {
+    "input": "translate gloss to emoji: wish",
+    "output": "[desired_want] [hopeful_request]"
+  },
+  {
+    "input": "translate gloss to emoji: supermarket",
+    "output": "[shopping] [groceries] [store]"
+  },
+  {
+    "input": "translate gloss to emoji: coalition",
+    "output": "[party_alliance] [joint_governance]"
+  },
+  {
+    "input": "translate gloss to emoji: sustained effort",
+    "output": "[strength] [persistence] [activity]"
+  },
+  {
+    "input": "translate gloss to emoji: time capsule",
+    "output": "[time] [container]"
+  },
+  {
+    "input": "translate gloss to emoji: bowl",
+    "output": "[curved_dish] [soup_container]"
+  },
+  {
+    "input": "translate gloss to emoji: passport exit",
+    "output": "[passport] [exit_border]"
+  },
+  {
+    "input": "translate gloss to emoji: university",
+    "output": "[education] [book] [graduation_cap]"
+  },
+  {
+    "input": "translate gloss to emoji: the glow of fireflies",
+    "output": "[firefly_insect] [glow] [light]"
+  },
+  {
+    "input": "translate gloss to emoji: echoing hall",
+    "output": "[sound] [hall]"
+  },
+  {
+    "input": "translate gloss to emoji: milk",
+    "output": "[milk]"
+  },
+  {
+    "input": "translate gloss to emoji: sweater",
+    "output": "[clothing]"
+  },
+  {
+    "input": "translate gloss to emoji: train ride",
+    "output": "[train_vehicle] [journey]"
+  },
+  {
+    "input": "translate gloss to emoji: crowd",
+    "output": "[people] [group]"
+  },
+  {
+    "input": "translate gloss to emoji: global_warming",
+    "output": "[temperature_rise] [climate_change]"
+  },
+  {
+    "input": "translate gloss to emoji: syllabus",
+    "output": "[education] [plan]"
+  },
+  {
+    "input": "translate gloss to emoji: dreaming vividly",
+    "output": "[dream] [vivid]"
+  },
+  {
+    "input": "translate gloss to emoji: museum gift shop",
+    "output": "[museum] [shopping]"
+  },
+  {
+    "input": "translate gloss to emoji: eiffel tower",
+    "output": "[landmark] [paris]"
+  },
+  {
+    "input": "translate gloss to emoji: inspiration",
+    "output": "[idea] [lightbulb] [thought]"
+  },
+  {
+    "input": "translate gloss to emoji: wave hand",
+    "output": "[wave_hand]"
+  },
+  {
+    "input": "translate gloss to emoji: cricket match",
+    "output": "[cricket_sport] [bat_sports] [ball]"
+  },
+  {
+    "input": "translate gloss to emoji: geode crystal",
+    "output": "[geode] [crystal]"
+  },
+  {
+    "input": "translate gloss to emoji: comfort",
+    "output": "[relax] [warmth]"
+  },
+  {
+    "input": "translate gloss to emoji: sunrise over the mountains",
+    "output": "[sunrise] [mountain]"
+  },
+  {
+    "input": "translate gloss to emoji: management",
+    "output": "[organization_skill] [control_ability]"
+  },
+  {
+    "input": "translate gloss to emoji: muscle cramp",
+    "output": "[body] [pain]"
+  },
+  {
+    "input": "translate gloss to emoji: handwriting",
+    "output": "[writing_activity]"
+  },
+  {
+    "input": "translate gloss to emoji: spring flower",
+    "output": "[spring] [flower]"
+  },
+  {
+    "input": "translate gloss to emoji: noise",
+    "output": "[sound] [loud]"
+  },
+  {
+    "input": "translate gloss to emoji: bank (river edge)",
+    "output": "[river] [edge]"
+  },
+  {
+    "input": "translate gloss to emoji: global connection",
+    "output": "[world] [network]"
+  },
+  {
+    "input": "translate gloss to emoji: match (stick)",
+    "output": "[match_stick] [fire]"
+  },
+  {
+    "input": "translate gloss to emoji: cricket pitch",
+    "output": "[cricket_sport] [field]"
+  },
+  {
+    "input": "translate gloss to emoji: sunflower",
+    "output": "[sunflower] [flower]"
+  },
+  {
+    "input": "translate gloss to emoji: office",
+    "output": "[building] [desk] [computer]"
+  },
+  {
+    "input": "translate gloss to emoji: there",
+    "output": "[other_location] [that_place]"
+  },
+  {
+    "input": "translate gloss to emoji: valley",
+    "output": "[landscape] [geography]"
+  },
+  {
+    "input": "translate gloss to emoji: cop",
+    "output": "[police_officer]"
+  },
+  {
+    "input": "translate gloss to emoji: global summit",
+    "output": "[global] [meeting]"
+  },
+  {
+    "input": "translate gloss to emoji: frown",
+    "output": "[frown_emotion]"
+  },
+  {
+    "input": "translate gloss to emoji: tasting food",
+    "output": "[tasting] [food]"
+  },
+  {
+    "input": "translate gloss to emoji: hostel",
+    "output": "[student_stay] [shared_accommodation]"
+  },
+  {
+    "input": "translate gloss to emoji: lonely",
+    "output": "[sadness] [alone]"
+  },
+  {
+    "input": "translate gloss to emoji: book signing",
+    "output": "[book] [sign]"
+  },
+  {
+    "input": "translate gloss to emoji: recipe ingredient",
+    "output": "[cooking] [food_item]"
+  },
+  {
+    "input": "translate gloss to emoji: riverbank",
+    "output": "[river] [shore]"
+  },
+  {
+    "input": "translate gloss to emoji: ball",
+    "output": "[round_sport_object] [game_projectile]"
+  },
+  {
+    "input": "translate gloss to emoji: a sudden epiphany",
+    "output": "[idea]"
+  },
+  {
+    "input": "translate gloss to emoji: landlord",
+    "output": "[property_owner] [house_owner]"
+  },
+  {
+    "input": "translate gloss to emoji: jigsaw puzzle",
+    "output": "[puzzle] [pieces]"
+  },
+  {
+    "input": "translate gloss to emoji: scurry",
+    "output": "[movement] [quick_action]"
+  },
+  {
+    "input": "translate gloss to emoji: tangled yarn",
+    "output": "[yarn] [tangle]"
+  },
+  {
+    "input": "translate gloss to emoji: forest",
+    "output": "[forest] [tree]"
+  },
+  {
+    "input": "translate gloss to emoji: bat sport",
+    "output": "[bat_sports] [ball]"
+  },
+  {
+    "input": "translate gloss to emoji: crossing the street",
+    "output": "[walk] [street]"
+  },
+  {
+    "input": "translate gloss to emoji: bass",
+    "output": "[fish] [animal]"
+  },
+  {
+    "input": "translate gloss to emoji: username",
+    "output": "[digital_name] [account_id]"
+  },
+  {
+    "input": "translate gloss to emoji: whale",
+    "output": "[whale_animal]"
+  },
+  {
+    "input": "translate gloss to emoji: cross-country trip",
+    "output": "[travel] [road] [globe]"
+  },
+  {
+    "input": "translate gloss to emoji: metropolis",
+    "output": "[city] [skyline]"
+  },
+  {
+    "input": "translate gloss to emoji: thunder storm",
+    "output": "[thunder] [storm]"
+  },
+  {
+    "input": "translate gloss to emoji: negotiating",
+    "output": "[talk] [agreement]"
+  },
+  {
+    "input": "translate gloss to emoji: goal setting",
+    "output": "[goal] [plan]"
+  },
+  {
+    "input": "translate gloss to emoji: resilience",
+    "output": "[strength] [recovery]"
+  },
+  {
+    "input": "translate gloss to emoji: pass",
+    "output": "[success_result] [positive_outcome]"
+  },
+  {
+    "input": "translate gloss to emoji: afternoon",
+    "output": "[time_of_day]"
+  },
+  {
+    "input": "translate gloss to emoji: envelope",
+    "output": "[letter_cover] [mail_container]"
+  },
+  {
+    "input": "translate gloss to emoji: the feeling of awe",
+    "output": "[awe] [wonder]"
+  },
+  {
+    "input": "translate gloss to emoji: oil",
+    "output": "[oil] [liquid]"
+  },
+  {
+    "input": "translate gloss to emoji: suspension",
+    "output": "[spring] [support]"
+  },
+  {
+    "input": "translate gloss to emoji: routine chore",
+    "output": "[chore] [cleaning]"
+  },
+  {
+    "input": "translate gloss to emoji: seismograph",
+    "output": "[earth] [shake]"
+  },
+  {
+    "input": "translate gloss to emoji: new year celebration",
+    "output": "[new_year] [celebration]"
+  },
+  {
+    "input": "translate gloss to emoji: perplexity",
+    "output": "[confusion] [question]"
+  },
+  {
+    "input": "translate gloss to emoji: detoxification",
+    "output": "[body_cleanse] [toxin_removal]"
+  },
+  {
+    "input": "translate gloss to emoji: silence in the city",
+    "output": "[silence] [city]"
+  },
+  {
+    "input": "translate gloss to emoji: checkup",
+    "output": "[medical_examination] [health_review]"
+  },
+  {
+    "input": "translate gloss to emoji: repair",
+    "output": "[repair_activity]"
+  },
+  {
+    "input": "translate gloss to emoji: in the kitchen",
+    "output": "[kitchen]"
+  },
+  {
+    "input": "translate gloss to emoji: corner_kick",
+    "output": "[angle_kick] [dead_ball_play]"
+  },
+  {
+    "input": "translate gloss to emoji: bank of the river",
+    "output": "[river] [bank_geography]"
+  },
+  {
+    "input": "translate gloss to emoji: train machine learning",
+    "output": "[data] [computer] [learning]"
+  },
+  {
+    "input": "translate gloss to emoji: to forgive someone",
+    "output": "[forgiveness] [peace]"
+  },
+  {
+    "input": "translate gloss to emoji: cycle",
+    "output": "[bicycle]"
+  },
+  {
+    "input": "translate gloss to emoji: goal",
+    "output": "[goal_sports]"
+  },
+  {
+    "input": "translate gloss to emoji: the glow of a bonfire",
+    "output": "[fire] [glow]"
   }
 ]

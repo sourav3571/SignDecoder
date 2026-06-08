@@ -1,0 +1,3477 @@
+[
+  {
+    "input": "translate emoji to label: 🔺",
+    "output": "shape",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "competition event",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔢",
+    "output": "number",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧣",
+    "output": "scarf",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💡",
+    "output": "justice concept",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏢",
+    "output": "medical vehicle",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😩",
+    "output": "sightseeing journey",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📝",
+    "output": "ballot",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏢",
+    "output": "career advancement",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔥",
+    "output": "heat measure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥦 🍎",
+    "output": "nutrition",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📝",
+    "output": "welfare plan",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑‍🦽",
+    "output": "adult manual wheelchair",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🤝",
+    "output": "shared",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗓️",
+    "output": "rest day",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑",
+    "output": "adult",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🟡",
+    "output": "color yellow",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌐",
+    "output": "globe with meridians",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👋",
+    "output": "local elected person",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💧",
+    "output": "fragrance liquid",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚠️",
+    "output": "signal loss",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "south indian celebration",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚶",
+    "output": "boardwalk",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥵",
+    "output": "overcrowding state",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚾",
+    "output": "protection equipment",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "guilt",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😩",
+    "output": "intense frustration",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪈",
+    "output": "flute",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌀",
+    "output": "portal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌊",
+    "output": "largest sea creature",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚕️",
+    "output": "women health doctor",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤡",
+    "output": "clown face",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🛏️",
+    "output": "bed",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🧬",
+    "output": "administrative unit",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤒",
+    "output": "body stability",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📍",
+    "output": "walking base",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ➡️",
+    "output": "downward direction",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😊",
+    "output": "satisfaction",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "clear",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪵",
+    "output": "sweet bark",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: L",
+    "output": "latin capital letter l",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "equal condition",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📜",
+    "output": "prehistoric evidence",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "purchase action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🐒",
+    "output": "rodent animal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🩺",
+    "output": "medical check",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💬",
+    "output": "deal discussion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦛",
+    "output": "hippopotamus",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ➡️",
+    "output": "right",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎧",
+    "output": "audio media",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏃",
+    "output": "steady persistence",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ➡️",
+    "output": "large fund transfer",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "mat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "calamity aid",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏫",
+    "output": "school building",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "idle condition",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "triangle",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👅",
+    "output": "karnataka tongue",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👨",
+    "output": "elder male",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔒",
+    "output": "resource protection",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚀",
+    "output": "washing machine",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍳",
+    "output": "pan object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚖️",
+    "output": "high weight",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏠",
+    "output": "building part",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧬",
+    "output": "defense player",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖼️",
+    "output": "display",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛡️",
+    "output": "knight",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "negative emotion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍝",
+    "output": "grape food",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😔",
+    "output": "disappointment",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📸",
+    "output": "optics",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💸",
+    "output": "power cost",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😭",
+    "output": "bad luck",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌅",
+    "output": "sunrise",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗿",
+    "output": "sculpture",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗣️",
+    "output": "formal argument",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛰️",
+    "output": "rooftop space",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "headset",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧱",
+    "output": "block",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌄",
+    "output": "sunrise over mountains",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✅",
+    "output": "non acceptance",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💻",
+    "output": "digital facts",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👕",
+    "output": "sikh traditional wear",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍎",
+    "output": "goods provision",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📅",
+    "output": "eleventh month",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛰️",
+    "output": "green open space",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗑️",
+    "output": "trash",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "dormant period",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👨‍👩‍👧‍👦",
+    "output": "man woman girl boy",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🟫",
+    "output": "dirt free",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍝",
+    "output": "spaghetti",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏂",
+    "output": "snowboarder",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "unachievable state",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "dual holder",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧠",
+    "output": "processing memory",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔚",
+    "output": "end rank",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎭",
+    "output": "roleplay",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤵",
+    "output": "no spouse",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🥾",
+    "output": "hiking boot",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚨",
+    "output": "fire alert",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤒",
+    "output": "body length",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📡",
+    "output": "safety signal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "stick ball sport",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧬",
+    "output": "strike defense",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚀",
+    "output": "space travel",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥘",
+    "output": "shallow pan of food",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎵",
+    "output": "music notes",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💨",
+    "output": "memory loss",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗣️",
+    "output": "chat",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌬️",
+    "output": "hot air",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😊",
+    "output": "smile emotion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🕐",
+    "output": "clock face one oclock",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ⚙️",
+    "output": "connected system",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ♟️",
+    "output": "black chess pawn",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥵",
+    "output": "overheated face",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "freedom symbol",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎾",
+    "output": "racquet",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🏟️",
+    "output": "match event",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💺",
+    "output": "player seat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ☕",
+    "output": "hot beverage",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔚",
+    "output": "upper limb end",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "sport uniform",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💵",
+    "output": "extra amount",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "honor action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "phase",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔓",
+    "output": "open lock",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🕯️",
+    "output": "candle",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "country symbol",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📄",
+    "output": "paper binder",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💵",
+    "output": "banknote with dollar sign",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💧",
+    "output": "cool dry period",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👛",
+    "output": "purse",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🐛",
+    "output": "bug",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🔥",
+    "output": "energy burst",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🩸",
+    "output": "wound",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📅",
+    "output": "second month",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "gloomy",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔚",
+    "output": "marriage end",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑‍🌾",
+    "output": "recall activity",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏢",
+    "output": "family gathering room",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏃",
+    "output": "dance exercise",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⏰",
+    "output": "time pressure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⏩",
+    "output": "fast forward",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🫗",
+    "output": "dairy fat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥺",
+    "output": "emotion vulnerability",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌎",
+    "output": "global health crisis",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦠",
+    "output": "blood sugar disease",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔔",
+    "output": "ringing",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏖️ 🌊",
+    "output": "beach",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "celestial event",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧒",
+    "output": "child birth",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😩",
+    "output": "distress",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏭",
+    "output": "factory building",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⛓️",
+    "output": "jail place",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤒",
+    "output": "body wash",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖼️",
+    "output": "celebratory display",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "lamp celebration",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎠",
+    "output": "playground",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🦴",
+    "output": "fossil remains",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌐 💻",
+    "output": "online",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💪",
+    "output": "skill developer",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "apartment",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "welfare giving",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "company part",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📅",
+    "output": "start week",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😢",
+    "output": "sadness emotion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "group gathering",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚆",
+    "output": "train transportation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "engaged condition",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏃",
+    "output": "zero run",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔢",
+    "output": "barcode",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔔",
+    "output": "bell",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🧑‍🤝‍🧑",
+    "output": "group part",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏦",
+    "output": "bank finance",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗺️",
+    "output": "area admin",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👋",
+    "output": "close person",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤔",
+    "output": "alternative choice",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚖️",
+    "output": "supreme law",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⬆️",
+    "output": "price",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "written dialog",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚧",
+    "output": "obstacle situation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🙏",
+    "output": "tradition",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💤",
+    "output": "fatigue",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚐",
+    "output": "minibus",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🔁",
+    "output": "routine",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "complete",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌱",
+    "output": "seedling",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏗️",
+    "output": "building construction",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🩺",
+    "output": "fever illness",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎻",
+    "output": "violin",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🦗",
+    "output": "firefly insect",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📄",
+    "output": "document verification",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💭",
+    "output": "mind",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🏄",
+    "output": "surfer",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ⚡",
+    "output": "high voltage sign",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑",
+    "output": "adult male",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗓️",
+    "output": "next day",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👪",
+    "output": "parent sister",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💪",
+    "output": "flexed biceps",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎓",
+    "output": "builder expert",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🧬",
+    "output": "nature preservation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌍",
+    "output": "aerial force",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛍️",
+    "output": "shopping activity",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⛽",
+    "output": "gasoline",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🚿",
+    "output": "water overflow",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ≈",
+    "output": "almost equal to",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌊",
+    "output": "ocean predator",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "heritage design",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🐦",
+    "output": "small bird",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📰",
+    "output": "news gatherer",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🆔",
+    "output": "identification",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍝",
+    "output": "street food",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏢",
+    "output": "water vehicle",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍁",
+    "output": "cooling leaf",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗺️",
+    "output": "racket sport area",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ™️",
+    "output": "trade mark sign",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🐅",
+    "output": "tiger animal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "entrepreneurial venture",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "achievement",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📋",
+    "output": "sequence",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🍑",
+    "output": "curved fruit",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "virtue",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚛️",
+    "output": "quantum physics",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: D",
+    "output": "latin capital letter d",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💸",
+    "output": "cost",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "compromise ability",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌊",
+    "output": "water rise",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏢",
+    "output": "main room",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📄",
+    "output": "cost document",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "quantum",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔗",
+    "output": "share concept",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤦",
+    "output": "bowling error",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪑",
+    "output": "exercise place",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍋",
+    "output": "sour taste",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤝",
+    "output": "bulk trade",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌱",
+    "output": "plant origin",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔒",
+    "output": "data security",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "crossing",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪵",
+    "output": "writing material",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚇",
+    "output": "western metro",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💪",
+    "output": "strong recover",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔖",
+    "output": "official mark",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🐇",
+    "output": "rabbit",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "wrist jewelry",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ◻️",
+    "output": "white medium square",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌅 ☀️",
+    "output": "morning",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🪵",
+    "output": "rock material",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💬",
+    "output": "diplomatic agreement",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "non citizen",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📜",
+    "output": "rule guideline",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤖",
+    "output": "ai",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📈",
+    "output": "money growth",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔥",
+    "output": "resembling nature",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📍",
+    "output": "position violation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦠",
+    "output": "disease agent",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛋️",
+    "output": "sleep furniture",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍂",
+    "output": "natural decay",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏠",
+    "output": "house renter",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ♻️",
+    "output": "annual cycle",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌳",
+    "output": "deciduous tree",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔥",
+    "output": "flexible nature",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦗",
+    "output": "colorful insect",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🫣",
+    "output": "face with peeking eye",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🥺",
+    "output": "face with pleading eyes",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ½",
+    "output": "vulgar fraction one half",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📝",
+    "output": "variable study",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧒",
+    "output": "male child",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗺️",
+    "output": "buy sell area",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "muscle nutrient",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔎",
+    "output": "focus",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 👨‍🦰",
+    "output": "man emoji component red hair",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📍",
+    "output": "official position",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⬆️",
+    "output": "price rise",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧾",
+    "output": "invoice",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📦",
+    "output": "thing",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🛫",
+    "output": "flight activity",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "sweetness",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📚",
+    "output": "early education",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "interstate highway",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ➡️",
+    "output": "direction east",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "referee",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ☀️",
+    "output": "warm hue",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚆",
+    "output": "train",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🦠",
+    "output": "germ",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌍",
+    "output": "country wide",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "clothing action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗓️",
+    "output": "due date shift",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔊",
+    "output": "sound",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥺",
+    "output": "sadness",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚕️",
+    "output": "brain doctor",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍳",
+    "output": "cooking vessel",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌅",
+    "output": "early morning",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📍",
+    "output": "middle position",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🙏",
+    "output": "online communication",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "particle",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "retirement income",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "head",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌕",
+    "output": "harvest",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✍️",
+    "output": "preliminary",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ☄️",
+    "output": "comet",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💻",
+    "output": "personal computer",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📄",
+    "output": "page object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🐦",
+    "output": "common brown bird",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦷",
+    "output": "oral hygiene",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎷",
+    "output": "saxophone",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "government support",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👆",
+    "output": "click action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👁️",
+    "output": "schedule control",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😷",
+    "output": "face with medical mask",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🖼️",
+    "output": "personal picture",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤮",
+    "output": "face with open mouth vomiting",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "benefit demand",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪮",
+    "output": "hair pick",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🗺️",
+    "output": "map view",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏝️",
+    "output": "island",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🦶",
+    "output": "ankle",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⬆️",
+    "output": "money value rise",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤒",
+    "output": "lunar body",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "laugh emotion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥂",
+    "output": "party alliance",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😎",
+    "output": "cool period",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✏️",
+    "output": "desk",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🗣️",
+    "output": "dry throat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ☀️",
+    "output": "sunlight conversion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😵",
+    "output": "dizzy face",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "national legislature",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪑",
+    "output": "stay place",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😔",
+    "output": "pain reliever",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 7️⃣",
+    "output": "digit seven combining enclosing keycap",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "cardiac specialist",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌐",
+    "output": "digital network",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "bitterness",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚑",
+    "output": "ambulance",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌱",
+    "output": "life saving donation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌿",
+    "output": "south indian herb",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏞️",
+    "output": "riverbank",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "none of two",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧾",
+    "output": "transaction record",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "sprout",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔨",
+    "output": "signal tool",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👂",
+    "output": "hearing",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "decision challenge",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📝",
+    "output": "insurance plan",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗑️",
+    "output": "trash object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪵",
+    "output": "transparent material",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌍",
+    "output": "country output",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔊",
+    "output": "game control sound",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💼",
+    "output": "worker",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🍴",
+    "output": "fork object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎨",
+    "output": "art concept",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 6️⃣",
+    "output": "digit six combining enclosing keycap",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🎯",
+    "output": "goal scorer",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ➕",
+    "output": "calculation subject",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏃",
+    "output": "leg exercise",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✉️",
+    "output": "letter object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑‍🌾",
+    "output": "grasp activity",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "asset distribution",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔁",
+    "output": "clockwise rightwards and leftwards open circle arrows",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "symptom",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: K",
+    "output": "latin capital letter k",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 👃",
+    "output": "nose",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "narrow dimension",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔁",
+    "output": "repeat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪸",
+    "output": "coral",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🦞",
+    "output": "lobster",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "neutral color",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖼️",
+    "output": "image enhancement",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔮 ➡️",
+    "output": "future",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "complete items",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "joint mobility",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "vocational certification",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⏰",
+    "output": "before time",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👨",
+    "output": "young male",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📰",
+    "output": "academic publication",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "individual action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "multi cultural state",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖤",
+    "output": "black heart",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💨",
+    "output": "blast",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "compassionate act",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦉",
+    "output": "owl",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "unwell state",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "event visitor",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "sport supporter",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📝",
+    "output": "governance study",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏊",
+    "output": "swim",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🖋️",
+    "output": "lower left fountain pen",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💪",
+    "output": "reform process",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚒",
+    "output": "rescue transport",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😋",
+    "output": "savoring experience",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌀",
+    "output": "swirl",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "sports award",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "kitchen action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛰️",
+    "output": "ground space",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥁",
+    "output": "heart beat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😨",
+    "output": "fearful face",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔋",
+    "output": "highway charge",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ➡️",
+    "output": "right direction",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦵",
+    "output": "leg",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: S️",
+    "output": "latin capital letter s",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ⬛",
+    "output": "black large square",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⬇️",
+    "output": "gravity",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📐",
+    "output": "vertical measure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🟫",
+    "output": "large brown square",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚗",
+    "output": "transportation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💥",
+    "output": "collision",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💻",
+    "output": "laptop device",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📍",
+    "output": "overhead position",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "organic breakdown",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "speedy action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📹",
+    "output": "video",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💳",
+    "output": "warning card",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏷️",
+    "output": "calendar object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✉️",
+    "output": "letter",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗺️",
+    "output": "rural area",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚿",
+    "output": "daily water",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👕",
+    "output": "clothes smoothing",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚙️",
+    "output": "mechanism",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎞️",
+    "output": "film frames",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🔚",
+    "output": "end workweek",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏬",
+    "output": "store",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🤠",
+    "output": "face with cowboy hat",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💭",
+    "output": "childhood",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 2️⃣",
+    "output": "digit two combining enclosing keycap",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🔗",
+    "output": "proximity",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💵",
+    "output": "smaller amount",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧻",
+    "output": "filter object",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌳",
+    "output": "park",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "cart",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "peaceful coexistence",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤔",
+    "output": "choice question",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✋",
+    "output": "no point",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💳",
+    "output": "payment reversal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍌",
+    "output": "banana",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🗺️",
+    "output": "evacuation route",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦻",
+    "output": "ear with hearing aid",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ⛓️",
+    "output": "chains",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "compact dimension",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖥️ 💾",
+    "output": "server",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🔒",
+    "output": "injury protection",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏥",
+    "output": "medical shot",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏠",
+    "output": "house owner",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💥",
+    "output": "food energy measure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🟡",
+    "output": "yellow hue",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ➡️",
+    "output": "same rights",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗂️",
+    "output": "global organization",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑‍🌾",
+    "output": "dreaming activity",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔬",
+    "output": "social science",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🔋",
+    "output": "border charge",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💪",
+    "output": "shift process",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "spread action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "tall tower",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎼",
+    "output": "musical score",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏙️",
+    "output": "business city",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "hearing action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎧",
+    "output": "podcast",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📸",
+    "output": "moment",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌍",
+    "output": "country member",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📰",
+    "output": "article",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "net ball sport",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "last defender",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💍",
+    "output": "ring object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎋",
+    "output": "tanabata tree",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🐳",
+    "output": "whale animal",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✊",
+    "output": "thermal power",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "moral quality",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👁️",
+    "output": "temperature control",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👨‍👩‍👧‍👦",
+    "output": "family",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🧱",
+    "output": "wall decorator",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤥",
+    "output": "lie deception",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌥️",
+    "output": "stage cover",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏇",
+    "output": "horse racing",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "worship action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛰️",
+    "output": "open gathering space",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ☕",
+    "output": "coffee",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 5️⃣",
+    "output": "digit five combining enclosing keycap",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌨️",
+    "output": "cloud with snow",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📄",
+    "output": "document object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🙏",
+    "output": "verbal communication",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "financial supporter",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥧",
+    "output": "pie",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🦠",
+    "output": "flu",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💡",
+    "output": "light opening",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚡",
+    "output": "electricity",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "physical rehabilitation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧮",
+    "output": "abacus",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🛍️",
+    "output": "money send",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏙️",
+    "output": "town center",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "muslim festival",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📡",
+    "output": "approval signal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "term deposit",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🍝",
+    "output": "food measure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤫",
+    "output": "whisper",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤒",
+    "output": "body regulator",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "polite request",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💵",
+    "output": "wealth",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✋",
+    "output": "raised hand",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚕️",
+    "output": "diluted treatment",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📚",
+    "output": "professional learning",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ↗️",
+    "output": "north east arrow",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌍",
+    "output": "many country",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💶",
+    "output": "banknote with euro sign",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "tennis start",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌡️",
+    "output": "low temperature",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "cosmetic application",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "spacious dimension",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗣️",
+    "output": "speech act",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛣️",
+    "output": "curve",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🦗",
+    "output": "insect killer",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "answer for action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "hoop ball sport",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎲",
+    "output": "dice object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑‍💻",
+    "output": "work activity",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📅",
+    "output": "every year",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📍",
+    "output": "rear position",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "three button mouse",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📄",
+    "output": "coverage document",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💧",
+    "output": "sweat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎶",
+    "output": "multiple musical notes",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌱",
+    "output": "seed plant",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📿",
+    "output": "prayer beads",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🗣️",
+    "output": "speaker",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤫",
+    "output": "secret concept",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😭",
+    "output": "anger",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📅",
+    "output": "ninth month",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💻",
+    "output": "computer based",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛍️",
+    "output": "money holder",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪁",
+    "output": "kite object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "personal transport",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📐",
+    "output": "formula",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💨",
+    "output": "freedom",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📀",
+    "output": "dvd",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 👁️",
+    "output": "pest control spray",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "health support",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛡️",
+    "output": "secure condition",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤝",
+    "output": "two together",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📱",
+    "output": "apple technology",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥣",
+    "output": "prong utensil",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚙️",
+    "output": "algorithm",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🐼",
+    "output": "panda face",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🧊",
+    "output": "cold",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "target",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪜",
+    "output": "ladder",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "loan rating",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚫",
+    "output": "marriage mark",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "absorbent cloth",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "career support",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "financial capital",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌍",
+    "output": "globe",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "partial whole",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "high emotion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "party popper",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💵",
+    "output": "sum value",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "correct",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎹",
+    "output": "musical keyboard",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤲",
+    "output": "offering",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚇",
+    "output": "subway",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚀",
+    "output": "communication device",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎼",
+    "output": "zero tennis score",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌍",
+    "output": "country",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "account record",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "isolated territory",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💿",
+    "output": "record object",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "geothermal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "low chance",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💬",
+    "output": "response opinion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👤",
+    "output": "bust in silhouette",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📐",
+    "output": "duration measure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "source mention",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👟",
+    "output": "open footwear",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "burger",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😈",
+    "output": "evil",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🤔",
+    "output": "creative thinking",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚽",
+    "output": "goal sports",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🦅",
+    "output": "eagle animal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚕️",
+    "output": "varied treatment",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😊",
+    "output": "hello",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🌳",
+    "output": "water surrounded land",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌶️",
+    "output": "chili pepper",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👎",
+    "output": "defeat",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🛠️",
+    "output": "tools",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "threat feeling",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚡",
+    "output": "electricity based",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👨",
+    "output": "senior man",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎠",
+    "output": "carousel horse",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📓",
+    "output": "notebook",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤝",
+    "output": "shared enterprise",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🪵",
+    "output": "reading material",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧬",
+    "output": "cricket unit",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "formal commitment",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "joint action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "armed conflict",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😌",
+    "output": "comfort feeling",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏆",
+    "output": "sports event",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⛰️",
+    "output": "mountain",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "autumn month",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🗣️",
+    "output": "questioning",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎉",
+    "output": "political gathering",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎆",
+    "output": "firework",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🆚",
+    "output": "regular competition",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖼️",
+    "output": "self photo",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "skin cleaner",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏗️",
+    "output": "crane machine",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚙️",
+    "output": "safety gear",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🫧",
+    "output": "bubbles",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🐒",
+    "output": "feline animal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌊",
+    "output": "flood",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💻",
+    "output": "area code",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧑‍🚒",
+    "output": "fireman role",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🛰️",
+    "output": "within space",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖱️",
+    "output": "quick foot action",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "inquiry subject",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "dad",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🖼️",
+    "output": "formal display ability",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥭",
+    "output": "mango",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🏙️",
+    "output": "city place",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🎸",
+    "output": "guitar",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "density",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⏳",
+    "output": "time passing",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧒",
+    "output": "child caretaker",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "rivalry",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌩️",
+    "output": "cloud with lightning",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 📌",
+    "output": "pushpin",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ⛰️",
+    "output": "slim structure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏦",
+    "output": "blood bank contribution",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "overwhelmed state",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "financial allocation",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "precious wearable",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "property owner",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⚪",
+    "output": "white metal",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏥",
+    "output": "diagnosis",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📰",
+    "output": "news platform",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💚",
+    "output": "green heart",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "forgotten",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧦",
+    "output": "sock",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "mug",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "item",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🐳",
+    "output": "spouting whale",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏫",
+    "output": "mix",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "verified claim",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "coughing",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌿",
+    "output": "plant botany",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ➡️",
+    "output": "exit settlement",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "fifth count",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ↔️",
+    "output": "left right arrow",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🖼️",
+    "output": "formal display",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: F",
+    "output": "latin capital letter f 2",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🍈",
+    "output": "melon",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "eraser",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📝",
+    "output": "text",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "campus eatery",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏺",
+    "output": "amphora",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌀",
+    "output": "cyclone",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📜",
+    "output": "evidence",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📄",
+    "output": "healthcare document",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "simple task",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "applause",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏢",
+    "output": "vehicle fuel",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 😭",
+    "output": "tears emotion",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⏰",
+    "output": "time",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 👁️",
+    "output": "viewpoint",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚪",
+    "output": "dad leave",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚶",
+    "output": "pedestrian crossing",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "indoor shoes",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💵",
+    "output": "cash",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤕",
+    "output": "head pain",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌿",
+    "output": "natural woodland",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 💪",
+    "output": "skill development",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🙏",
+    "output": "religious communication",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "soother",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏥",
+    "output": "body procedure",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🥣",
+    "output": "off target bowl",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧢",
+    "output": "billed cap",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🤔",
+    "output": "place question",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📰",
+    "output": "main news",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏙️",
+    "output": "city division",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🏢",
+    "output": "career",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: M",
+    "output": "latin capital letter m 2",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🛑",
+    "output": "halt",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🏥",
+    "output": "checkup",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 🧠",
+    "output": "health review",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "percent",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤟",
+    "output": "i love you hand sign",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 💖",
+    "output": "nature color",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 👤",
+    "output": "stranger",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🚀",
+    "output": "screen device",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🌠",
+    "output": "meteor",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "step by step",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📚",
+    "output": "academic dishonesty",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🧬",
+    "output": "cell",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: ⬅️",
+    "output": "comfort return",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 📅",
+    "output": "current attendance",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🤺",
+    "output": "strength combat",
+    "type": "variant"
+  },
+  {
+    "input": "translate emoji to label: 🫑",
+    "output": "bell pepper",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: 😣",
+    "output": "persevering face",
+    "type": "canonical"
+  },
+  {
+    "input": "translate emoji to label: ✨",
+    "output": "ratio expression",
+    "type": "variant"
+  }
+]

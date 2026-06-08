@@ -95,7 +95,17 @@ export default function EmojiCard({
             style={{ width: "100%", height: "100%" }}
           />
         ) : showEmoji ? (
-          <span className="text-[42px]" role="img">{emoji}</span>
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-1.5 max-w-full">
+            {(emoji || "").split(/\s+/).filter(Boolean).map((em, idx) => {
+              const count = (emoji || "").split(/\s+/).filter(Boolean).length;
+              const sizeClass = count >= 3 ? "text-[22px]" : count === 2 ? "text-[30px]" : "text-[42px]";
+              return (
+                <span key={idx} className={sizeClass} role="img">
+                  {em}
+                </span>
+              );
+            })}
+          </div>
         ) : (
           <div className="flex items-center justify-center w-12 h-12 rounded-full bg-stone-50 border border-stone-200/50 text-stone-700 font-semibold text-[15px] select-none shadow-xs">
             {word[0]?.toUpperCase() || "S"}
