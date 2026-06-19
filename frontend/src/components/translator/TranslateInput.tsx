@@ -10,7 +10,7 @@ interface TranslateInputProps {
 }
 
 const EXAMPLES = [
-  "Sourav is eating breakfast",
+  "Why is Ravi not playing cricket on the ground?",
   "Where is the hospital?",
   "I don't like cold weather",
   "She is happy today"

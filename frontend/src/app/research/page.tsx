@@ -17,11 +17,11 @@ export default function ResearchPage() {
           <div className="flex flex-wrap gap-x-8 gap-y-4 text-[15px] text-text-secondary">
             <div>
               <span className="block font-semibold text-text-primary">Sourav Kumar</span>
-              <span>B.Tech CSE, 2024</span>
+              <span>B.Tech CSE, 2026</span>
             </div>
             <div>
               <span className="block font-semibold text-text-primary">Supervised by</span>
-              <span>Dept. of Information Technology</span>
+              <span>Dept. of CS</span>
             </div>
           </div>
         </header>

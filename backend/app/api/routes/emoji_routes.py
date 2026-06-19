@@ -141,7 +141,7 @@ class EmojiRequest(BaseModel):
                     Will be trimmed before being sent to the model.
 
     Example:
-        { "text": "yesterday home sourav breakfast eat" }
+        { "text": "Why is Ravi not playing cricket on the ground?" }
     """
     text: str
 
