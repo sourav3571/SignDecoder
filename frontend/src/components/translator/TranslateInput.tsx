@@ -5,7 +5,7 @@ import { Command } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TranslateInputProps {
-  onTranslate: (text: string) => void;
+  onTranslate: (text: string, simplify: boolean) => void;
   isLoading?: boolean;
 }
 
@@ -18,6 +18,7 @@ const EXAMPLES = [
 
 export default function TranslateInput({ onTranslate, isLoading }: TranslateInputProps) {
   const [text, setText] = useState("");
+  const [simplify, setSimplify] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
@@ -36,7 +37,7 @@ export default function TranslateInput({ onTranslate, isLoading }: TranslateInpu
     if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
       e.preventDefault();
       if (text.trim() && !isLoading) {
-        onTranslate(text);
+        onTranslate(text, simplify);
       }
     }
   };
@@ -84,8 +85,27 @@ export default function TranslateInput({ onTranslate, isLoading }: TranslateInpu
         </div>
       </div>
 
+      {/* Lexical Simplification Option */}
+      <div className="flex items-start gap-3 p-4 bg-surface-elevated border border-border rounded-md">
+        <input
+          type="checkbox"
+          id="simplify"
+          checked={simplify}
+          onChange={(e) => setSimplify(e.target.checked)}
+          className="mt-1 h-4 w-4 rounded border-border text-accent focus:ring-accent cursor-pointer"
+        />
+        <div className="flex flex-col gap-1 select-none cursor-pointer" onClick={() => setSimplify(!simplify)}>
+          <label htmlFor="simplify" className="text-[14px] font-semibold text-text-primary cursor-pointer">
+            Lexical Simplification (CWI & Figurative)
+          </label>
+          <span className="text-[12px] text-text-secondary leading-relaxed">
+            Simplifies complex words, metaphors, and idioms before translation.
+          </span>
+        </div>
+      </div>
+
       <button
-        onClick={() => onTranslate(text)}
+        onClick={() => onTranslate(text, simplify)}
         disabled={!text.trim() || isLoading}
         className={cn(
           "w-full py-4 bg-accent text-white rounded-md font-medium text-[15px] transition-all flex items-center justify-center gap-3",

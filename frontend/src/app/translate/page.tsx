@@ -117,6 +117,7 @@ export default function TranslatorPage() {
   const [activeCardIndex, setActiveCardIndex] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isConverted, setIsConverted] = useState(false);
+  const [inputText, setInputText] = useState("");
 
   // Reverse Translation States
   const [mode, setMode] = useState<"forward" | "reverse">("forward");
@@ -128,8 +129,9 @@ export default function TranslatorPage() {
     confidence_score: number;
   } | null>(null);
 
-  const handleTranslate = async (text: string) => {
+  const handleTranslate = async (text: string, simplify: boolean = false) => {
     setIsLoading(true);
+    setInputText(text);
     setResult(null);
     setError(null);
     setActiveCardIndex(-1);
@@ -146,6 +148,7 @@ export default function TranslatorPage() {
           text,
           sign_language: "ISL",
           include_details: true,
+          simplify,
         }),
       });
 
@@ -485,6 +488,28 @@ export default function TranslatorPage() {
                   className="flex flex-col gap-12"
                 >
                   <GlossDisplay glosses={result.glosses} />
+
+                  {/* Lexical Simplification Info */}
+                  {result.reconstructed && result.reconstructed.toLowerCase().trim() !== inputText.toLowerCase().trim() && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="bg-stone-50 border border-stone-200 rounded-xl p-5 shadow-xs flex flex-col gap-2"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">✨</span>
+                        <span className="text-[11px] font-bold text-accent uppercase tracking-[0.08em]">
+                          Lexical Simplification Active
+                        </span>
+                      </div>
+                      <div className="text-[15px] font-medium text-stone-800">
+                        {result.reconstructed}
+                      </div>
+                      <span className="text-[11px] text-stone-400">
+                        Complex words, metaphors, or idioms were simplified to improve translation mapping accuracy.
+                      </span>
+                    </motion.div>
+                  )}
 
                   {/* Clustering Summary - Always Visible */}
                   <motion.div
