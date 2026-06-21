@@ -1,0 +1,3 @@
+[submodule "model for lexical simplification"]
+	path = model for lexical simplification
+	url = https://github.com/sourav3571/Lexical_Simplification.git
