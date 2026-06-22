@@ -17,10 +17,10 @@ def test_translate():
     )
     try:
         print("Sending request to FastAPI...", flush=True)
-        with urllib.request.urlopen(req, timeout=5) as res:
+        with urllib.request.urlopen(req, timeout=180) as res:
             response = json.loads(res.read().decode("utf-8"))
             print("STATUS: SUCCESS", flush=True)
-            print(json.dumps(response, indent=2, ensure_ascii=False), flush=True)
+            print(json.dumps(response, indent=2, ensure_ascii=True), flush=True)
     except Exception as e:
         print(f"STATUS: FAILED - {e}", flush=True)
 

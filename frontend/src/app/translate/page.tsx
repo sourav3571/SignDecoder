@@ -141,7 +141,11 @@ export default function TranslatorPage() {
     setIsConverted(false);
 
     try {
-      const response = await fetch("/api/v1/translate", {
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 
+        (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.5.1" || window.location.hostname === "127.0.0.1")
+          ? "http://localhost:8000"
+          : "");
+      const response = await fetch(`${backendUrl}/api/v1/translate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -239,7 +243,11 @@ export default function TranslatorPage() {
     setError(null);
 
     try {
-      const response = await fetch("/api/v1/translate/reverse", {
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 
+        (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.5.1" || window.location.hostname === "127.0.0.1")
+          ? "http://localhost:8000"
+          : "");
+      const response = await fetch(`${backendUrl}/api/v1/translate/reverse`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

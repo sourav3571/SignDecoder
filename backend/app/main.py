@@ -1,3 +1,8 @@
+# Workaround for pyarrow/datasets initialization crash on Windows when imported after PyTorch/PEFT
+try:
+    import datasets
+except ImportError:
+    pass
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
