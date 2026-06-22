@@ -533,22 +533,38 @@ export default function TranslatorPage() {
                     >
                       <div className="flex flex-col gap-1">
                         <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
-                          🔮 Model Raw Output
+                          🔮 Gloss Model (emoji_ml)
                         </span>
                         <p className="text-[13px] text-text-secondary">
-                          The sequence-to-sequence model generated this raw text label sequence:
+                          Input sentence mapped to output ISL gloss label sequence.
                         </p>
                       </div>
 
-                      <div className="flex flex-wrap gap-2.5 p-4 bg-stone-50 border border-stone-100 rounded-lg font-mono text-[14px] text-accent font-semibold justify-center">
-                        {result.rawMlPrediction.split(" ").map((token, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2.5 py-1 bg-white border border-stone-200 rounded shadow-2xs text-stone-800"
-                          >
-                            {token}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-stone-100 pt-4">
+                        <div className="flex flex-col gap-1.5">
+                          <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                            Model Input (Simplified Sentence)
                           </span>
-                        ))}
+                          <div className="p-3 bg-stone-50 border border-stone-100 rounded-lg text-[13px] font-medium text-stone-800">
+                            {result.reconstructed}
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1.5">
+                          <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                            Model Output (Gloss Sequence)
+                          </span>
+                          <div className="flex flex-wrap gap-1.5 p-2 bg-stone-50 border border-stone-100 rounded-lg font-mono text-[13px] text-accent font-semibold items-center min-h-[46px]">
+                            {result.rawMlPrediction.split(" ").map((token, idx) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-0.5 bg-white border border-stone-200 rounded shadow-2xs text-stone-800"
+                              >
+                                {token}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </motion.div>
                   )}
