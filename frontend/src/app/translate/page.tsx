@@ -526,25 +526,6 @@ export default function TranslatorPage() {
                     )
                   )}
 
-                  {/* Clustering Summary - Always Visible */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-white border border-stone-200 rounded-lg p-4 shadow-xs"
-                  >
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <span className="text-[11px] text-text-muted block mb-1.5 font-semibold uppercase tracking-wider">Semantic Cluster</span>
-                        <span className="text-[16px] font-bold text-accent uppercase tracking-wider">{result.semanticCluster ?? "NEUTRAL"}</span>
-                      </div>
-                      <div>
-                        <span className="text-[11px] text-text-muted block mb-1.5 font-semibold uppercase tracking-wider">Cluster Confidence</span>
-                        <span className="text-[16px] font-bold text-text-primary font-mono">
-                          {result.clusterConfidence !== undefined ? `${(result.clusterConfidence * 100).toFixed(0)}%` : "N/A"}
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
 
                   {result.rawMlPrediction && (
                     <motion.div
@@ -676,7 +657,7 @@ export default function TranslatorPage() {
                               Active
                             </span>
                           </div>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-4">
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
                             <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
                               <span className="text-[11px] text-text-muted block mb-1">Model Name</span>
                               <span className="text-[14px] font-semibold text-text-primary">FLAN-T5-small</span>
@@ -692,18 +673,6 @@ export default function TranslatorPage() {
                             <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
                               <span className="text-[11px] text-text-muted block mb-1">Vocabulary Size</span>
                               <span className="text-[14px] font-semibold text-text-primary">34,615 tokens</span>
-                            </div>
-                            <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                              <span className="text-[11px] text-text-muted block mb-1">Semantic Cluster</span>
-                              <span className="text-[14px] font-semibold text-accent uppercase tracking-wider">
-                                {result.semanticCluster ?? "NEUTRAL"}
-                              </span>
-                            </div>
-                            <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                              <span className="text-[11px] text-text-muted block mb-1">Cluster Conf.</span>
-                              <span className="text-[14px] font-semibold text-text-primary font-mono">
-                                {result.clusterConfidence !== undefined ? `${(result.clusterConfidence * 100).toFixed(0)}%` : "N/A"}
-                              </span>
                             </div>
                           </div>
 
