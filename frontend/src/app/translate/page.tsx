@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Play } from "lucide-react";
 import EmojiCard, { SemanticRole } from "@/components/translator/EmojiCard";
 import TranslateInput from "@/components/translator/TranslateInput";
-import GlossDisplay from "@/components/translator/GlossDisplay";
 import { LoadingState, EmptyState } from "@/components/translator/States";
 import EmbeddingCompareWidget from "@/components/translator/EmbeddingCompareWidget";
 import SimplificationDetailsWidget from "@/components/translator/SimplificationDetailsWidget";
@@ -498,7 +497,6 @@ export default function TranslatorPage() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex flex-col gap-12"
                 >
-                  <GlossDisplay glosses={result.glosses} />
 
                   {/* Lexical Simplification Details Widget */}
                   {result.simplification_details ? (
