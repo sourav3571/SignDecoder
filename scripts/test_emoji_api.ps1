@@ -52,7 +52,7 @@ function Test-Case {
         $ms   = [int]((Get-Date) - $t0).TotalMilliseconds
 
         if ($ShouldFail) {
-            script:Fail $Name "Expected failure but got 2xx" $ms
+            Fail $Name "Expected failure but got 2xx" $ms
             return
         }
 
@@ -60,12 +60,12 @@ function Test-Case {
         if ($ExpectField -and $ExpectValue) {
             $actual = $resp.$ExpectField
             if ("$actual" -ne $ExpectValue) {
-                script:Fail $Name "Field '$ExpectField': expected '$ExpectValue', got '$actual'" $ms
+                Fail $Name "Field '$ExpectField': expected '$ExpectValue', got '$actual'" $ms
                 return
             }
         }
 
-        script:Pass $Name $ms
+        Pass $Name $ms
         if ($Verbose) {
             Write-Host "     Response: $($resp | ConvertTo-Json -Depth 3 -Compress)" -ForegroundColor DarkGray
         }
@@ -76,19 +76,19 @@ function Test-Case {
         $statusCode = [int]$_.Exception.Response.StatusCode
 
         if ($ShouldFail -and $statusCode -eq $ExpectStatus) {
-            script:Pass "$Name (expected $statusCode)" $ms
+            Pass "$Name (expected $statusCode)" $ms
             if ($Verbose) { Write-Host "     Got expected error: $($_.Exception.Message)" -ForegroundColor DarkGray }
             return
         }
-        script:Fail $Name "HTTP $statusCode — $($_.Exception.Message)" $ms
+        Fail $Name "HTTP $statusCode — $($_.Exception.Message)" $ms
 
     } catch {
         $ms = [int]((Get-Date) - $t0).TotalMilliseconds
         if ($ShouldFail) {
-            script:Pass "$Name (expected error)" $ms
+            Pass "$Name (expected error)" $ms
             return
         }
-        script:Fail $Name $_.Exception.Message $ms
+        Fail $Name $_.Exception.Message $ms
     }
 }
 
@@ -123,7 +123,7 @@ Write-Host "  Started  : $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Gray
 
 # ── 1. Health checks ────────────────────────────────────────────────────────
 
-Write-Section "1. Health & Availability"
+Write-Section "1. Health and Availability"
 
 Test-Case -Name "GET /health — server is alive" `
     -Url "$BaseUrl/health"
@@ -156,7 +156,7 @@ Test-Case -Name "Question sentence" `
 
 # ── 3. Emoji ML Endpoint — Happy Path ──────────────────────────────────────
 
-Write-Section "3. Emoji ML  (POST /api/convert-to-emoji) — Valid inputs"
+Write-Section "3. Emoji ML (POST /api/convert-to-emoji) — Valid inputs"
 
 $happyCases = @(
     @{ gloss = "I eat breakfast morning";       label = "meal gloss"    },
@@ -225,9 +225,9 @@ $times = @()
 for ($i = 1; $i -le 5; $i++) {
     $t0 = Get-Date
     try {
-        $body = '{"text":"I eat breakfast morning"}'
+        $body = @{ text = "I eat breakfast morning" }
         $r = Invoke-RestMethod -Uri "$BaseUrl/api/convert-to-emoji" `
-            -Method POST -ContentType "application/json" -Body $body -TimeoutSec 30
+            -Method POST -ContentType "application/json" -Body ($body | ConvertTo-Json) -TimeoutSec 30
         $ms = [int]((Get-Date) - $t0).TotalMilliseconds
         $times += $ms
         Write-Host "     Request $i : ${ms}ms  → $($r.emoji)" -ForegroundColor DarkGray
@@ -264,9 +264,9 @@ Write-Host ("  " + "-" * 62) -ForegroundColor DarkGray
 
 foreach ($g in $batch) {
     try {
-        $body = "{`"text`":`"$g`"}"
+        $body = @{ text = $g }
         $r    = Invoke-RestMethod -Uri "$BaseUrl/api/convert-to-emoji" `
-                    -Method POST -ContentType "application/json" -Body $body -TimeoutSec 20
+                    -Method POST -ContentType "application/json" -Body ($body | ConvertTo-Json) -TimeoutSec 20
         $col1 = $g.PadRight(38).Substring(0, [Math]::Min($g.Length, 38))
         Write-Host ("  {0,-40} {1}" -f $col1, $r.emoji)
         $script:PASS++
@@ -319,7 +319,7 @@ Write-Host ""
 # ── Quick-reference commands printed at end ──────────────────────────────────
 Write-Host "  QUICK COMMANDS (copy-paste any):" -ForegroundColor Yellow
 Write-Host "  # Single emoji test:" -ForegroundColor DarkGray
-Write-Host '  Invoke-RestMethod -Uri "http://localhost:8000/api/convert-to-emoji" -Method POST -ContentType "application/json" -Body ''{"text":"I eat breakfast morning"}'' | ConvertTo-Json'
+Write-Host '  Invoke-RestMethod -Uri "http://localhost:8000/api/convert-to-emoji" -Method POST -ContentType "application/json" -Body "{\"text\":\"I eat breakfast morning\"}" | ConvertTo-Json'
 Write-Host ""
 Write-Host "  # Health check:" -ForegroundColor DarkGray
 Write-Host '  Invoke-RestMethod -Uri "http://localhost:8000/health" | ConvertTo-Json'

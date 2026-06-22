@@ -11,7 +11,6 @@ const NAV_LINKS = [
   { name: "How it Works", href: "/#how-it-works" },
   { name: "Dictionary", href: "/dictionary" },
   { name: "Research", href: "/research" },
-  { name: "Vector Explorer", href: "/explorer" },
 ];
 
 export default function Navbar() {

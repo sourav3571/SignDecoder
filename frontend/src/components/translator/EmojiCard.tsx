@@ -38,7 +38,7 @@ export default function EmojiCard({
   onAnimationComplete,
   showEmoji = true,
 }: EmojiCardProps) {
-  const [animationData, setAnimationData] = useState<any>(null);
+  const [animationData, setAnimationData] = useState<Record<string, unknown> | null>(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {

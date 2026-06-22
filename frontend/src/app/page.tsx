@@ -148,7 +148,7 @@ export default function LandingPage() {
                 "SignDecoder demonstrates that rule-based and neural hybrid approaches can significantly improve accessibility by bridging the gap between spoken language and visual communication."
               </blockquote>
               <cite className="block mt-6 text-[14px] font-medium text-text-secondary not-italic">
-                &mdash; Research Abstract, 2024
+                &mdash; Research Abstract, 2026 
               </cite>
             </div>
           </div>

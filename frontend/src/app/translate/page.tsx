@@ -7,6 +7,7 @@ import TranslateInput from "@/components/translator/TranslateInput";
 import GlossDisplay from "@/components/translator/GlossDisplay";
 import { LoadingState, EmptyState } from "@/components/translator/States";
 import EmbeddingCompareWidget from "@/components/translator/EmbeddingCompareWidget";
+import SimplificationDetailsWidget from "@/components/translator/SimplificationDetailsWidget";
 import { motion, AnimatePresence } from "framer-motion";
 import labelToEmojiData from "@/data/label_to_emoji.json";
 
@@ -58,6 +59,7 @@ interface TranslationResult {
     similarity: number;
     emojis: string[];
   }[];
+  simplification_details?: any;
 }
 
 function getEmojiForLabel(label: string): string {
@@ -216,6 +218,7 @@ export default function TranslatorPage() {
         clusterConfidence: data.cluster_confidence,
         vectorSlice: data.vector_slice,
         neighbors: data.neighbors,
+        simplification_details: data.simplification_details,
       };
 
       setResult(mappedResult);
@@ -489,26 +492,30 @@ export default function TranslatorPage() {
                 >
                   <GlossDisplay glosses={result.glosses} />
 
-                  {/* Lexical Simplification Info */}
-                  {result.reconstructed && result.reconstructed.toLowerCase().trim() !== inputText.toLowerCase().trim() && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-stone-50 border border-stone-200 rounded-xl p-5 shadow-xs flex flex-col gap-2"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-base">✨</span>
-                        <span className="text-[11px] font-bold text-accent uppercase tracking-[0.08em]">
-                          Lexical Simplification Active
+                  {/* Lexical Simplification Details Widget */}
+                  {result.simplification_details ? (
+                    <SimplificationDetailsWidget details={result.simplification_details} />
+                  ) : (
+                    result.reconstructed && result.reconstructed.toLowerCase().trim() !== inputText.toLowerCase().trim() && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-stone-50 border border-stone-200 rounded-xl p-5 shadow-xs flex flex-col gap-2"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">✨</span>
+                          <span className="text-[11px] font-bold text-accent uppercase tracking-[0.08em]">
+                            Lexical Simplification Active
+                          </span>
+                        </div>
+                        <div className="text-[15px] font-medium text-stone-800">
+                          {result.reconstructed}
+                        </div>
+                        <span className="text-[11px] text-stone-400">
+                          Complex words, metaphors, or idioms were simplified to improve translation mapping accuracy.
                         </span>
-                      </div>
-                      <div className="text-[15px] font-medium text-stone-800">
-                        {result.reconstructed}
-                      </div>
-                      <span className="text-[11px] text-stone-400">
-                        Complex words, metaphors, or idioms were simplified to improve translation mapping accuracy.
-                      </span>
-                    </motion.div>
+                      </motion.div>
+                    )
                   )}
 
                   {/* Clustering Summary - Always Visible */}

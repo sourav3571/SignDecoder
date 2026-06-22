@@ -126,7 +126,7 @@ function makeId() { return Math.random().toString(36).slice(2, 9) + Date.now().t
 function tone(freq: number, dur = 0.2, vol = 0.06) {
   try {
 
-    const C = new (window.AudioContext || (window as any).webkitAudioContext)() as AudioContext;
+    const C = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)() as AudioContext;
     const o = C.createOscillator(), g = C.createGain();
     o.type = "sine"; o.frequency.setValueAtTime(freq, C.currentTime);
     g.gain.setValueAtTime(vol, C.currentTime);
@@ -202,6 +202,7 @@ async function exportAsPng(input: string, emoji: string) {
 
 interface Particle { x: number; y: number; vx: number; vy: number; color: string; size: number; alpha: number; decay: number; rotation: number; rotSpeed: number; rect: boolean; }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ConfettiCanvas({ animKey }: { animKey: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const raf = useRef<number>(0);
@@ -461,6 +462,7 @@ export default function GlossToEmojiConverter({ glossText = "" }: GlossToEmojiCo
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [confettiKey, setConfettiKey] = useState(0);
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
