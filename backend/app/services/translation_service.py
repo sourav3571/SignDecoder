@@ -157,7 +157,7 @@ class TranslationService:
         # ── Step 1: Run the model — input → gloss ──────────────────────────────
         gloss_string = ""
         try:
-            from emoji_ml.gloss_model_use import generate_pos_tags, translate_to_isl
+            from sentence_to_gloss.gloss_model_use import generate_pos_tags, translate_to_isl
             pos_tags = generate_pos_tags(preprocessed_text)
             isl_input = preprocessed_text + " | " + pos_tags
             gloss_string = translate_to_isl(isl_input).strip()

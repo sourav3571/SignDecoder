@@ -34,6 +34,17 @@ export interface SimplificationDetails {
   original: string;
   simplified: string;
   changes: SimplificationChange[];
+  sentence_complexity?: {
+    original: number;
+    simplified: number;
+    reduction: number;
+  };
+  sentence_visuals?: {
+    theme: string;
+    image: string;
+    google_images: string;
+    wikipedia: string;
+  };
 }
 
 interface SimplificationDetailsWidgetProps {
@@ -41,23 +52,19 @@ interface SimplificationDetailsWidgetProps {
 }
 
 export default function SimplificationDetailsWidget({ details }: SimplificationDetailsWidgetProps) {
-  const [activeWord, setActiveWord] = useState<string>("");
+  const [activeWord, setActiveWord] = useState<string>("sentence");
   const [prevDetails, setPrevDetails] = useState<SimplificationDetails | null>(null);
 
   if (details !== prevDetails) {
     setPrevDetails(details);
-    if (details.changes && details.changes.length > 0) {
-      setActiveWord(details.changes[0].original_word);
-    } else {
-      setActiveWord("");
-    }
+    setActiveWord("sentence");
   }
 
   if (!details.changes || details.changes.length === 0) {
     return null;
   }
 
-  const activeChange = details.changes.find(c => c.original_word === activeWord) || details.changes[0];
+  const activeChange = details.changes.find(c => c.original_word === activeWord);
 
   const escapeRegExp = (string: string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -88,15 +95,14 @@ export default function SimplificationDetailsWidget({ details }: SimplificationD
               <span
                 key={index}
                 onClick={() => setActiveWord(matchingChange.original_word)}
-                className={`cursor-pointer px-1 py-0.5 rounded-sm font-semibold transition-all duration-250 decoration-dotted underline decoration-2 select-none ${
-                  isOriginal
+                className={`cursor-pointer px-1 py-0.5 rounded-sm font-semibold transition-all duration-250 decoration-dotted underline decoration-2 select-none ${isOriginal
                     ? isActive
                       ? 'bg-amber-100 text-amber-900 border-b-2 border-amber-500 shadow-3xs'
                       : 'bg-amber-50/50 hover:bg-amber-100 text-amber-800'
                     : isActive
-                    ? 'bg-emerald-100 text-emerald-900 border-b-2 border-emerald-500 shadow-3xs'
-                    : 'bg-emerald-50/50 hover:bg-emerald-100 text-emerald-800'
-                }`}
+                      ? 'bg-emerald-100 text-emerald-900 border-b-2 border-emerald-500 shadow-3xs'
+                      : 'bg-emerald-50/50 hover:bg-emerald-100 text-emerald-800'
+                  }`}
               >
                 {part}
               </span>
@@ -107,6 +113,58 @@ export default function SimplificationDetailsWidget({ details }: SimplificationD
       </>
     );
   };
+
+  // Helper to estimate a word's difficulty if not in changes
+  const getWordDifficulty = (word: string) => {
+    const clean = word.toLowerCase().replace(/[^a-z]/g, "");
+    if (!clean) return 0.1;
+    // Common short stop words
+    const stopWords = ["the", "a", "an", "and", "or", "but", "is", "are", "was", "were", "to", "of", "in", "on", "at", "by", "for", "with", "about", "as"];
+    if (stopWords.includes(clean)) return 0.05;
+
+    // Heuristic based on length
+    if (clean.length <= 4) return 0.15;
+    if (clean.length <= 7) return 0.35;
+    return 0.6;
+  };
+
+  const getSentenceComplexity = () => {
+    if (details.sentence_complexity) {
+      return details.sentence_complexity;
+    }
+
+    // Fallback calculation using replacements and heuristics
+    const getSentWords = (s: string) => s.split(/\s+/).map(w => w.replace(/[^a-zA-Z]/g, "")).filter(Boolean);
+    const origWords = getSentWords(details.original);
+    const simpWords = getSentWords(details.simplified);
+
+    if (origWords.length === 0) return { original: 0.3, simplified: 0.3, reduction: 0 };
+
+    const getDiff = (words: string[], isOriginal: boolean) => {
+      let sum = 0;
+      words.forEach(w => {
+        const change = details.changes.find(c =>
+          (isOriginal ? c.original_word : c.simplified_word).toLowerCase() === w.toLowerCase()
+        );
+        if (change) {
+          sum += isOriginal ? change.complexity_score.original : change.complexity_score.simplified;
+        } else {
+          sum += getWordDifficulty(w);
+        }
+      });
+      return sum / words.length;
+    };
+
+    const original = getDiff(origWords, true);
+    const simplified = getDiff(simpWords, false);
+    return {
+      original: Math.round(original * 100) / 100,
+      simplified: Math.round(simplified * 100) / 100,
+      reduction: Math.round((original - simplified) * 100) / 100
+    };
+  };
+
+  const sentenceComplexity = getSentenceComplexity();
 
   return (
     <motion.div
@@ -142,188 +200,291 @@ export default function SimplificationDetailsWidget({ details }: SimplificationD
             &quot;{renderHighlightedText(details.simplified, false)}&quot;
           </div>
         </div>
-      </div>
 
-      {/* Selector Tabs (if multiple changes exist) */}
-      {details.changes.length > 1 && (
-        <div className="flex flex-wrap gap-2 pb-2">
-          {details.changes.map((change) => (
-            <button
-              key={change.original_word}
-              onClick={() => setActiveWord(change.original_word)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${
-                change.original_word === activeWord
-                  ? "bg-stone-900 border-stone-900 text-white shadow-3xs"
-                  : "bg-white border-stone-200 text-stone-600 hover:bg-stone-50 hover:text-stone-950"
-              }`}
-            >
-              {change.original_word} → {change.simplified_word}
-            </button>
-          ))}
-        </div>
-      )}
+        {sentenceComplexity && (
+          <>
+            <div className="h-[1px] bg-stone-200/60" />
+            <div className="flex flex-col gap-2.5 pt-1">
+              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest block">Sentence-Level Complexity Reduction</span>
 
-      {/* Main Details Panel */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeChange.original_word}
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -10 }}
-          transition={{ duration: 0.25 }}
-          className="grid grid-cols-1 md:grid-cols-12 gap-6"
-        >
-          {/* Left Side: Explanations and Complexity */}
-          <div className="md:col-span-7 flex flex-col gap-5">
-            {/* Word Banner */}
-            <div className="flex items-center gap-3">
-              <div className="px-3.5 py-2 bg-amber-50 border border-amber-200 rounded-xl">
-                <span className="text-[14px] font-bold text-amber-800 font-mono">{activeChange.original_word}</span>
-              </div>
-              <ArrowRight size={16} className="text-stone-400" />
-              <div className="px-3.5 py-2 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-2">
-                <span className="text-[15px] font-extrabold text-emerald-800 font-mono">{activeChange.simplified_word}</span>
-                <span className="text-lg">{activeChange.emoji}</span>
-              </div>
-            </div>
-
-            {/* Complexity Indicator */}
-            <div className="bg-stone-50 border border-stone-150 rounded-xl p-4 flex flex-col gap-3">
-              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">Complexity Score Reduction</span>
-              
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="text-stone-600 font-medium">Original difficulty:</span>
-                  <span className="font-bold text-amber-700">{Math.round(activeChange.complexity_score.original * 100)}%</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between items-center text-[11px] font-medium text-stone-600">
+                    <span>Original Sentence Difficulty:</span>
+                    <span className="font-bold text-amber-700">{Math.round(sentenceComplexity.original * 100)}%</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-amber-500 rounded-full transition-all duration-500"
+                      style={{ width: `${sentenceComplexity.original * 100}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-amber-500 rounded-full transition-all duration-500"
-                    style={{ width: `${activeChange.complexity_score.original * 100}%` }}
-                  />
+
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between items-center text-[11px] font-medium text-stone-600">
+                    <span>Simplified Sentence Difficulty:</span>
+                    <span className="font-bold text-emerald-700">{Math.round(sentenceComplexity.simplified * 100)}%</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                      style={{ width: `${sentenceComplexity.simplified * 100}%` }}
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="text-stone-600 font-medium">Simplified difficulty:</span>
-                  <span className="font-bold text-emerald-700">{Math.round(activeChange.complexity_score.simplified * 100)}%</span>
-                </div>
-                <div className="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-emerald-500 rounded-full transition-all duration-500"
-                    style={{ width: `${activeChange.complexity_score.simplified * 100}%` }}
-                  />
-                </div>
-              </div>
-
-              {activeChange.complexity_score.reduction > 0 && (
-                <div className="mt-1 text-[11px] font-bold text-emerald-600 flex items-center gap-1">
-                  <span>✓ Complexity reduced by {Math.round(activeChange.complexity_score.reduction * 100)}%! Better mapping context.</span>
+              {sentenceComplexity.reduction > 0 && (
+                <div className="text-[11px] font-bold text-emerald-600 flex items-center gap-1.5 mt-0.5">
+                  <Sparkles size={12} className="text-emerald-500 animate-pulse" />
+                  <span>Overall sentence readability improved by {Math.round(sentenceComplexity.reduction * 100)}%!</span>
                 </div>
               )}
             </div>
+          </>
+        )}
+      </div>
 
-            {/* Dictionary Definitions */}
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-1.5 text-stone-800">
-                <BookOpen size={16} className="text-stone-400" />
-                <span className="text-xs font-bold uppercase tracking-wider">Dictionary Lookup</span>
+      {/* Selector Tabs */}
+      <div className="flex flex-wrap gap-2 pb-2">
+        <button
+          onClick={() => setActiveWord("sentence")}
+          className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${activeWord === "sentence"
+              ? "bg-stone-900 border-stone-900 text-white shadow-3xs animate-pulse"
+              : "bg-white border-stone-200 text-stone-600 hover:bg-stone-50 hover:text-stone-950"
+            }`}
+        >
+          📋 Sentence Summary
+        </button>
+        {details.changes.map((change) => (
+          <button
+            key={change.original_word}
+            onClick={() => setActiveWord(change.original_word)}
+            className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${change.original_word === activeWord
+                ? "bg-stone-900 border-stone-900 text-white shadow-3xs"
+                : "bg-white border-stone-200 text-stone-600 hover:bg-stone-50 hover:text-stone-950"
+              }`}
+          >
+            {change.original_word} → {change.simplified_word} {change.emoji}
+          </button>
+        ))}
+      </div>
+
+      {/* Main Details Panel */}
+      <AnimatePresence mode="wait">
+        {activeWord === "sentence" ? (
+          <motion.div
+            key="sentence_summary"
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{ duration: 0.25 }}
+            className="grid grid-cols-1 gap-6"
+          >
+            {/* Sentence Breakdown & Statistics */}
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-3">
+                <h4 className="text-sm font-bold text-stone-800 uppercase tracking-wider">Sentence Breakdown</h4>
+                <div className="text-[14px] text-stone-850 leading-relaxed font-medium bg-stone-50/50 p-4 rounded-xl border border-stone-150">
+                  <p className="mb-3 text-[14px] text-stone-700">
+                    This overview details the holistic structure of the simplified sentence:
+                  </p>
+                  <blockquote className="border-l-4 border-emerald-500 pl-3 font-semibold text-stone-900 italic my-2">
+                    &quot;{details.simplified}&quot;
+                  </blockquote>
+                  {details.changes.length > 0 && (
+                    <div className="mt-4 pt-3 border-t border-stone-250">
+                      <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block mb-2">Word-Level Substitutions:</span>
+                      <div className="flex flex-wrap gap-2">
+                        {details.changes.map((c) => (
+                          <span
+                            key={c.original_word}
+                            onClick={() => setActiveWord(c.original_word)}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-stone-100 hover:bg-emerald-50 border border-stone-200 hover:border-emerald-200 text-stone-700 hover:text-emerald-900 rounded-md text-xs font-semibold cursor-pointer transition-all"
+                          >
+                            <span className="line-through text-stone-400">{c.original_word}</span>
+                            <span>→</span>
+                            <span className="font-bold">{c.simplified_word}</span>
+                            <span>{c.emoji}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
+
+              {/* Translation Strategy */}
+              <div className="bg-emerald-50/40 border border-emerald-100 rounded-xl p-4 flex flex-col gap-2">
+                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">Translation Strategy</span>
+                <p className="text-xs text-emerald-950 font-medium leading-relaxed">
+                  By mapping the original text to standard gloss syntax, we reduce lexical ambiguity and make it highly compatible with gesture-based sign languages.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        ) : activeChange ? (
+          <motion.div
+            key={activeChange.original_word}
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{ duration: 0.25 }}
+            className="grid grid-cols-1 md:grid-cols-12 gap-6"
+          >
+            {/* Left Side: Explanations and Complexity */}
+            <div className="md:col-span-7 flex flex-col gap-5">
+              {/* Word Banner */}
+              <div className="flex items-center gap-3">
+                <div className="px-3.5 py-2 bg-amber-50 border border-amber-200 rounded-xl">
+                  <span className="text-[14px] font-bold text-amber-800 font-mono">{activeChange.original_word}</span>
+                </div>
+                <ArrowRight size={16} className="text-stone-400" />
+                <div className="px-3.5 py-2 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center gap-2">
+                  <span className="text-[15px] font-extrabold text-emerald-800 font-mono">{activeChange.simplified_word}</span>
+                  <span className="text-lg">{activeChange.emoji}</span>
+                </div>
+              </div>
+
+              {/* Complexity Indicator */}
+              <div className="bg-stone-50 border border-stone-150 rounded-xl p-4 flex flex-col gap-3">
+                <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">Complexity Score Reduction</span>
+
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-stone-600 font-medium">Original difficulty:</span>
+                    <span className="font-bold text-amber-700">{Math.round(activeChange.complexity_score.original * 100)}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-amber-500 rounded-full transition-all duration-500"
+                      style={{ width: `${activeChange.complexity_score.original * 100}%` }}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-stone-600 font-medium">Simplified difficulty:</span>
+                    <span className="font-bold text-emerald-700">{Math.round(activeChange.complexity_score.simplified * 100)}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-stone-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-emerald-500 rounded-full transition-all duration-500"
+                      style={{ width: `${activeChange.complexity_score.simplified * 100}%` }}
+                    />
+                  </div>
+                </div>
+
+                {activeChange.complexity_score.reduction > 0 && (
+                  <div className="mt-1 text-[11px] font-bold text-emerald-600 flex items-center gap-1">
+                    <span>✓ Complexity reduced by {Math.round(activeChange.complexity_score.reduction * 100)}%! Better mapping context.</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Dictionary Definitions */}
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-1.5 text-stone-800">
+                  <BookOpen size={16} className="text-stone-400" />
+                  <span className="text-xs font-bold uppercase tracking-wider">Dictionary Lookup</span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  {activeChange.pronunciation && (
+                    <div className="flex items-center gap-2 text-stone-550 text-xs font-mono">
+                      <Volume2 size={13} className="text-stone-400" />
+                      <span>Pronunciation:</span>
+                      <span className="font-semibold text-stone-700">{activeChange.pronunciation}</span>
+                    </div>
+                  )}
+                  <div className="text-[14px] text-stone-800 leading-relaxed font-medium bg-stone-50/50 p-3 rounded-lg border border-stone-100">
+                    <span className="font-bold text-stone-500 text-xs block mb-1">Meaning:</span>
+                    {activeChange.definition}
+                  </div>
+                  {activeChange.example && (
+                    <div className="text-[13px] text-stone-600 italic bg-stone-50/50 p-3 rounded-lg border border-stone-100">
+                      <span className="font-bold text-stone-500 text-xs block mb-1 not-italic">Usage Example:</span>
+                      &quot;{activeChange.example}&quot;
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side: Unsplash Image & Quick Resources */}
+            <div className="md:col-span-5 flex flex-col gap-4">
+              {/* Visual Representation Container */}
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center gap-1.5 text-stone-800">
+                  <ImageIcon size={16} className="text-stone-400" />
+                  <span className="text-xs font-bold uppercase tracking-wider">Visual Association</span>
+                </div>
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-stone-200 bg-stone-150 shadow-3xs group">
+                  <img
+                    src={activeChange.images.primary}
+                    alt={activeChange.simplified_word}
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      // Fallback to plain color block if image fails to load
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute bottom-2 right-2 px-2 py-1 bg-stone-900/80 backdrop-blur-xs rounded-md text-[9px] font-bold text-white tracking-wider uppercase">
+                    Associated concept
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick External Dictionaries Links */}
               <div className="flex flex-col gap-2">
-                {activeChange.pronunciation && (
-                  <div className="flex items-center gap-2 text-stone-550 text-xs font-mono">
-                    <Volume2 size={13} className="text-stone-400" />
-                    <span>Pronunciation:</span>
-                    <span className="font-semibold text-stone-700">{activeChange.pronunciation}</span>
-                  </div>
-                )}
-                <div className="text-[14px] text-stone-800 leading-relaxed font-medium bg-stone-50/50 p-3 rounded-lg border border-stone-100">
-                  <span className="font-bold text-stone-500 text-xs block mb-1">Meaning:</span>
-                  {activeChange.definition}
+                <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Verify Meanings</span>
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href={activeChange.links.merriam_webster}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
+                  >
+                    <BookOpen size={13} className="text-stone-400" />
+                    <span>Merriam-Webster</span>
+                    <ExternalLink size={10} className="ml-auto text-stone-400" />
+                  </a>
+                  <a
+                    href={activeChange.links.oxford}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
+                  >
+                    <BookOpen size={13} className="text-stone-400" />
+                    <span>Oxford Learn</span>
+                    <ExternalLink size={10} className="ml-auto text-stone-400" />
+                  </a>
+                  <a
+                    href={activeChange.links.wikipedia}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
+                  >
+                    <Globe size={13} className="text-stone-400" />
+                    <span>Wikipedia</span>
+                    <ExternalLink size={10} className="ml-auto text-stone-400" />
+                  </a>
+                  <a
+                    href={activeChange.links.google_images}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
+                  >
+                    <ImageIcon size={13} className="text-stone-400" />
+                    <span>Google Images</span>
+                    <ExternalLink size={10} className="ml-auto text-stone-400" />
+                  </a>
                 </div>
-                {activeChange.example && (
-                  <div className="text-[13px] text-stone-600 italic bg-stone-50/50 p-3 rounded-lg border border-stone-100">
-                    <span className="font-bold text-stone-500 text-xs block mb-1 not-italic">Usage Example:</span>
-                    &quot;{activeChange.example}&quot;
-                  </div>
-                )}
               </div>
             </div>
-          </div>
-
-          {/* Right Side: Unsplash Image & Quick Resources */}
-          <div className="md:col-span-5 flex flex-col gap-4">
-            {/* Visual Representation Container */}
-            <div className="flex flex-col gap-1.5">
-              <div className="flex items-center gap-1.5 text-stone-800">
-                <ImageIcon size={16} className="text-stone-400" />
-                <span className="text-xs font-bold uppercase tracking-wider">Visual Association</span>
-              </div>
-              <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-stone-200 bg-stone-150 shadow-3xs group">
-                <img
-                  src={activeChange.images.primary}
-                  alt={activeChange.simplified_word}
-                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    // Fallback to plain color block if image fails to load
-                    (e.target as HTMLElement).style.display = 'none';
-                  }}
-                />
-                <div className="absolute bottom-2 right-2 px-2 py-1 bg-stone-900/80 backdrop-blur-xs rounded-md text-[9px] font-bold text-white tracking-wider uppercase">
-                  Associated concept
-                </div>
-              </div>
-            </div>
-
-            {/* Quick External Dictionaries Links */}
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Verify Meanings</span>
-              <div className="grid grid-cols-2 gap-2">
-                <a
-                  href={activeChange.links.merriam_webster}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
-                >
-                  <BookOpen size={13} className="text-stone-400" />
-                  <span>Merriam-Webster</span>
-                  <ExternalLink size={10} className="ml-auto text-stone-400" />
-                </a>
-                <a
-                  href={activeChange.links.oxford}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
-                >
-                  <BookOpen size={13} className="text-stone-400" />
-                  <span>Oxford Learn</span>
-                  <ExternalLink size={10} className="ml-auto text-stone-400" />
-                </a>
-                <a
-                  href={activeChange.links.wikipedia}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
-                >
-                  <Globe size={13} className="text-stone-400" />
-                  <span>Wikipedia</span>
-                  <ExternalLink size={10} className="ml-auto text-stone-400" />
-                </a>
-                <a
-                  href={activeChange.links.google_images}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg text-xs font-semibold text-stone-700 hover:text-stone-950 transition-colors shadow-3xs"
-                >
-                  <ImageIcon size={13} className="text-stone-400" />
-                  <span>Google Images</span>
-                  <ExternalLink size={10} className="ml-auto text-stone-400" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        ) : null}
       </AnimatePresence>
     </motion.div>
   );
