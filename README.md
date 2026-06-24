@@ -1,318 +1,212 @@
-# SignDecoder - NLP-Powered Sign Language Translation
+# SignDecoder — NLP-Powered Sign Language Translation
 
 > **Turn Words Into Signs. Instantly.**
 
-An accessibility-first, research-grade NLP system that converts typed English into sign language order with intelligent emoji and animation output. No camera needed. Works on any device.
+An accessibility-first, research-grade NLP system that converts typed English into Indian Sign Language (ISL) gloss order with intelligent emoji output. No camera needed. Works on any device.
 
-## What Makes SignSpeak Unique?
+---
 
-| Feature | SignSpeak | Typical App |
-|---------|-----------|-------------|
-| **Technology** | Deep NLP semantic understanding | Simple emoji replacement |
+## What Makes SignDecoder Unique?
+
+| Feature | SignDecoder | Typical App |
+|---------|-------------|-------------|
+| **Technology** | Deep NLP + fine-tuned transformers | Simple emoji replacement |
 | **Input Method** | Typed text (works everywhere) | Camera/microphone (privacy concerns) |
-| **Output Quality** | Linguistically correct sign order | Random emoji sequence |
-| **Confidence Scores** | Every emoji has confidence % | No confidence data |
-| **Offline Mode** | Cached results work offline | Must be online |
-| **Accessibility** | Built FOR deaf users | Built AS an afterthought |
+| **Output Quality** | Linguistically correct ISL gloss order | Random emoji sequence |
+| **Figurative Language** | Detects & simplifies idioms and metaphors | Not supported |
+| **Complexity Analysis** | Per-word & sentence-level difficulty scores | No scores |
+| **Accessibility** | Built FOR deaf users | Built as an afterthought |
+
+---
 
 ## Tech Stack
 
 ```
 Backend:     FastAPI + Python 3.11 (async, high-performance)
-NLP:         spaCy + Transformers (semantic understanding)
-Cache:       Redis + Celery (fast responses, async tasks)
-Database:    PostgreSQL + MongoDB + Pinecone (data, documents, vectors)
+NLP:         spaCy + HuggingFace Transformers (BERT, DeBERTa, RoBERTa, T5)
+Simplifier:  10-stage lexical + figurative simplification pipeline
 Frontend:    Next.js 14 + TypeScript + Tailwind CSS
-Deployment:  Docker + AWS/Render + GitHub Actions
+Deployment:  Docker + Render + GitHub Actions
 ```
 
-## The Pipeline
+---
+
+## The Full Pipeline
 
 ```
-"I ate pizza at home yesterday"
+Input: "The physician treated the patient with medication."
          ↓
-[Preprocessing]
-     • Spell check
-     • Expand contractions
-     • Normalize text
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 1 — Preprocessing                                            │
+│    • Spell check & contraction expansion                            │
+│    • Text normalization                                             │
+└──────────────────────────────────────────────────────────────────────┘
          ↓
-[NLP Analysis]
-     WHO: I (PERSON)
-     DOING: eat (VERB)
-     WHAT: pizza (FOOD)
-     WHERE: home (LOCATION)
-     WHEN: yesterday (TIME)
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 2 — Complex Word Identification (CWI)                        │
+│    • DeBERTa-v3-base token classifier                               │
+│    • Per-word P(complex) score in a single forward pass             │
+│    • Focal Loss to handle class imbalance (~30% complex words)      │
+│    DATASETS:                                                        │
+│      - CWI 2018 Shared Task (~27k annotated tokens)                 │
+│      - LexMTurk (~500 sentences)                                    │
+│      - BenchLS (~929 sentences)                                     │
+└──────────────────────────────────────────────────────────────────────┘
          ↓
-[Sign Language Reordering]
-     English (SVO): I + eat + pizza
-     Sign (SOV):    YESTERDAY HOME I PIZZA EAT
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 3 — Candidate Generation                                     │
+│    • BERT-MLM masked language model to propose substitutes          │
+│    • WordNet synset expansion via NLTK                              │
+│    • PPDB paraphrase database fallback                              │
+│    BASE MODEL: bert-base-uncased (pretrained, HuggingFace)          │
+└──────────────────────────────────────────────────────────────────────┘
          ↓
-[Emoji Mapping]
-     WITH confidence scores
-     YESTERDAY→⬅️📅 (0.95)
-     HOME→🏠 (1.00)
-     I→👤 (0.75)
-     PIZZA→🍕 (1.00)
-     EAT→🍽️ (1.00)
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 4 — Figurative Language Detection                            │
+│                                                                     │
+│  4a. Idiom Classifier                                               │
+│      • RoBERTa-base sequence classifier (sentence + phrase)         │
+│      DATASETS:                                                      │
+│        - MAGPIE Corpus (idiomatic/literal phrase pairs)             │
+│        - Synthetic augmentation (200 template sentences)            │
+│                                                                     │
+│  4b. Metaphor Detector                                              │
+│      • RoBERTa-base token classifier                                │
+│      DATASETS:                                                      │
+│        - VUA Amsterdam Metaphor Corpus (VUAMC)                      │
+│        - Synthetic augmentation (200 metaphor sentences)            │
+└──────────────────────────────────────────────────────────────────────┘
          ↓
-[Lottie Animation]
-     Play sequentially with timing
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 5 — Figurative Simplification                                │
+│    • Idioms → plain English paraphrase via idiom database           │
+│    • Metaphors → concrete literal equivalent                        │
+│    DATABASE: EPIE Idiom Dataset + curated internal lookup           │
+└──────────────────────────────────────────────────────────────────────┘
          ↓
-Output: ⬅️📅 🏠 👤 🍕 🍽️
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 6 — Word Sense Disambiguation                                │
+│    • BERT-base contextual embeddings                                │
+│    • WordNet synset selection by cosine similarity                  │
+│    BASE MODEL: bert-base-uncased                                    │
+└──────────────────────────────────────────────────────────────────────┘
+         ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 7 — Candidate Ranking (GatedFusionRanker)                    │
+│    • 6-feature neural ranker (Linear → ReLU → Sigmoid)             │
+│    Features:                                                        │
+│      1. MLM probability        (BERT-base-uncased)                  │
+│      2. SBERT sentence sim     (all-MiniLM-L6-v2)                  │
+│      3. Surprisal reduction    (BERT log-likelihood delta)          │
+│      4. Fluency change         (Δ log-likelihood)                   │
+│      5. Zipf frequency diff    (wordfreq library)                   │
+│      6. GloVe cosine sim       (GloVe 100d)                         │
+│    TRAINING: MarginRankingLoss on human preference pairs            │
+│    DATASETS: BenchLS + LexMTurk                                     │
+└──────────────────────────────────────────────────────────────────────┘
+         ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 8 — Visual Word Linking                                      │
+│    • Emoji mapping via NLTK WordNet + Wikidata lookups              │
+│    • Dictionary cache for fast repeat lookups                       │
+└──────────────────────────────────────────────────────────────────────┘
+         ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 9 — ISL Gloss Translation (T5)                               │
+│    • T5-small fine-tuned: English → ISL gloss (SOV word order)     │
+│    • POS tagging: "Please tag grammatical parts: ..."               │
+│    • Translation: "translate english to isl: ..."                  │
+│    BASE ARCHITECTURE: T5-small (60M params, Google)                 │
+│    TRAINING DATA: PHOENIX-Weather 2014T                             │
+│      (German Sign Language gloss corpus, adapted for ISL ordering)  │
+└──────────────────────────────────────────────────────────────────────┘
+         ↓
+┌──────────────────────────────────────────────────────────────────────┐
+│  Stage 10 — Emoji Mapping                                           │
+│    • Gloss word → emoji via GLOSS_TO_EMOJI dictionary (200+ rules) │
+│    • Confidence score per card                                      │
+└──────────────────────────────────────────────────────────────────────┘
+         ↓
+Output: "DOCTOR TREAT PATIENT MEDICINE"  →  👨‍⚕️ 🤲 🧑 💊
 ```
 
-## Quick Start (Docker)
+---
 
-```bash
-# 1. Clone repo
-git clone https://github.com/yourrepo/signspeak.git
-cd signspeak
+## Model Registry & Training Datasets
 
-# 2. Setup environment
-cp .env.example .env
+| Model File | Architecture | Task | Training Dataset |
+|---|---|---|---|
+| `cwi_deberta.pt` | DeBERTa-v3-base + Linear head | Complex Word Identification | **CWI 2018 Shared Task** (~27k tokens) + **LexMTurk** + **BenchLS** |
+| `gated_fusion_ranker_6f.pt` | 6-feat Linear→ReLU→Sigmoid | Substitute ranking | **BenchLS** + **LexMTurk** (MarginRankingLoss on human preference pairs) |
+| `best_model.pt` | BERT-base + custom scorer | Candidate scoring | **BenchLS** + **LexMTurk** |
+| `idiom_classifier.pt` | RoBERTa-base + seq classifier | Idiom detection | **MAGPIE Corpus** + **Synthetic** (200 template sentences) |
+| `metaphor_detector.pt` | RoBERTa-base + token classifier | Metaphor detection | **VUAMC** (VU Amsterdam Metaphor Corpus) + **Synthetic** |
+| `cwi_bert_figurative_v2.pt` | BERT-base + custom head | Figurative CWI | **MAGPIE** + **VUAMC** combined |
+| `sentence_to_gloss/model.safetensors` | T5-small (60M params) | English → ISL Gloss | **PHOENIX-Weather 2014T** (adapted for ISL) |
 
-# 3. Start all services
-docker-compose up -d
+---
 
-# 4. Verify health
-curl http://localhost:8000/health
+## Dataset Details
 
-# 5. Open API docs
-# → http://localhost:8000/docs
-```
+### CWI 2018 Shared Task
+- **Source:** [zenodo.org/record/1172640](https://zenodo.org/record/1172640) / HuggingFace `AyoubChLin/CWI_korpus`
+- **Size:** ~27,000 annotated word tokens
+- **Domains:** Wikipedia, WikiNews, News
+- **Label:** Binary — `1 = complex`, `0 = simple` (majority vote of annotators)
 
-## Quick Start (Local Development)
+### BenchLS
+- **Source:** [github.com/ghpaetzold/benchLS](https://github.com/ghpaetzold/benchLS)
+- **Size:** ~929 sentences with ranked substitution candidates
+- **Format:** `sentence TAB target_word TAB rank:substitute ...`
+
+### LexMTurk
+- **Source:** MTurk crowdsourced lexical simplification benchmark
+- **Size:** ~500 sentences with candidate substitutions and human vote counts
+
+### MAGPIE Idiom Corpus
+- **Source:** [github.com/hslh/magpie-corpus](https://github.com/hslh/magpie-corpus)
+- **Size:** ~56,000 idiom usage examples
+- **Label:** `literal` / `idiomatic` per phrase occurrence
+
+### VU Amsterdam Metaphor Corpus (VUAMC)
+- **Source:** [ETS Metaphor Research](https://github.com/EducationalTestingService/metaphor)
+- **Size:** ~17,000 token-level metaphor annotations
+- **Domains:** Academic, conversation, fiction, news
+- **Label:** Per-token binary — `1 = metaphorical`, `0 = literal`
+
+### PHOENIX-Weather 2014T
+- **Source:** [RWTH Aachen PHOENIX Dataset](https://www-i6.informatik.rwth-aachen.de/~koller/RWTH-PHOENIX/)
+- **Size:** ~8,000 sentence pairs (text → DGS gloss)
+- **Note:** Originally German Sign Language; adapted here for ISL SOV word-order reordering
+
+---
+
+## Quick Start
 
 ```bash
 # Backend
 cd backend
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+venv\Scripts\activate
 pip install -r requirements.txt
 python run.py
 # → API at http://localhost:8000
 
-# Frontend (in new terminal)
+# Frontend (new terminal)
 cd frontend
 npm install
 npm run dev
 # → UI at http://localhost:3000
-
-# Run the backend
-uvicorn app.main:app --reload --reload-dir app --reload-exclude venv --port 8000
 ```
-Backend API will be available at `http://localhost:8000` (Swagger UI at `/docs`).
-
-### 2. Setup Frontend
-```bash
-cd frontend
-npm install
-npm install framer-motion clsx tailwind-merge lucide-react
-
-# Run the frontend
-npm run dev
-```
-Frontend UI will be available at `http://localhost:3000`.
-
-## ML Models Note
-The NLP pipeline is currently configured to gracefully fallback to heuristic rules and exact dictionary matching if the large transformer models (`spacy en_core_web_trf`, `t5-small`, `all-MiniLM-L6-v2`) are not installed locally to save you Gigabytes of bandwidth during initial development.
-You can enable them in `backend/app/nlp/` by uncommenting the model loading code once you have downloaded the weights.
 
 ---
 
-## 🤖 Emoji ML Feature — Gloss → Emoji Translator
+## API Reference
 
-A neural sequence-to-sequence model converts raw ISL gloss text directly into
-expressive emoji sequences, providing an alternative to the rule-based emoji
-dictionary used in the main pipeline.
-
-### Architecture
-
-```
-Gloss Input (text)
-       ↓
-  BERT Tokenizer  (bert-base-uncased, max 64 tokens)
-       ↓
-  Transformer Encoder  (BERT frozen weights)
-       ↓
-  Custom Transformer Decoder  (d_model=256, 4 heads, 3 layers)
-       ↓
-  Beam Search  (beam_size=4, max 20 tokens)
-       ↓
-  EmojiVocabulary.decode()
-       ↓
-  Emoji Output  "👤 🥣 🌅 🍽️"
-```
-
-### Trained Model Details
-
-| Property        | Value                                 |
-|-----------------|---------------------------------------|
-| Architecture    | BERT encoder + custom Transformer decoder |
-| Dataset         | PHOENIX-Weather 2014T (adapted)       |
-| Training Loss   | 2.78 (cross-entropy)                  |
-| Vocab Size      | see `backend/models/emoji_ml/saved_model/vocab.json` |
-| Device          | Auto (CUDA if available, else CPU)    |
-| Weights         | `backend/models/emoji_ml/saved_model/best_model.pt` |
-
-### API Endpoint
-
-```
-POST  /api/convert-to-emoji
-GET   /api/emoji-model-status     ← debug: check if model is loaded
-```
-
-**Request**
-```json
-{ "text": "yesterday home sourav breakfast eat" }
-```
-
-**Response (200)**
-```json
-{
-  "success": true,
-  "input":   "yesterday home sourav breakfast eat",
-  "emoji":   "⬅️ 🏠 👤 🥣 🍽️",
-  "model":   "GlossToEmojiModel",
-  "tokens":  5
-}
-```
-
-**Error responses**
-
-| HTTP | Cause | Fix |
-|------|-------|-----|
-| `422` | Empty / missing `text` field | Send non-empty gloss string |
-| `503` | Model weights not found | Run `python train.py` in `backend/models/emoji_ml/` |
-| `500` | Inference crash (OOM, CUDA, …) | Check `backend/logs/signspeak.log` |
-
-### Frontend Component
-
-`frontend/src/components/translator/GlossToEmojiConverter.tsx`
-
-The component is automatically mounted in the translate page below the existing
-GlossDisplay and receives the gloss string as a prop.
-
-**Features**
-
-| Feature | Description |
-|---------|-------------|
-| Staggered bounce | Each emoji animates in with a 90ms stagger spring |
-| History (10) | Last 10 conversions saved in `localStorage` |
-| Favorites ⭐ | Star any result to bookmark it |
-| Export PNG | Canvas-rendered image downloaded as `.png` |
-| Share | Twitter, WhatsApp, copy-as-text |
-| Settings | Animations on/off, sound on/off |
-| Keyboard shortcuts | `Ctrl+Enter`, `F`, `H`, `?`, and more |
-| Stats | Total conversions + today's count |
-| Example prompts | One-click example glosses |
-| Confetti 🎉 | Canvas confetti burst on every successful conversion |
-| Sound effects | Web Audio API tones (optional, off by default) |
-
-**Props**
-
-```tsx
-interface GlossToEmojiConverterProps {
-  /** ISL gloss string from the main translator. e.g. "yesterday home eat" */
-  glossText?: string;
-}
-```
-
-### Testing
-
-**PowerShell test suite (recommended)**
-```powershell
-# Run all tests
-.\scripts\test_emoji_api.ps1
-
-# Verbose mode (prints each response body)
-.\scripts\test_emoji_api.ps1 -Verbose
-
-# Custom backend URL
-.\scripts\test_emoji_api.ps1 -BaseUrl "http://192.168.1.5:8000"
-```
-
-**Single curl-style tests**
-```powershell
-# Happy path
-Invoke-RestMethod -Uri "http://localhost:8000/api/convert-to-emoji" `
-  -Method POST -ContentType "application/json" `
-  -Body '{"text":"I eat breakfast morning"}' | ConvertTo-Json
-
-# Check model status without triggering inference
-Invoke-RestMethod -Uri "http://localhost:8000/api/emoji-model-status" | ConvertTo-Json
-
-# Health check
-Invoke-RestMethod -Uri "http://localhost:8000/health" | ConvertTo-Json
-```
-
-**Browser DevTools**
-```js
-// Paste in browser console while frontend is running
-const r = await fetch("http://localhost:8000/api/convert-to-emoji", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ text: "I eat breakfast morning" })
-});
-console.table(await r.json());
-```
-
-### Debug Logging
-
-Set `LOG_LEVEL=DEBUG` in your `.env` file to see per-request timing:
-
-```
-INFO  📥 [emoji] Request from 127.0.0.1 — text[22 chars]: 'I eat breakfast morning'
-DEBUG [emoji] Model retrieval took 0.3ms
-INFO  ✅ [emoji] Done in 347ms — 4 token(s) → '👤 🥣 🌅 🍽️'
-```
-
-Watch live logs:
-```powershell
-Get-Content backend\logs\signspeak.log -Wait -Tail 30
-```
-
-### Common Error Scenarios
-
-```
-Error: 503 Service Unavailable
-  "Emoji ML model weights not found"
-  → cd backend/models/emoji_ml && python train.py
-
-Error: 503 Service Unavailable
-  "Could not import emoji_ml"
-  → Start backend from backend/ directory: cd backend && python run.py
-
-Error: CORS blocked in browser
-  → backend/app/core/config.py already includes http://localhost:3000
-    Check CORS_ORIGINS list if using a different port
-
-Error: 422 Unprocessable Entity
-  → You sent an empty "text" field — provide a non-empty gloss string
-
-Error: Module 'torch' not found
-  → pip install -r backend/requirements.txt
-```
-
-### File Map
-
-```
-backend/
-  app/api/routes/emoji_routes.py     ← FastAPI router (POST /api/convert-to-emoji)
-  app/main.py                        ← Registers emoji_routes.router
-  models/emoji_ml/
-    inference.py                     ← EmojiPredictor singleton + predict_emoji()
-    model.py                         ← GlossToEmojiModel architecture
-    vocabulary.py                    ← EmojiVocabulary encode/decode
-    saved_model/
-      best_model.pt                  ← Trained weights (gitignored if large)
-      vocab.json                     ← Emoji vocabulary mapping
-
-frontend/
-  src/components/translator/
-    GlossToEmojiConverter.tsx        ← Complete UI component
-  src/app/translate/page.tsx         ← Mounts <GlossToEmojiConverter>
-
-scripts/
-  test_emoji_api.ps1                 ← Full PowerShell test suite
-```
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/translate` | POST | Main translation endpoint |
+| `/api/convert-to-emoji` | POST | Gloss → emoji conversion |
+| `/api/emoji-model-status` | GET | Check emoji model load status |
+| `/health` | GET | Backend health check |
+| `/docs` | GET | Swagger UI (auto-generated) |

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Play } from "lucide-react";
+import { Play, ChevronDown, ChevronUp } from "lucide-react";
 import EmojiCard, { SemanticRole } from "@/components/translator/EmojiCard";
 import TranslateInput from "@/components/translator/TranslateInput";
 import { LoadingState, EmptyState } from "@/components/translator/States";
@@ -119,6 +119,7 @@ export default function TranslatorPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isConverted, setIsConverted] = useState(false);
   const [inputText, setInputText] = useState("");
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
 
   // Reverse Translation States
   const [mode, setMode] = useState<"forward" | "reverse">("forward");
@@ -289,22 +290,30 @@ export default function TranslatorPage() {
   };
 
   return (
-    <div className="pt-24 min-h-screen bg-stone-50/40">
-      <div className="max-w-[1200px] mx-auto h-[calc(100vh-96px)] flex flex-col md:flex-row">
-        <div className="w-full md:w-[40%] p-6 md:p-12 overflow-y-auto">
+    <div className="pt-16 min-h-screen bg-stone-50">
+      <div className="max-w-[1280px] mx-auto h-[calc(100vh-64px)] flex flex-col md:flex-row">
+        <div className="w-full md:w-[38%] p-6 md:p-10 overflow-y-auto border-r border-stone-200 bg-white">
           {/* Mode Switcher */}
-          <div className="flex bg-stone-100 p-1.5 rounded-lg mb-8 border border-stone-200">
+          <div className="flex bg-stone-100 p-1 rounded-xl mb-7 border border-stone-200 gap-1">
             <button
               onClick={() => { setMode("forward"); setResult(null); setReverseResult(null); setError(null); }}
-              className={`flex-1 py-2 text-xs font-semibold rounded-md transition-all ${mode === "forward" ? "bg-white shadow-xs text-stone-900" : "text-stone-500 hover:text-stone-800"}`}
+              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${
+                mode === "forward"
+                  ? "bg-stone-900 text-white shadow-sm"
+                  : "text-stone-500 hover:text-stone-800 hover:bg-stone-200"
+              }`}
             >
-              ✍️ Text to Sign
+              ✍️ Text → Sign
             </button>
             <button
               onClick={() => { setMode("reverse"); setResult(null); setReverseResult(null); setError(null); }}
-              className={`flex-1 py-2 text-xs font-semibold rounded-md transition-all ${mode === "reverse" ? "bg-white shadow-xs text-stone-900" : "text-stone-500 hover:text-stone-800"}`}
+              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${
+                mode === "reverse"
+                  ? "bg-stone-900 text-white shadow-sm"
+                  : "text-stone-500 hover:text-stone-800 hover:bg-stone-200"
+              }`}
             >
-              🔄 Sign to Text
+              🔄 Sign → Text
             </button>
           </div>
 
@@ -385,9 +394,7 @@ export default function TranslatorPage() {
           )}
         </div>
 
-        <div className="hidden md:block w-[1px] bg-stone-200 self-stretch" />
-
-        <div className="w-full md:w-[60%] p-6 md:p-12 overflow-y-auto bg-stone-50/20">
+        <div className="w-full md:w-[62%] p-6 md:p-10 overflow-y-auto bg-stone-50/40">
           <div className="flex flex-col gap-10">
             {error && (
               <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -479,14 +486,12 @@ export default function TranslatorPage() {
                     key="reverse-empty"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="flex flex-col items-center justify-center py-20 text-center"
+                    className="flex flex-col items-center justify-center py-24 text-center"
                   >
-                    <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mb-4 text-stone-400 border border-stone-200">
-                      🔄
-                    </div>
-                    <h3 className="text-md font-semibold text-stone-800 mb-1">No sign sequence decoded</h3>
-                    <p className="text-sm text-stone-550 max-w-xs">
-                      Enter sign emojis in the left panel and click decode to reconstruct English.
+                    <div className="text-5xl mb-4">🤟</div>
+                    <h3 className="text-lg font-bold text-stone-800 mb-2">Ready to decode</h3>
+                    <p className="text-sm text-stone-400 max-w-xs leading-relaxed">
+                      Pick emojis from the keyboard on the left, then click <strong>Decode to English</strong>.
                     </p>
                   </motion.div>
                 )
@@ -662,73 +667,71 @@ export default function TranslatorPage() {
                   )}
 
                       {result.cards.length > 0 && (
-                        <div className="pt-8 border-t border-stone-200">
-                          <div className="flex items-center justify-between mb-4">
-                            <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
-                              Translation Engine Diagnostics
-                            </span>
-                            <span className="px-2.5 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold rounded-full uppercase tracking-wider">
-                              Active
-                            </span>
-                          </div>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-                            <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                              <span className="text-[11px] text-text-muted block mb-1">Model Name</span>
-                              <span className="text-[14px] font-semibold text-text-primary">FLAN-T5-small</span>
+                        <div className="border border-stone-200 rounded-xl overflow-hidden">
+                          <button
+                            onClick={() => setShowDiagnostics((v) => !v)}
+                            className="w-full flex items-center justify-between px-5 py-3.5 bg-stone-50 hover:bg-stone-100 transition-colors text-left"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">Translation Engine Diagnostics</span>
+                              <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[9px] font-bold rounded-full uppercase">Active</span>
                             </div>
-                            <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                              <span className="text-[11px] text-text-muted block mb-1">Inference Speed</span>
-                              <span className="text-[14px] font-semibold text-text-primary">{result.processingTimeMs ?? 0} ms</span>
-                            </div>
-                            <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                              <span className="text-[11px] text-text-muted block mb-1">Confidence Score</span>
-                              <span className="text-[14px] font-semibold text-text-primary">{((result.confidence ?? 0.9) * 100).toFixed(0)}%</span>
-                            </div>
-                            <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                              <span className="text-[11px] text-text-muted block mb-1">Vocabulary Size</span>
-                              <span className="text-[14px] font-semibold text-text-primary">34,615 tokens</span>
-                            </div>
-                          </div>
+                            {showDiagnostics ? <ChevronUp size={14} className="text-stone-400" /> : <ChevronDown size={14} className="text-stone-400" />}
+                          </button>
 
-                          <div className="mt-4 overflow-x-auto bg-white border border-stone-200 rounded-md">
-                            <table className="min-w-full divide-y divide-stone-200 text-left text-[12px]">
-                              <thead className="bg-stone-50 text-text-muted uppercase tracking-wider text-[10px]">
-                                <tr>
-                                  <th className="px-4 py-2.5 font-semibold">Gloss Word</th>
-                                  <th className="px-4 py-2.5 font-semibold">Emoji</th>
-                                  <th className="px-4 py-2.5 font-semibold">Token Confidence</th>
-                                  <th className="px-4 py-2.5 font-semibold">Mapping Method</th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-stone-100 text-text-secondary">
-                                {result.cards.map((card, index) => (
-                                  <tr key={index}>
-                                    <td className="px-4 py-3 font-bold font-mono text-text-primary">{card.word}</td>
-                                    <td className="px-4 py-3 text-base">{card.emoji}</td>
-                                    <td className="px-4 py-3">
-                                      <span className={
-                                        `px-1.5 py-0.5 rounded-sm text-[10px] font-semibold ${(card.confidence ?? 0.7) >= 0.9
-                                          ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                                          : "bg-amber-50 text-amber-700 border border-amber-100"
-                                        }`
-                                      }>
-                                        {((card.confidence ?? 0.7) * 100).toFixed(0)}%
-                                      </span>
-                                    </td>
-                                    <td className="px-4 py-3 font-mono text-[11px]">
-                                      {card.method === "ml-model"
-                                        ? "Seq2Seq Model Generation"
-                                        : card.method === "dictionary-heuristic"
-                                        ? "Dictionary Heuristic"
-                                        : card.method === "semantic-proximity"
-                                        ? "Embedded Proximity Match"
-                                        : card.method}
-                                    </td>
-                                  </tr>
+                          {showDiagnostics && (
+                            <div className="p-5 flex flex-col gap-4 border-t border-stone-200">
+                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                {[
+                                  { label: "Model", value: "FLAN-T5-small" },
+                                  { label: "Speed", value: `${result.processingTimeMs ?? 0} ms` },
+                                  { label: "Confidence", value: `${((result.confidence ?? 0.9) * 100).toFixed(0)}%` },
+                                  { label: "Vocab", value: "34,615 tokens" },
+                                ].map((stat) => (
+                                  <div key={stat.label} className="bg-stone-50 border border-stone-100 p-3 rounded-lg">
+                                    <span className="text-[10px] text-stone-400 block mb-1 uppercase tracking-wider">{stat.label}</span>
+                                    <span className="text-[13px] font-bold text-stone-800">{stat.value}</span>
+                                  </div>
                                 ))}
-                              </tbody>
-                            </table>
-                          </div>
+                              </div>
+
+                              <div className="overflow-x-auto bg-white border border-stone-200 rounded-lg">
+                                <table className="min-w-full divide-y divide-stone-100 text-left text-[12px]">
+                                  <thead className="bg-stone-50 text-stone-400 uppercase tracking-wider text-[10px]">
+                                    <tr>
+                                      <th className="px-4 py-2.5 font-semibold">Gloss Word</th>
+                                      <th className="px-4 py-2.5 font-semibold">Emoji</th>
+                                      <th className="px-4 py-2.5 font-semibold">Confidence</th>
+                                      <th className="px-4 py-2.5 font-semibold">Method</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody className="divide-y divide-stone-100 text-stone-600">
+                                    {result.cards.map((card, index) => (
+                                      <tr key={index} className="hover:bg-stone-50 transition-colors">
+                                        <td className="px-4 py-3 font-bold font-mono text-stone-800">{card.word}</td>
+                                        <td className="px-4 py-3 text-base">{card.emoji}</td>
+                                        <td className="px-4 py-3">
+                                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                                            (card.confidence ?? 0.7) >= 0.9
+                                              ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                                              : "bg-amber-50 text-amber-700 border border-amber-100"
+                                          }`}>
+                                            {((card.confidence ?? 0.7) * 100).toFixed(0)}%
+                                          </span>
+                                        </td>
+                                        <td className="px-4 py-3 font-mono text-[11px] text-stone-500">
+                                          {card.method === "ml-model" ? "Seq2Seq"
+                                            : card.method === "dictionary-heuristic" ? "Dictionary"
+                                            : card.method === "semantic-proximity" ? "Proximity"
+                                            : card.method}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
                 </motion.div>

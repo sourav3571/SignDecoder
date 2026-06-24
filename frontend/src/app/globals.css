@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #FAFAF9;
+  --color-background: #F8F7F5;
   --color-surface: #FFFFFF;
   --color-surface-elevated: #F5F5F4;
   --color-border: #E7E5E4;
@@ -103,4 +103,13 @@
   overflow: hidden;
   white-space: nowrap;
   animation: typewriter 1s steps(40, end);
+}
+
+/* Hide scrollbar while keeping scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
