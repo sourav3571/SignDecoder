@@ -10,10 +10,10 @@ interface TranslateInputProps {
 }
 
 const EXAMPLES = [
-  "Why is Ravi not playing cricket on the ground?",
-  "Where is the hospital?",
-  "I don't like cold weather",
-  "She is happy today",
+  "The examination was a piece of cake.",
+  "He is under the weather today.",
+  "She was delighted and on cloud nine.",
+  "The new vehicle cost an arm and a leg.",
 ];
 
 export default function TranslateInput({ onTranslate, isLoading }: TranslateInputProps) {
