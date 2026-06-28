@@ -10,6 +10,8 @@ import { cn } from "@/lib/utils";
 const NAV_LINKS = [
   { name: "How it Works", href: "/#how-it-works" },
   { name: "Dictionary", href: "/dictionary" },
+  { name: "Vector Explorer", href: "/explorer" },
+  { name: "Research", href: "/research" },
 ];
 
 export default function Navbar() {
