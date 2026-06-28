@@ -10,6 +10,14 @@ from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 import logging
 import sys 
+import nltk
+
+try:
+    nltk.download('wordnet', quiet=True)
+    nltk.download('omw-1.4', quiet=True)
+except Exception as e:
+    print(f"NLTK download failed: {e}")
+
 
 from app.core.config import settings
 from app.core.database import init_db, close_db, Base
