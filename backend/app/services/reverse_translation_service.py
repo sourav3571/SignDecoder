@@ -37,34 +37,51 @@ GLOSS_TO_EMOJI: dict = {}
 def _load_dictionaries():
     """Load both directions from the generated emoji_to_label.json and label_to_emoji.json."""
     _HERE = os.path.dirname(os.path.abspath(__file__))
-    _MODELS = os.path.join(os.path.dirname(os.path.dirname(_HERE)), "models", "emoji_ml")
+    _PARENT = os.path.dirname(os.path.dirname(_HERE))
+    
+    candidates = [
+        os.path.join(_PARENT, "models", "emoji_ml"),
+        os.path.join(_PARENT, "models", "sentence_to_gloss"),
+        os.path.join(os.path.dirname(_PARENT), "frontend", "src", "data"),
+    ]
 
     # ── Forward: label → emoji (for building GLOSS_TO_EMOJI) ──────────────────
-    fwd_path = os.path.join(_MODELS, "label_to_emoji.json")
-    if os.path.exists(fwd_path):
-        with open(fwd_path, "r", encoding="utf-8") as f:
-            label_to_emoji = json.load(f)
-        for label, emoji in label_to_emoji.items():
-            clean_gloss = label.upper()
-            GLOSS_TO_EMOJI[clean_gloss] = emoji
-        logger.info(f"ReverseService: loaded {len(GLOSS_TO_EMOJI)} GLOSS→EMOJI entries")
+    for path in candidates:
+        fwd_path = os.path.join(path, "label_to_emoji.json")
+        if os.path.exists(fwd_path):
+            try:
+                with open(fwd_path, "r", encoding="utf-8") as f:
+                    label_to_emoji = json.load(f)
+                for label, emoji in label_to_emoji.items():
+                    clean_gloss = label.upper().strip()
+                    if clean_gloss:
+                        GLOSS_TO_EMOJI[clean_gloss] = emoji
+                logger.info(f"ReverseService: loaded {len(GLOSS_TO_EMOJI)} GLOSS→EMOJI entries from {fwd_path}")
+                break
+            except Exception as e:
+                logger.warning(f"Failed to load {fwd_path}: {e}")
 
     # ── Reverse: emoji → label (data-driven, 1120 unique emojis) ──────────────
-    rev_path = os.path.join(_MODELS, "emoji_to_label.json")
-    if os.path.exists(rev_path):
-        with open(rev_path, "r", encoding="utf-8") as f:
-            emoji_to_label = json.load(f)
-        for emoji, label in emoji_to_label.items():
-            # Convert label to GLOSS style (uppercase, underscores preserved for lookup)
-            gloss = label.upper().replace(" ", "_")
-            EMOJI_TO_GLOSS[emoji] = gloss
-        logger.info(f"ReverseService: loaded {len(EMOJI_TO_GLOSS)} EMOJI→GLOSS entries from emoji_to_label.json")
-    else:
-        logger.warning("emoji_to_label.json not found — reverse service will have limited coverage")
+    for path in candidates:
+        rev_path = os.path.join(path, "emoji_to_label.json")
+        if os.path.exists(rev_path):
+            try:
+                with open(rev_path, "r", encoding="utf-8") as f:
+                    emoji_to_label = json.load(f)
+                for emoji, label in emoji_to_label.items():
+                    # Convert label to GLOSS style (uppercase, underscores preserved for lookup)
+                    gloss = label.upper().replace(" ", "_").strip()
+                    if gloss:
+                        EMOJI_TO_GLOSS[emoji] = gloss
+                logger.info(f"ReverseService: loaded {len(EMOJI_TO_GLOSS)} EMOJI→GLOSS entries from {rev_path}")
+                break
+            except Exception as e:
+                logger.warning(f"Failed to load {rev_path}: {e}")
 
     # ── Apply critical overrides last (highest priority) ──────────────────────
     EMOJI_TO_GLOSS.update(CRITICAL_OVERRIDES)
     logger.info(f"ReverseService: applied {len(CRITICAL_OVERRIDES)} critical overrides")
+
 
 try:
     _load_dictionaries()

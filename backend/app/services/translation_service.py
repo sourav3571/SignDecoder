@@ -36,6 +36,70 @@ GLOSS_TO_EMOJI = {
 }
 
 
+def _load_dictionaries():
+    """Load both directions from the generated emoji_to_label.json and label_to_emoji.json."""
+    import json
+    
+    # Try multiple candidate paths to support both hf_deploy and local backend
+    _HERE = os.path.dirname(os.path.abspath(__file__))
+    _PARENT = os.path.dirname(os.path.dirname(_HERE))
+    
+    candidates = [
+        os.path.join(_PARENT, "models", "emoji_ml"),
+        os.path.join(_PARENT, "models", "sentence_to_gloss"),
+        # Frontend backup
+        os.path.join(os.path.dirname(_PARENT), "frontend", "src", "data"),
+    ]
+    
+    # ── Forward: label → emoji (6000+ words) ──────────────────
+    for path in candidates:
+        fwd_path = os.path.join(path, "label_to_emoji.json")
+        if os.path.exists(fwd_path):
+            try:
+                with open(fwd_path, "r", encoding="utf-8") as f:
+                    label_to_emoji = json.load(f)
+                for label, emoji in label_to_emoji.items():
+                    clean_gloss = label.upper().strip()
+                    if clean_gloss and clean_gloss not in GLOSS_TO_EMOJI:
+                        GLOSS_TO_EMOJI[clean_gloss] = emoji
+                logger.info(f"Loaded {len(label_to_emoji)} GLOSS→EMOJI entries from {fwd_path}")
+                break
+            except Exception as e:
+                logger.warning(f"Failed to load {fwd_path}: {e}")
+                
+    # ── Reverse: emoji → label (invert it to build more GLOSS→EMOJI mapping) ──
+    for path in candidates:
+        rev_path = os.path.join(path, "emoji_to_label.json")
+        if os.path.exists(rev_path):
+            try:
+                with open(rev_path, "r", encoding="utf-8") as f:
+                    emoji_to_label = json.load(f)
+                for emoji, label in emoji_to_label.items():
+                    label_upper = label.upper().strip()
+                    if label_upper:
+                        if label_upper not in GLOSS_TO_EMOJI:
+                            GLOSS_TO_EMOJI[label_upper] = emoji
+                        
+                        # Handle spaces vs underscores
+                        label_space = label_upper.replace("_", " ")
+                        if label_space not in GLOSS_TO_EMOJI:
+                            GLOSS_TO_EMOJI[label_space] = emoji
+                            
+                        label_under = label_upper.replace(" ", "_")
+                        if label_under not in GLOSS_TO_EMOJI:
+                            GLOSS_TO_EMOJI[label_under] = emoji
+                logger.info(f"Loaded and inverted {len(emoji_to_label)} EMOJI→GLOSS entries from {rev_path}")
+                break
+            except Exception as e:
+                logger.warning(f"Failed to load {rev_path}: {e}")
+
+try:
+    _load_dictionaries()
+except Exception as e:
+    logger.error(f"Failed to dynamically load emoji dictionaries: {e}")
+
+
+
 _simplifier_instance = None
 _linker_instance = None
 
