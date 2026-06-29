@@ -503,6 +503,11 @@ export default function TranslatorPage() {
                   className="flex flex-col gap-12"
                 >
 
+                  {/* Lexical Simplification Details Widget */}
+                  {result.simplification_details && (
+                    <SimplificationDetailsWidget details={result.simplification_details} />
+                  )}
+
                   {result.rawMlPrediction && (
                     <motion.div
                       initial={{ opacity: 0, y: 5 }}
