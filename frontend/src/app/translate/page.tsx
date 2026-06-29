@@ -503,33 +503,6 @@ export default function TranslatorPage() {
                   className="flex flex-col gap-12"
                 >
 
-                  {/* Lexical Simplification Details Widget */}
-                  {result.simplification_details ? (
-                    <SimplificationDetailsWidget details={result.simplification_details} />
-                  ) : (
-                    result.reconstructed && result.reconstructed.toLowerCase().trim() !== inputText.toLowerCase().trim() && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-stone-50 border border-stone-200 rounded-xl p-5 shadow-xs flex flex-col gap-2"
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-base">✨</span>
-                          <span className="text-[11px] font-bold text-accent uppercase tracking-[0.08em]">
-                            Lexical Simplification Active
-                          </span>
-                        </div>
-                        <div className="text-[15px] font-medium text-stone-800">
-                          {result.reconstructed}
-                        </div>
-                        <span className="text-[11px] text-stone-400">
-                          Complex words, metaphors, or idioms were simplified to improve translation mapping accuracy.
-                        </span>
-                      </motion.div>
-                    )
-                  )}
-
-
                   {result.rawMlPrediction && (
                     <motion.div
                       initial={{ opacity: 0, y: 5 }}
@@ -666,74 +639,6 @@ export default function TranslatorPage() {
                     </motion.div>
                   )}
 
-                      {result.cards.length > 0 && (
-                        <div className="border border-stone-200 rounded-xl overflow-hidden">
-                          <button
-                            onClick={() => setShowDiagnostics((v) => !v)}
-                            className="w-full flex items-center justify-between px-5 py-3.5 bg-stone-50 hover:bg-stone-100 transition-colors text-left"
-                          >
-                            <div className="flex items-center gap-2">
-                              <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">Translation Engine Diagnostics</span>
-                              <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[9px] font-bold rounded-full uppercase">Active</span>
-                            </div>
-                            {showDiagnostics ? <ChevronUp size={14} className="text-stone-400" /> : <ChevronDown size={14} className="text-stone-400" />}
-                          </button>
-
-                          {showDiagnostics && (
-                            <div className="p-5 flex flex-col gap-4 border-t border-stone-200">
-                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                {[
-                                  { label: "Model", value: "FLAN-T5-small" },
-                                  { label: "Speed", value: `${result.processingTimeMs ?? 0} ms` },
-                                  { label: "Confidence", value: `${((result.confidence ?? 0.9) * 100).toFixed(0)}%` },
-                                  { label: "Vocab", value: "34,615 tokens" },
-                                ].map((stat) => (
-                                  <div key={stat.label} className="bg-stone-50 border border-stone-100 p-3 rounded-lg">
-                                    <span className="text-[10px] text-stone-400 block mb-1 uppercase tracking-wider">{stat.label}</span>
-                                    <span className="text-[13px] font-bold text-stone-800">{stat.value}</span>
-                                  </div>
-                                ))}
-                              </div>
-
-                              <div className="overflow-x-auto bg-white border border-stone-200 rounded-lg">
-                                <table className="min-w-full divide-y divide-stone-100 text-left text-[12px]">
-                                  <thead className="bg-stone-50 text-stone-400 uppercase tracking-wider text-[10px]">
-                                    <tr>
-                                      <th className="px-4 py-2.5 font-semibold">Gloss Word</th>
-                                      <th className="px-4 py-2.5 font-semibold">Emoji</th>
-                                      <th className="px-4 py-2.5 font-semibold">Confidence</th>
-                                      <th className="px-4 py-2.5 font-semibold">Method</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody className="divide-y divide-stone-100 text-stone-600">
-                                    {result.cards.map((card, index) => (
-                                      <tr key={index} className="hover:bg-stone-50 transition-colors">
-                                        <td className="px-4 py-3 font-bold font-mono text-stone-800">{card.word}</td>
-                                        <td className="px-4 py-3 text-base">{card.emoji}</td>
-                                        <td className="px-4 py-3">
-                                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                                            (card.confidence ?? 0.7) >= 0.9
-                                              ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                                              : "bg-amber-50 text-amber-700 border border-amber-100"
-                                          }`}>
-                                            {((card.confidence ?? 0.7) * 100).toFixed(0)}%
-                                          </span>
-                                        </td>
-                                        <td className="px-4 py-3 font-mono text-[11px] text-stone-500">
-                                          {card.method === "ml-model" ? "Seq2Seq"
-                                            : card.method === "dictionary-heuristic" ? "Dictionary"
-                                            : card.method === "semantic-proximity" ? "Proximity"
-                                            : card.method}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
                 </motion.div>
               ) : (
                 <motion.div

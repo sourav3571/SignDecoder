@@ -52,12 +52,13 @@ interface SimplificationDetailsWidgetProps {
 }
 
 export default function SimplificationDetailsWidget({ details }: SimplificationDetailsWidgetProps) {
-  const [activeWord, setActiveWord] = useState<string>("sentence");
+  const defaultWord = details.changes?.[0]?.original_word || "";
+  const [activeWord, setActiveWord] = useState<string>(defaultWord);
   const [prevDetails, setPrevDetails] = useState<SimplificationDetails | null>(null);
 
   if (details !== prevDetails) {
     setPrevDetails(details);
-    setActiveWord("sentence");
+    setActiveWord(defaultWord);
   }
 
   if (!details.changes || details.changes.length === 0) {
@@ -200,63 +201,10 @@ export default function SimplificationDetailsWidget({ details }: SimplificationD
             &quot;{renderHighlightedText(details.simplified, false)}&quot;
           </div>
         </div>
-
-        {sentenceComplexity && (
-          <>
-            <div className="h-[1px] bg-stone-200/60" />
-            <div className="flex flex-col gap-2.5 pt-1">
-              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest block">Sentence-Level Complexity Reduction</span>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-1">
-                  <div className="flex justify-between items-center text-[11px] font-medium text-stone-600">
-                    <span>Original Sentence Difficulty:</span>
-                    <span className="font-bold text-amber-700">{Math.round(sentenceComplexity.original * 100)}%</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-amber-500 rounded-full transition-all duration-500"
-                      style={{ width: `${sentenceComplexity.original * 100}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <div className="flex justify-between items-center text-[11px] font-medium text-stone-600">
-                    <span>Simplified Sentence Difficulty:</span>
-                    <span className="font-bold text-emerald-700">{Math.round(sentenceComplexity.simplified * 100)}%</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-stone-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-emerald-500 rounded-full transition-all duration-500"
-                      style={{ width: `${sentenceComplexity.simplified * 100}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {sentenceComplexity.reduction > 0 && (
-                <div className="text-[11px] font-bold text-emerald-600 flex items-center gap-1.5 mt-0.5">
-                  <Sparkles size={12} className="text-emerald-500 animate-pulse" />
-                  <span>Overall sentence readability improved by {Math.round(sentenceComplexity.reduction * 100)}%!</span>
-                </div>
-              )}
-            </div>
-          </>
-        )}
       </div>
 
       {/* Selector Tabs */}
       <div className="flex flex-wrap gap-2 pb-2">
-        <button
-          onClick={() => setActiveWord("sentence")}
-          className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-all ${activeWord === "sentence"
-              ? "bg-stone-900 border-stone-900 text-white shadow-3xs animate-pulse"
-              : "bg-white border-stone-200 text-stone-600 hover:bg-stone-50 hover:text-stone-950"
-            }`}
-        >
-          📋 Sentence Summary
-        </button>
         {details.changes.map((change) => (
           <button
             key={change.original_word}
@@ -273,58 +221,7 @@ export default function SimplificationDetailsWidget({ details }: SimplificationD
 
       {/* Main Details Panel */}
       <AnimatePresence mode="wait">
-        {activeWord === "sentence" ? (
-          <motion.div
-            key="sentence_summary"
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            transition={{ duration: 0.25 }}
-            className="grid grid-cols-1 gap-6"
-          >
-            {/* Sentence Breakdown & Statistics */}
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-3">
-                <h4 className="text-sm font-bold text-stone-800 uppercase tracking-wider">Sentence Breakdown</h4>
-                <div className="text-[14px] text-stone-850 leading-relaxed font-medium bg-stone-50/50 p-4 rounded-xl border border-stone-150">
-                  <p className="mb-3 text-[14px] text-stone-700">
-                    This overview details the holistic structure of the simplified sentence:
-                  </p>
-                  <blockquote className="border-l-4 border-emerald-500 pl-3 font-semibold text-stone-900 italic my-2">
-                    &quot;{details.simplified}&quot;
-                  </blockquote>
-                  {details.changes.length > 0 && (
-                    <div className="mt-4 pt-3 border-t border-stone-250">
-                      <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block mb-2">Word-Level Substitutions:</span>
-                      <div className="flex flex-wrap gap-2">
-                        {details.changes.map((c) => (
-                          <span
-                            key={c.original_word}
-                            onClick={() => setActiveWord(c.original_word)}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-stone-100 hover:bg-emerald-50 border border-stone-200 hover:border-emerald-200 text-stone-700 hover:text-emerald-900 rounded-md text-xs font-semibold cursor-pointer transition-all"
-                          >
-                            <span className="line-through text-stone-400">{c.original_word}</span>
-                            <span>→</span>
-                            <span className="font-bold">{c.simplified_word}</span>
-                            <span>{c.emoji}</span>
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Translation Strategy */}
-              <div className="bg-emerald-50/40 border border-emerald-100 rounded-xl p-4 flex flex-col gap-2">
-                <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">Translation Strategy</span>
-                <p className="text-xs text-emerald-950 font-medium leading-relaxed">
-                  By mapping the original text to standard gloss syntax, we reduce lexical ambiguity and make it highly compatible with gesture-based sign languages.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        ) : activeChange ? (
+        {activeChange ? (
           <motion.div
             key={activeChange.original_word}
             initial={{ opacity: 0, x: 10 }}

@@ -231,6 +231,7 @@ class TranslationService:
             logger.info(f"Model gloss output: '{gloss_string}'")
         except Exception as e:
             logger.warning(f"Gloss model failed: {e}")
+            warnings.append(f"Gloss model failed: {str(e)}")
             gloss_string = preprocessed_text  # raw fallback
 
         # ── Step 2: Split gloss into words and map to emojis ───────────────────

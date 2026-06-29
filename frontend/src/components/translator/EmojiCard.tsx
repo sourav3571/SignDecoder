@@ -78,12 +78,9 @@ export default function EmojiCard({
         "group relative flex flex-col items-center justify-between w-[120px] p-5 bg-white border border-border rounded-md shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
         isActive && "border-accent ring-1 ring-accent/10 shadow-lg"
       )}
-      aria-label={`${word} (${role})`}
+      aria-label={`${word}`}
     >
-      {}
-      <div className={cn("absolute top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full", ROLE_COLORS[role])} />
-
-      {}
+      
       <div className="my-3 flex items-center justify-center h-[60px] w-full">
         {animationData ? (
           <Lottie
@@ -113,17 +110,14 @@ export default function EmojiCard({
         )}
       </div>
 
-      {}
+      
       <div className="text-center mt-2">
         <span className="block text-[14px] font-medium text-text-primary leading-tight">
           {word}
         </span>
-        <span className="block text-[10px] font-bold text-text-muted uppercase tracking-widest mt-1">
-          {role}
-        </span>
       </div>
 
-      {}
+      
       {isActive && (
         <motion.div 
           layoutId="active-indicator"

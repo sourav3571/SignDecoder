@@ -18,7 +18,6 @@ const EXAMPLES = [
 
 export default function TranslateInput({ onTranslate, isLoading }: TranslateInputProps) {
   const [text, setText] = useState("");
-  const [simplify, setSimplify] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustHeight = () => {
@@ -34,7 +33,7 @@ export default function TranslateInput({ onTranslate, isLoading }: TranslateInpu
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
       e.preventDefault();
-      if (text.trim() && !isLoading) onTranslate(text, simplify);
+      if (text.trim() && !isLoading) onTranslate(text, true);
     }
   };
 
@@ -83,38 +82,9 @@ export default function TranslateInput({ onTranslate, isLoading }: TranslateInpu
         </div>
       </div>
 
-      {/* Simplification Toggle */}
-      <button
-        type="button"
-        onClick={() => setSimplify((s) => !s)}
-        className={cn(
-          "flex items-center gap-3 p-4 rounded-xl border-2 text-left w-full transition-all duration-200",
-          simplify ? "bg-emerald-50 border-emerald-300" : "bg-stone-50 border-stone-200 hover:border-stone-300"
-        )}
-      >
-        {/* Pill toggle */}
-        <div className={cn(
-          "relative w-10 h-6 rounded-full flex-shrink-0 transition-colors duration-300",
-          simplify ? "bg-emerald-500" : "bg-stone-300"
-        )}>
-          <div className={cn(
-            "absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all duration-300",
-            simplify ? "left-5" : "left-1"
-          )} />
-        </div>
-        <div>
-          <p className={cn("text-[13px] font-bold leading-tight", simplify ? "text-emerald-800" : "text-stone-700")}>
-            Lexical Simplification
-          </p>
-          <p className="text-[11px] text-stone-500 mt-0.5">
-            Simplifies complex words, metaphors &amp; idioms before translating
-          </p>
-        </div>
-      </button>
-
       {/* Translate Button */}
       <button
-        onClick={() => onTranslate(text, simplify)}
+        onClick={() => onTranslate(text, true)}
         disabled={!text.trim() || isLoading}
         className={cn(
           "w-full py-4 bg-stone-900 text-white rounded-xl font-semibold text-[15px]",
