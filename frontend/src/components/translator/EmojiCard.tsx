@@ -17,6 +17,7 @@ interface EmojiCardProps {
   isActive?: boolean;
   onAnimationComplete?: () => void;
   showEmoji?: boolean;
+  onClick?: () => void;
 }
 
 const ROLE_COLORS: Record<SemanticRole, string> = {
@@ -37,6 +38,7 @@ export default function EmojiCard({
   isActive = false,
   onAnimationComplete,
   showEmoji = true,
+  onClick,
 }: EmojiCardProps) {
   const [animationData, setAnimationData] = useState<Record<string, unknown> | null>(null);
   const lottieRef = useRef<LottieRefCurrentProps>(null);
@@ -74,8 +76,9 @@ export default function EmojiCard({
         delay: index * 0.1,
         ease: "easeOut"
       }}
+      onClick={onClick}
       className={cn(
-        "group relative flex flex-col items-center justify-between w-[120px] p-5 bg-white border border-border rounded-md shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
+        "group relative flex flex-col items-center justify-between w-[120px] p-5 bg-white border border-border rounded-md shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer hover:border-accent/40",
         isActive && "border-accent ring-1 ring-accent/10 shadow-lg"
       )}
       aria-label={`${word}`}

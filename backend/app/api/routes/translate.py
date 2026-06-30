@@ -46,3 +46,12 @@ async def reverse_translate_emojis(request: ReverseTranslationRequest):
     except Exception as e:
         logger.error(f"Reverse translation error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/dictionary/{word}")
+async def get_word_dictionary_details(word: str):
+    try:
+        from app.services.dictionary_service import DictionaryService
+        return await DictionaryService.get_gloss_details(word)
+    except Exception as e:
+        logger.error(f"Error fetching dictionary details for {word}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

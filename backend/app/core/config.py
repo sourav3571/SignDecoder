@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     REDIS_CACHE_TTL: int = 3600  
 
     PINECONE_API_KEY: Optional[str] = None
+    GEMINI_API_KEY: Optional[str] = None
     PINECONE_ENVIRONMENT: str = "us-west4-gcp"
     PINECONE_INDEX_NAME: str = "emoji-concepts"
     PINECONE_DIMENSION: int = 384  

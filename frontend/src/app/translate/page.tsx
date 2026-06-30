@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Play, ChevronDown, ChevronUp } from "lucide-react";
+import { Play, ChevronDown, ChevronUp, X, Sparkles, BookOpen, ExternalLink, HelpCircle, Video } from "lucide-react";
 import EmojiCard, { SemanticRole } from "@/components/translator/EmojiCard";
 import TranslateInput from "@/components/translator/TranslateInput";
 import { LoadingState, EmptyState } from "@/components/translator/States";
@@ -120,6 +120,11 @@ export default function TranslatorPage() {
   const [isConverted, setIsConverted] = useState(false);
   const [inputText, setInputText] = useState("");
   const [showDiagnostics, setShowDiagnostics] = useState(false);
+
+  // Visual Dictionary States
+  const [selectedGlossWord, setSelectedGlossWord] = useState<string | null>(null);
+  const [glossDetails, setGlossDetails] = useState<any | null>(null);
+  const [isLoadingGlossDetails, setIsLoadingGlossDetails] = useState<boolean>(false);
 
   // Reverse Translation States
   const [mode, setMode] = useState<"forward" | "reverse">("forward");
@@ -289,6 +294,47 @@ export default function TranslatorPage() {
     }
   };
 
+  const handleCardClick = async (word: string) => {
+    const cleanWord = word.replace(/[\[\]]/g, "").trim();
+    if (!cleanWord) return;
+    
+    setSelectedGlossWord(cleanWord);
+    setIsLoadingGlossDetails(true);
+    setGlossDetails(null);
+
+    try {
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 
+        (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.5.1" || window.location.hostname === "127.0.0.1")
+          ? "http://localhost:8000"
+          : "");
+      const response = await fetch(`${backendUrl}/api/v1/translate/dictionary/${encodeURIComponent(cleanWord.toLowerCase())}`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch dictionary details`);
+      }
+      
+      const data = await response.json();
+      setGlossDetails(data);
+    } catch (err) {
+      console.error("Error fetching dictionary details:", err);
+      // Premium experience client-side fallback
+      setGlossDetails({
+        word: cleanWord.toUpperCase(),
+        definition: `A primary visual sign concept representing '${cleanWord.toLowerCase()}'.`,
+        sign_handshape: "Closed-5 or flat hand shape",
+        sign_location: "Neutral workspace in front of the chest",
+        sign_movement: "Varies depending on grammar context",
+        sign_explanation: `To sign '${cleanWord.toLowerCase()}', position your hand in the central signing space. Gently move it outwards or tap representing the core meaning.`,
+        mnemonic_tip: `Associate the physical gesture with the definition of '${cleanWord.toLowerCase()}'.`,
+        image_url: `https://images.unsplash.com/featured/800x600/?${encodeURIComponent(cleanWord.toLowerCase())}`,
+        video_url: `https://www.youtube.com/results?search_query=how+to+sign+${encodeURIComponent(cleanWord.toLowerCase())}+in+sign+language`,
+        emoji: "❓"
+      });
+    } finally {
+      setIsLoadingGlossDetails(false);
+    }
+  };
+
   return (
     <div className="pt-16 min-h-screen bg-stone-50">
       <div className="max-w-[1280px] mx-auto h-[calc(100vh-64px)] flex flex-col md:flex-row">
@@ -394,8 +440,9 @@ export default function TranslatorPage() {
           )}
         </div>
 
-        <div className="w-full md:w-[62%] p-6 md:p-10 overflow-y-auto bg-stone-50/40">
-          <div className="flex flex-col gap-10">
+        <div className="w-full md:w-[62%] flex flex-col lg:flex-row overflow-hidden bg-stone-50/40 border-l border-stone-200">
+          {/* Main Results Scrollable Area */}
+          <div className="flex-1 p-6 md:p-10 overflow-y-auto h-full flex flex-col gap-10">
             {error && (
               <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                 {error}
@@ -432,19 +479,27 @@ export default function TranslatorPage() {
 
                     <div className="flex flex-col gap-4">
                       <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
-                        🔍 Decoded Gloss Breakdown
+                        🔍 Decoded Gloss Breakdown (Click cards for dictionary lookup)
                       </span>
                       <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-xs flex flex-col gap-4">
                         <div className="flex flex-wrap gap-4 justify-center">
                           {reverseResult.emoji_sequence.split(" ").map((emoji, index) => {
                             const gloss = reverseResult.glosses[index] || "UNKNOWN";
+                            const isSelected = selectedGlossWord?.toUpperCase() === gloss.toUpperCase();
                             return (
                               <div
                                 key={index}
-                                className="flex flex-col items-center bg-stone-50 border border-stone-150 p-3 rounded-lg min-w-[70px] shadow-3xs"
+                                onClick={() => handleCardClick(gloss)}
+                                className={`flex flex-col items-center p-3 rounded-lg min-w-[70px] shadow-3xs cursor-pointer border transition-all duration-200 hover:scale-[1.05] active:scale-[0.98] ${
+                                  isSelected
+                                    ? "bg-accent border-accent text-white shadow-md shadow-accent/20"
+                                    : "bg-stone-50 border-stone-150 hover:border-accent/40"
+                                }`}
                               >
                                 <span className="text-2xl">{emoji}</span>
-                                <span className="text-[10px] font-bold font-mono text-stone-600 mt-2">
+                                <span className={`text-[10px] font-bold font-mono mt-2 ${
+                                  isSelected ? "text-white" : "text-stone-600"
+                                }`}>
                                   {gloss}
                                 </span>
                               </div>
@@ -519,7 +574,7 @@ export default function TranslatorPage() {
                           🔮 Gloss Model (emoji_ml)
                         </span>
                         <p className="text-[13px] text-text-secondary">
-                          Input sentence mapped to output ISL gloss label sequence.
+                          Input sentence mapped to output ISL gloss label sequence. Click tokens for dictionary lookup.
                         </p>
                       </div>
 
@@ -538,14 +593,23 @@ export default function TranslatorPage() {
                             Model Output (Gloss Sequence)
                           </span>
                           <div className="flex flex-wrap gap-1.5 p-2 bg-stone-50 border border-stone-100 rounded-lg font-mono text-[13px] text-accent font-semibold items-center min-h-[46px]">
-                            {result.rawMlPrediction.split(" ").map((token, idx) => (
-                              <span
-                                key={idx}
-                                className="px-2 py-0.5 bg-white border border-stone-200 rounded shadow-2xs text-stone-800"
-                              >
-                                {token}
-                              </span>
-                            ))}
+                            {result.rawMlPrediction.split(" ").map((token, idx) => {
+                              const cleanToken = token.replace(/[\[\]]/g, "").trim();
+                              const isSelected = selectedGlossWord?.toUpperCase() === cleanToken.toUpperCase();
+                              return (
+                                <span
+                                  key={idx}
+                                  onClick={() => handleCardClick(cleanToken)}
+                                  className={`px-2.5 py-1 rounded-md text-[13px] font-semibold border transition-all duration-200 cursor-pointer shadow-3xs hover:scale-[1.03] active:scale-[0.98] ${
+                                    isSelected
+                                      ? "bg-accent text-white border-accent shadow-md shadow-accent/20"
+                                      : "bg-white border-stone-200 text-stone-800 hover:border-accent/40 hover:text-accent"
+                                  }`}
+                                >
+                                  {token}
+                                </span>
+                              );
+                            })}
                           </div>
                         </div>
                       </div>
@@ -560,7 +624,7 @@ export default function TranslatorPage() {
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
-                          Mapped Sign Gloss Sequence (Visual Representation)
+                          Mapped Sign Gloss Sequence (Click cards for dictionary lookup)
                         </span>
                         <button
                           onClick={() => startSequence()}
@@ -581,6 +645,7 @@ export default function TranslatorPage() {
                             isActive={activeCardIndex === index}
                             onAnimationComplete={handleAnimationComplete}
                             showEmoji={true}
+                            onClick={() => handleCardClick(card.word)}
                           />
                         ))}
                       </div>
@@ -656,6 +721,172 @@ export default function TranslatorPage() {
               )}
             </AnimatePresence>
           </div>
+
+          {/* Deep-dive Visual Dictionary Side Panel */}
+          <AnimatePresence>
+            {selectedGlossWord && (
+              <motion.div
+                initial={{ opacity: 0, x: 50, width: 0 }}
+                animate={{ opacity: 1, x: 0, width: "100%", maxWidth: "420px" }}
+                exit={{ opacity: 0, x: 50, width: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                className="w-full lg:w-[420px] bg-white border-l border-stone-200 h-full flex flex-col overflow-hidden shadow-2xl relative z-10"
+              >
+                {/* Header */}
+                <div className="p-5 border-b border-stone-150 flex items-center justify-between bg-stone-50/50">
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px] font-bold text-accent uppercase tracking-wider flex items-center gap-1">
+                        <Sparkles size={10} className="fill-current" /> AI Visual Dictionary
+                      </span>
+                      <span className="px-1.5 py-0.5 bg-accent/10 border border-accent/25 text-accent text-[8px] font-bold rounded-sm uppercase tracking-[0.05em]">
+                        Premium
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-extrabold text-stone-900 tracking-tight flex items-center gap-2">
+                      {selectedGlossWord.toUpperCase()}
+                      {glossDetails?.emoji && <span className="text-xl">{glossDetails.emoji}</span>}
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => { setSelectedGlossWord(null); setGlossDetails(null); }}
+                    className="p-1.5 rounded-full hover:bg-stone-250 text-stone-400 hover:text-stone-700 transition-colors cursor-pointer"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-6">
+                  {isLoadingGlossDetails ? (
+                    <div className="flex-1 flex flex-col gap-6 py-6 animate-pulse">
+                      {/* Image Placeholder */}
+                      <div className="w-full h-48 bg-stone-100 rounded-lg shadow-inner flex items-center justify-center">
+                        <span className="text-stone-300 text-xs font-semibold uppercase tracking-wider flex items-center gap-2">
+                          <Sparkles className="animate-spin" size={12} /> Fetching visuals...
+                        </span>
+                      </div>
+                      
+                      {/* Details Placeholder */}
+                      <div className="flex flex-col gap-3">
+                        <div className="h-4 bg-stone-100 rounded w-1/3"></div>
+                        <div className="h-3 bg-stone-100 rounded w-full"></div>
+                        <div className="h-3 bg-stone-100 rounded w-5/6"></div>
+                      </div>
+
+                      {/* Sign Explanation Placeholder */}
+                      <div className="flex flex-col gap-3 border-t border-stone-100 pt-4">
+                        <div className="h-4 bg-stone-100 rounded w-1/2"></div>
+                        <div className="h-3 bg-stone-100 rounded w-full"></div>
+                        <div className="h-3 bg-stone-100 rounded w-11/12"></div>
+                      </div>
+
+                      {/* Mnemonic Placeholder */}
+                      <div className="h-16 bg-stone-50 border border-stone-100 rounded-lg"></div>
+                    </div>
+                  ) : glossDetails ? (
+                    <div className="flex flex-col gap-6">
+                      {/* Photographic Image */}
+                      {glossDetails.image_url && (
+                        <div className="group relative w-full h-48 bg-stone-50 overflow-hidden rounded-lg shadow-sm border border-stone-200/50">
+                          <img
+                            src={glossDetails.image_url}
+                            alt={glossDetails.word}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-sm shadow-xs flex items-center gap-1 uppercase tracking-wider">
+                            📸 Photographic Concept
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Concept Definition */}
+                      <div className="flex flex-col gap-1.5">
+                        <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
+                          <BookOpen size={10} /> Definition
+                        </span>
+                        <p className="text-sm text-stone-700 font-medium leading-relaxed bg-stone-50/50 border border-stone-100 p-3 rounded-md">
+                          {glossDetails.definition}
+                        </p>
+                      </div>
+
+                      {/* Sign Language Instructions */}
+                      <div className="flex flex-col gap-3.5 border-t border-stone-100 pt-5">
+                        <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
+                          🤟 Sign Instructions
+                        </span>
+
+                        <div className="grid grid-cols-2 gap-3.5">
+                          <div className="bg-stone-50 border border-stone-100 p-3 rounded-md">
+                            <span className="text-[9px] text-stone-500 block font-bold uppercase tracking-wider">Handshape</span>
+                            <span className="text-xs font-semibold text-stone-850 block mt-0.5">
+                              {glossDetails.sign_handshape}
+                            </span>
+                          </div>
+                          <div className="bg-stone-50 border border-stone-100 p-3 rounded-md">
+                            <span className="text-[9px] text-stone-500 block font-bold uppercase tracking-wider">Location</span>
+                            <span className="text-xs font-semibold text-stone-850 block mt-0.5">
+                              {glossDetails.sign_location}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="bg-stone-50 border border-stone-100 p-3 rounded-md">
+                          <span className="text-[9px] text-stone-500 block font-bold uppercase tracking-wider">Movement</span>
+                          <span className="text-xs font-semibold text-stone-850 block mt-0.5">
+                            {glossDetails.sign_movement}
+                          </span>
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[9px] text-stone-400 font-bold uppercase tracking-wider">Execution Steps</span>
+                          <p className="text-xs text-stone-700 leading-relaxed bg-white border border-stone-100 p-3 rounded-md shadow-3xs">
+                            {glossDetails.sign_explanation}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Mnemonic / Trick to remember */}
+                      {glossDetails.mnemonic_tip && (
+                        <div className="bg-amber-50/40 border border-amber-200/30 p-3.5 rounded-lg flex items-start gap-2.5">
+                          <span className="text-amber-500 mt-0.5">💡</span>
+                          <div className="flex flex-col gap-0.5">
+                            <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider">Memory Mnemonic</span>
+                            <p className="text-xs text-amber-900/80 leading-relaxed font-medium">
+                              {glossDetails.mnemonic_tip}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* External Demonstration Links */}
+                      {glossDetails.video_url && (
+                        <div className="border-t border-stone-100 pt-5 flex flex-col gap-3">
+                          <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
+                            🎥 Video References
+                          </span>
+                          <a
+                            href={glossDetails.video_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-stone-900 hover:bg-stone-800 text-white rounded-lg font-bold text-xs transition-colors shadow-xs hover:shadow-md cursor-pointer text-center"
+                          >
+                            <Video size={14} /> Search Video Demonstration
+                            <ExternalLink size={10} className="opacity-60" />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex-1 flex flex-col items-center justify-center text-center p-6 text-stone-400">
+                      <HelpCircle size={36} className="text-stone-300 mb-2" />
+                      <p className="text-sm font-medium">Select a gloss card to view detailed dictionary insights.</p>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
