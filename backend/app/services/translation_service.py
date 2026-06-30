@@ -230,9 +230,11 @@ class TranslationService:
             gloss_string = translate_to_isl(isl_input).strip()
             logger.info(f"Model gloss output: '{gloss_string}'")
         except Exception as e:
-            logger.warning(f"Gloss model failed: {e}")
-            warnings.append(f"Gloss model failed: {str(e)}")
-            gloss_string = preprocessed_text  # raw fallback
+            import traceback
+            tb = traceback.format_exc()
+            logger.warning(f"Gloss model failed: {e}\n{tb}")
+            warnings.append(f"Gloss model failed: {str(e)} | Traceback: {tb}")
+            gloss_string = ""  # leave empty on failure — do NOT echo input as if it were a gloss
 
         # ── Step 2: Split gloss into words and map to emojis ───────────────────
         gloss_words = [w.strip(".,!?;:'\"") for w in gloss_string.split() if w.strip(".,!?;:'\"")]

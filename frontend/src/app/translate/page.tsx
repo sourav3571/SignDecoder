@@ -6,7 +6,7 @@ import EmojiCard, { SemanticRole } from "@/components/translator/EmojiCard";
 import TranslateInput from "@/components/translator/TranslateInput";
 import { LoadingState, EmptyState } from "@/components/translator/States";
 import EmbeddingCompareWidget from "@/components/translator/EmbeddingCompareWidget";
-
+import SimplificationDetailsWidget from "@/components/translator/SimplificationDetailsWidget";
 import { motion, AnimatePresence } from "framer-motion";
 import labelToEmojiData from "@/data/label_to_emoji.json";
 
@@ -205,7 +205,7 @@ export default function TranslatorPage() {
         oovCards: oovCardsData,
         confidence: data.confidence_score ?? 0,
         processingTimeMs: data.processing_time_ms ?? 0,
-        rawMlPrediction: data.raw_ml_prediction && data.raw_ml_prediction.trim().length > 0 ? data.raw_ml_prediction : null,
+        rawMlPrediction: data.raw_ml_prediction,
         analysis: {
           subject: data.analysis?.semantic_roles?.subject?.[0] || data.analysis?.semantic_roles?.SUBJECT?.[0],
           verb: data.analysis?.semantic_roles?.verb?.[0] || data.analysis?.semantic_roles?.VERB?.[0],
@@ -326,9 +326,12 @@ export default function TranslatorPage() {
                   className="flex flex-col gap-12"
                 >
 
+                  {/* Lexical Simplification Details Widget */}
+                  {result.simplification_details && (
+                    <SimplificationDetailsWidget details={result.simplification_details} />
+                  )}
 
-                  {/* Gloss Model block — only show when there's a real (non-empty) model prediction */}
-                  {result.rawMlPrediction && result.rawMlPrediction.trim().length > 0 ? (
+                  {result.rawMlPrediction && (
                     <motion.div
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -360,7 +363,6 @@ export default function TranslatorPage() {
                           <div className="flex flex-wrap gap-1.5 p-2 bg-stone-50 border border-stone-100 rounded-lg font-mono text-[13px] text-accent font-semibold items-center min-h-[46px]">
                             {result.rawMlPrediction.split(" ").map((token, idx) => {
                               const cleanToken = token.replace(/[\[\]]/g, "").trim();
-                              if (!cleanToken) return null;
                               const isSelected = selectedGlossWord?.toUpperCase() === cleanToken.toUpperCase();
                               return (
                                 <span
@@ -378,20 +380,6 @@ export default function TranslatorPage() {
                             })}
                           </div>
                         </div>
-                      </div>
-                    </motion.div>
-                  ) : result.rawMlPrediction !== undefined && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-amber-50 border border-amber-200 rounded-xl p-5 shadow-xs flex items-start gap-3"
-                    >
-                      <span className="text-amber-500 text-lg mt-0.5">⚠️</span>
-                      <div className="flex flex-col gap-0.5">
-                        <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">Gloss Model Unavailable</span>
-                        <p className="text-[13px] text-amber-900/80 leading-relaxed">
-                          The ISL gloss model could not produce a prediction for this sentence. The emoji cards below are generated using the visual word linker as a fallback.
-                        </p>
                       </div>
                     </motion.div>
                   )}
