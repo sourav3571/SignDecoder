@@ -9,6 +9,7 @@ import EmbeddingCompareWidget from "@/components/translator/EmbeddingCompareWidg
 import SimplificationDetailsWidget from "@/components/translator/SimplificationDetailsWidget";
 import { motion, AnimatePresence } from "framer-motion";
 import labelToEmojiData from "@/data/label_to_emoji.json";
+import { getConceptVisuals } from "@/lib/visualDictionary";
 
 interface TranslationResult {
   glosses: string[];
@@ -272,9 +273,19 @@ export default function TranslatorPage() {
       }
       
       const data = await response.json();
-      setGlossDetails(data);
+      
+      const visualData = await getConceptVisuals(cleanWord);
+      
+      setGlossDetails({
+        ...data,
+        image_url: visualData.imageUrl || data.image_url,
+        explanation: visualData.extract || data.explanation
+      });
     } catch (err) {
       console.error("Error fetching dictionary details:", err);
+      
+      const visualData = await getConceptVisuals(cleanWord);
+      
       // Premium experience client-side fallback
       setGlossDetails({
         word: cleanWord.toUpperCase(),
@@ -282,9 +293,9 @@ export default function TranslatorPage() {
         sign_handshape: "Closed-5 or flat hand shape",
         sign_location: "Neutral workspace in front of the chest",
         sign_movement: "Varies depending on grammar context",
-        sign_explanation: `To sign '${cleanWord.toLowerCase()}', position your hand in the central signing space. Gently move it outwards or tap representing the core meaning.`,
+        explanation: visualData.extract || `To sign '${cleanWord.toLowerCase()}', position your hand in the central signing space. Gently move it outwards or tap representing the core meaning.`,
         mnemonic_tip: `Associate the physical gesture with the definition of '${cleanWord.toLowerCase()}'.`,
-        image_url: `https://images.unsplash.com/featured/800x600/?${encodeURIComponent(cleanWord.toLowerCase())}`,
+        image_url: visualData.imageUrl || `https://images.unsplash.com/featured/800x600/?${encodeURIComponent(cleanWord.toLowerCase())}`,
         video_url: `https://www.youtube.com/results?search_query=how+to+sign+${encodeURIComponent(cleanWord.toLowerCase())}+in+sign+language`,
         emoji: "❓"
       });
