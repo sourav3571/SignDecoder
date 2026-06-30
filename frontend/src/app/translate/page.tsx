@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Play, ChevronDown, ChevronUp, X, Sparkles, BookOpen, ExternalLink, HelpCircle, Video } from "lucide-react";
+import { Play, ChevronDown, ChevronUp, X, Sparkles, HelpCircle } from "lucide-react";
 import EmojiCard, { SemanticRole } from "@/components/translator/EmojiCard";
 import TranslateInput from "@/components/translator/TranslateInput";
 import { LoadingState, EmptyState } from "@/components/translator/States";
@@ -126,15 +126,7 @@ export default function TranslatorPage() {
   const [glossDetails, setGlossDetails] = useState<any | null>(null);
   const [isLoadingGlossDetails, setIsLoadingGlossDetails] = useState<boolean>(false);
 
-  // Reverse Translation States
-  const [mode, setMode] = useState<"forward" | "reverse">("forward");
-  const [emojiInput, setEmojiInput] = useState("");
-  const [reverseResult, setReverseResult] = useState<{
-    emoji_sequence: string;
-    glosses: string[];
-    reconstructed_text: string;
-    confidence_score: number;
-  } | null>(null);
+
 
   const handleTranslate = async (text: string, simplify: boolean = false) => {
     setIsLoading(true);
@@ -241,41 +233,7 @@ export default function TranslatorPage() {
     }
   };
 
-  const handleReverseTranslate = async () => {
-    if (!emojiInput.trim()) return;
-    setIsLoading(true);
-    setReverseResult(null);
-    setError(null);
 
-    try {
-      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 
-        (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.5.1" || window.location.hostname === "127.0.0.1")
-          ? "http://localhost:8000"
-          : "");
-      const response = await fetch(`${backendUrl}/api/v1/translate/reverse`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          emoji_sequence: emojiInput,
-        }),
-      });
-
-      const responseBody = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(responseBody?.detail ?? `Reverse translation failed (${response.status})`);
-      }
-
-      setReverseResult(responseBody);
-    } catch (error) {
-      console.error("Reverse translation error:", error);
-      setError(error instanceof Error ? error.message : "Failed to decode sign sequence.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const startSequence = (len?: number) => {
     const cardsLength = len !== undefined ? len : (result ? result.cards.length : 0);
@@ -339,105 +297,7 @@ export default function TranslatorPage() {
     <div className="pt-16 min-h-screen bg-stone-50">
       <div className="max-w-[1280px] mx-auto h-[calc(100vh-64px)] flex flex-col md:flex-row">
         <div className="w-full md:w-[38%] p-6 md:p-10 overflow-y-auto border-r border-stone-200 bg-white">
-          {/* Mode Switcher */}
-          <div className="flex bg-stone-100 p-1 rounded-xl mb-7 border border-stone-200 gap-1">
-            <button
-              onClick={() => { setMode("forward"); setResult(null); setReverseResult(null); setError(null); }}
-              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${
-                mode === "forward"
-                  ? "bg-stone-900 text-white shadow-sm"
-                  : "text-stone-500 hover:text-stone-800 hover:bg-stone-200"
-              }`}
-            >
-              ✍️ Text → Sign
-            </button>
-            <button
-              onClick={() => { setMode("reverse"); setResult(null); setReverseResult(null); setError(null); }}
-              className={`flex-1 py-2.5 text-xs font-bold rounded-lg transition-all ${
-                mode === "reverse"
-                  ? "bg-stone-900 text-white shadow-sm"
-                  : "text-stone-500 hover:text-stone-800 hover:bg-stone-200"
-              }`}
-            >
-              🔄 Sign → Text
-            </button>
-          </div>
-
-          {mode === "forward" ? (
-            <TranslateInput onTranslate={handleTranslate} isLoading={isLoading} />
-          ) : (
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-2">
-                <h2 className="text-xl font-bold text-stone-900">Sign to Text Decoder</h2>
-                <p className="text-sm text-stone-550">
-                  Select signs or enter emojis to decode them back into grammatically correct English.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold text-stone-700 uppercase tracking-wider">
-                  Emoji Sequence Input
-                </label>
-                <textarea
-                  value={emojiInput}
-                  onChange={(e) => setEmojiInput(e.target.value)}
-                  placeholder="Paste or click emojis below..."
-                  className="w-full min-h-[100px] p-4 bg-white border border-stone-200 rounded-lg shadow-2xs font-mono text-xl focus:outline-hidden focus:border-accent resize-none text-stone-800"
-                />
-              </div>
-
-              {/* Emoji Palette / Keyboard */}
-              <div className="flex flex-col gap-2.5">
-                <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
-                  Quick Emoji Keyboard
-                </span>
-                <div className="grid grid-cols-5 gap-2">
-                  {[
-                    { char: "👤", label: "I" },
-                    { char: "👉", label: "Him" },
-                    { char: "🏠", label: "Home" },
-                    { char: "🏫", label: "School" },
-                    { char: "🏢", label: "Office" },
-                    { char: "🍕", label: "Pizza" },
-                    { char: "🍔", label: "Burger" },
-                    { char: "🏃", label: "Go/Run" },
-                    { char: "🚗", label: "Car" },
-                    { char: "☀️", label: "Today" },
-                    { char: "🌧️", label: "Rain" },
-                    { char: "❤️", label: "Love" },
-                    { char: "❌", label: "No" },
-                    { char: "🤔", label: "Question" },
-                    { char: "🙏", label: "Please" },
-                  ].map((em) => (
-                    <button
-                      key={em.char}
-                      onClick={() => setEmojiInput((prev) => (prev ? `${prev} ${em.char}` : em.char))}
-                      className="flex flex-col items-center justify-center p-2.5 bg-white border border-stone-200 rounded-lg hover:bg-stone-50 transition-colors shadow-3xs active:scale-[0.95]"
-                    >
-                      <span className="text-lg">{em.char}</span>
-                      <span className="text-[9px] text-stone-400 mt-1 uppercase font-semibold">{em.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setEmojiInput("")}
-                  className="px-4 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-semibold rounded-lg transition-colors"
-                >
-                  Clear
-                </button>
-                <button
-                  onClick={handleReverseTranslate}
-                  disabled={isLoading || !emojiInput.trim()}
-                  className="flex-1 py-3 bg-accent hover:bg-accent-hover text-white text-sm font-semibold rounded-lg shadow-xs transition-colors disabled:opacity-50"
-                >
-                  Decode to English
-                </button>
-              </div>
-            </div>
-          )}
+          <TranslateInput onTranslate={handleTranslate} isLoading={isLoading} />
         </div>
 
         <div className="w-full md:w-[62%] flex flex-col lg:flex-row overflow-hidden bg-stone-50/40 border-l border-stone-200">
@@ -456,100 +316,8 @@ export default function TranslatorPage() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <LoadingState status={mode === "forward" ? "Mapping words to visual signs..." : "Decoding sign grammar..."} />
+                  <LoadingState status="Mapping words to visual signs..." />
                 </motion.div>
-              ) : mode === "reverse" ? (
-                reverseResult ? (
-                  <motion.div
-                    key="reverse-result"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col gap-8"
-                  >
-                    <div className="bg-white border border-stone-200 rounded-xl p-8 shadow-xs flex flex-col gap-6">
-                      <div className="flex flex-col gap-2">
-                        <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
-                          📝 Reconstructed English Sentence
-                        </span>
-                        <h1 className="text-2xl md:text-3xl font-extrabold text-stone-900 tracking-tight leading-tight">
-                          {reverseResult.reconstructed_text}
-                        </h1>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col gap-4">
-                      <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
-                        🔍 Decoded Gloss Breakdown (Click cards for dictionary lookup)
-                      </span>
-                      <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-xs flex flex-col gap-4">
-                        <div className="flex flex-wrap gap-4 justify-center">
-                          {reverseResult.emoji_sequence.split(" ").map((emoji, index) => {
-                            const gloss = reverseResult.glosses[index] || "UNKNOWN";
-                            const isSelected = selectedGlossWord?.toUpperCase() === gloss.toUpperCase();
-                            return (
-                              <div
-                                key={index}
-                                onClick={() => handleCardClick(gloss)}
-                                className={`flex flex-col items-center p-3 rounded-lg min-w-[70px] shadow-3xs cursor-pointer border transition-all duration-200 hover:scale-[1.05] active:scale-[0.98] ${
-                                  isSelected
-                                    ? "bg-accent border-accent text-white shadow-md shadow-accent/20"
-                                    : "bg-stone-50 border-stone-150 hover:border-accent/40"
-                                }`}
-                              >
-                                <span className="text-2xl">{emoji}</span>
-                                <span className={`text-[10px] font-bold font-mono mt-2 ${
-                                  isSelected ? "text-white" : "text-stone-600"
-                                }`}>
-                                  {gloss}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pt-8 border-t border-stone-200">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-[11px] font-bold text-text-muted uppercase tracking-[0.08em]">
-                          Reverse Translation Diagnostics
-                        </span>
-                        <span className="px-2.5 py-0.5 bg-accent-hover/10 text-accent text-[10px] font-semibold rounded-full uppercase tracking-wider">
-                          Ready
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                        <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                          <span className="text-[11px] text-text-muted block mb-1">Engine Method</span>
-                          <span className="text-[14px] font-semibold text-text-primary">Linguistic Grammar Decoder</span>
-                        </div>
-                        <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                          <span className="text-[11px] text-text-muted block mb-1">Confidence Score</span>
-                          <span className="text-[14px] font-semibold text-text-primary">
-                            {(reverseResult.confidence_score * 100).toFixed(0)}%
-                          </span>
-                        </div>
-                        <div className="bg-white border border-stone-200 p-4 rounded-md shadow-xs">
-                          <span className="text-[11px] text-text-muted block mb-1">Vocabulary Class</span>
-                          <span className="text-[14px] font-semibold text-text-primary">SVO Structured</span>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="reverse-empty"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex flex-col items-center justify-center py-24 text-center"
-                  >
-                    <div className="text-5xl mb-4">🤟</div>
-                    <h3 className="text-lg font-bold text-stone-800 mb-2">Ready to decode</h3>
-                    <p className="text-sm text-stone-400 max-w-xs leading-relaxed">
-                      Pick emojis from the keyboard on the left, then click <strong>Decode to English</strong>.
-                    </p>
-                  </motion.div>
-                )
               ) : result ? (
                 <motion.div
                   key="result"
@@ -772,17 +540,8 @@ export default function TranslatorPage() {
                         <div className="h-4 bg-stone-100 rounded w-1/3"></div>
                         <div className="h-3 bg-stone-100 rounded w-full"></div>
                         <div className="h-3 bg-stone-100 rounded w-5/6"></div>
+                        <div className="h-3 bg-stone-100 rounded w-4/5"></div>
                       </div>
-
-                      {/* Sign Explanation Placeholder */}
-                      <div className="flex flex-col gap-3 border-t border-stone-100 pt-4">
-                        <div className="h-4 bg-stone-100 rounded w-1/2"></div>
-                        <div className="h-3 bg-stone-100 rounded w-full"></div>
-                        <div className="h-3 bg-stone-100 rounded w-11/12"></div>
-                      </div>
-
-                      {/* Mnemonic Placeholder */}
-                      <div className="h-16 bg-stone-50 border border-stone-100 rounded-lg"></div>
                     </div>
                   ) : glossDetails ? (
                     <div className="flex flex-col gap-6">
@@ -800,82 +559,15 @@ export default function TranslatorPage() {
                         </div>
                       )}
 
-                      {/* Concept Definition */}
-                      <div className="flex flex-col gap-1.5">
+                      {/* Explanation */}
+                      <div className="flex flex-col gap-2">
                         <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
-                          <BookOpen size={10} /> Definition
+                          ✨ Concept & Signing Guide
                         </span>
-                        <p className="text-sm text-stone-700 font-medium leading-relaxed bg-stone-50/50 border border-stone-100 p-3 rounded-md">
-                          {glossDetails.definition}
+                        <p className="text-sm text-stone-750 font-medium leading-relaxed bg-stone-50/50 border border-stone-100 p-4 rounded-md shadow-3xs">
+                          {glossDetails.explanation}
                         </p>
                       </div>
-
-                      {/* Sign Language Instructions */}
-                      <div className="flex flex-col gap-3.5 border-t border-stone-100 pt-5">
-                        <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
-                          🤟 Sign Instructions
-                        </span>
-
-                        <div className="grid grid-cols-2 gap-3.5">
-                          <div className="bg-stone-50 border border-stone-100 p-3 rounded-md">
-                            <span className="text-[9px] text-stone-500 block font-bold uppercase tracking-wider">Handshape</span>
-                            <span className="text-xs font-semibold text-stone-850 block mt-0.5">
-                              {glossDetails.sign_handshape}
-                            </span>
-                          </div>
-                          <div className="bg-stone-50 border border-stone-100 p-3 rounded-md">
-                            <span className="text-[9px] text-stone-500 block font-bold uppercase tracking-wider">Location</span>
-                            <span className="text-xs font-semibold text-stone-850 block mt-0.5">
-                              {glossDetails.sign_location}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="bg-stone-50 border border-stone-100 p-3 rounded-md">
-                          <span className="text-[9px] text-stone-500 block font-bold uppercase tracking-wider">Movement</span>
-                          <span className="text-xs font-semibold text-stone-850 block mt-0.5">
-                            {glossDetails.sign_movement}
-                          </span>
-                        </div>
-
-                        <div className="flex flex-col gap-1">
-                          <span className="text-[9px] text-stone-400 font-bold uppercase tracking-wider">Execution Steps</span>
-                          <p className="text-xs text-stone-700 leading-relaxed bg-white border border-stone-100 p-3 rounded-md shadow-3xs">
-                            {glossDetails.sign_explanation}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Mnemonic / Trick to remember */}
-                      {glossDetails.mnemonic_tip && (
-                        <div className="bg-amber-50/40 border border-amber-200/30 p-3.5 rounded-lg flex items-start gap-2.5">
-                          <span className="text-amber-500 mt-0.5">💡</span>
-                          <div className="flex flex-col gap-0.5">
-                            <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider">Memory Mnemonic</span>
-                            <p className="text-xs text-amber-900/80 leading-relaxed font-medium">
-                              {glossDetails.mnemonic_tip}
-                            </p>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* External Demonstration Links */}
-                      {glossDetails.video_url && (
-                        <div className="border-t border-stone-100 pt-5 flex flex-col gap-3">
-                          <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider flex items-center gap-1">
-                            🎥 Video References
-                          </span>
-                          <a
-                            href={glossDetails.video_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-stone-900 hover:bg-stone-800 text-white rounded-lg font-bold text-xs transition-colors shadow-xs hover:shadow-md cursor-pointer text-center"
-                          >
-                            <Video size={14} /> Search Video Demonstration
-                            <ExternalLink size={10} className="opacity-60" />
-                          </a>
-                        </div>
-                      )}
                     </div>
                   ) : (
                     <div className="flex-1 flex flex-col items-center justify-center text-center p-6 text-stone-400">

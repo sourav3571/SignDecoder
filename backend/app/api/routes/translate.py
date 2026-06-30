@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from app.models.schemas import TranslationRequest, TranslationResponse, BatchTranslationRequest, BatchTranslationResponse, ReverseTranslationRequest, ReverseTranslationResponse
+from app.models.schemas import TranslationRequest, TranslationResponse, BatchTranslationRequest, BatchTranslationResponse
 from app.services.translation_service import TranslationService
-from app.services.reverse_translation_service import ReverseTranslationService
 import logging
 
 logger = logging.getLogger(__name__)
@@ -35,17 +34,7 @@ async def translate_batch(request: BatchTranslationRequest):
 
     return BatchTranslationResponse(results=results)
 
-@router.post("/reverse", response_model=ReverseTranslationResponse)
-async def reverse_translate_emojis(request: ReverseTranslationRequest):
-    try:
-        if not request.emoji_sequence or len(request.emoji_sequence.strip()) == 0:
-            raise HTTPException(status_code=400, detail="Emoji sequence cannot be empty.")
 
-        result = ReverseTranslationService.reverse_translate(request.emoji_sequence)
-        return ReverseTranslationResponse(**result)
-    except Exception as e:
-        logger.error(f"Reverse translation error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/dictionary/{word}")
 async def get_word_dictionary_details(word: str):
