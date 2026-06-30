@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 const NAV_LINKS = [
   { name: "How it Works", href: "/#how-it-works" },
   { name: "Dictionary", href: "/dictionary" },
-  { name: "Vector Explorer", href: "/explorer" },
-  { name: "Research", href: "/research" },
+  //{ name: "Vector Explorer", href: "/explorer" },
+  //{ name: "Research", href: "/research" },
 ];
 
 export default function Navbar() {
@@ -37,7 +37,7 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-        {}
+        { }
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 bg-accent text-white flex items-center justify-center rounded-sm font-bold text-lg transition-transform group-hover:scale-105">
             S
@@ -47,7 +47,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {}
+        { }
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <Link
@@ -63,18 +63,18 @@ export default function Navbar() {
           ))}
         </div>
 
-        {}
+        { }
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="/translate"
             className="bg-accent text-white text-[13px] font-medium px-5 py-2.5 rounded-sm hover:bg-accent-hover transition-all flex items-center gap-2"
           >
-            Try here for translation 
+            Try here for translation
             <ArrowRight size={14} />
           </Link>
         </div>
 
-        {}
+        { }
         <button
           className="md:hidden text-text-primary"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -83,7 +83,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {}
+      { }
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
